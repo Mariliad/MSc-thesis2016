@@ -12,28 +12,18 @@ from pyspark.sql.functions import concat, col, lit
 from pyspark.sql.functions import regexp_replace, trim, col, lower
 
 sc = SparkContext('local','example')
-
 sql_sc = SQLContext(sc)
 
-# Load the dataset (.csv format) as a Spark Dataframe
-df = sql_sc.read.load('/dataset/cordis-fp5projects.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
+df = sql_sc.read.load('usa_data.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
 
-# Keep only the 'rcn' (unique id for each doc), the 'title' and the 'objective'
-df = df.select('rcn', 'objective', 'title')
-
-# Concatenate column 'title' with column 'objective', to obtain larger docs for LDA
-df = df.select('rcn', concat(col('objective'), lit(' '), col('title')))
+df = df.select('id', 'objective', 'title')
+df = df.select('id', concat(col('objective'), lit(' '), col('title')))
 df = (df.withColumnRenamed('concat(objective,  , title)', 'objectives'))
 
-# Convert 'rcn' as type 'bigint'
-df = (df.withColumn('rcn', df.rcn.cast('bigint')))
-
-# Drop rows that all their values are Null
+df = (df.withColumn('id', df.id.cast('bigint')))
 df = df.na.drop(how='any')
-df = (df.withColumn('rcn', df.rcn.cast('bigint')))
+df = (df.withColumn('id', df.id.cast('bigint')))
 
-
-# Remove punctuation and digits. The method returns the Column with the docs (type: string), without the punctuation
 def removePunctuation(column):
     assert(str(type(column)) == "<class 'pyspark.sql.column.Column'>")
     columnNoPunct = regexp_replace(column, "[^a-zA-Z]", " ")
@@ -41,34 +31,32 @@ def removePunctuation(column):
     columnTrimmed = trim(columnLowerCase)
     return columnTrimmed
 
-# Change the name of the column as 'objectives'
-dfRemoved = df.select('rcn', removePunctuation(df.objectives))
+
+dfRemoved = df.select('id', removePunctuation(df.objectives))
 dfRemoved = (dfRemoved.withColumnRenamed('trim(lower(regexp_replace(objectives, [^a-zA-Z],  )))', 'obj'))
 
-df1 = dfRemoved.select('obj', 'rcn')
+df1 = dfRemoved.select('obj', 'id')
 
-# Tokenize the docs and convert the dataset to the ideal format in order to create "bag of words" later
-rdd_1 = df1.rdd.map(lambda (obj,rcn): Row(rcn = rcn, obj = obj.split(" ")))
+rdd_1 = df1.rdd.map(lambda (obj,id): Row(id = id, obj = obj.split(" ")))
 dfSplit = rdd_1.toDF()
 
-# Remove stopwords
 removerStopWords = StopWordsRemover(inputCol="obj", outputCol="cleanObj")
 dfClean = removerStopWords.transform(dfSplit)
 
-stopwords = ['research', 'project', 'technology', 'based', 'european', 'new', 'development', 'system', 'systems', 'develop', 'use', 'europe']
+stopwords = ['research', 'project', 'technology', 'based', 'new', 'development', 'system', 'systems', 'develop', 'use', 'study', 
+'also', 'data', 'used', 'using', 'students', 'student', 'university', 'important', 'br', 'understanding', 'program', 'provide', 'high', 
+'science', 'graduate', 'undergraduate', 'field', 'well', 'two', 'work', 'proposed', 'model', 'models', 'education', 'fellowship', 
+'postdoctoral', 'studies', 'materials', 'one', 'developed']
 remover = StopWordsRemover(inputCol="cleanObj", outputCol="cleanedObj", stopWords = stopwords)
 dfCleaned = remover.transform(dfClean)
 
-dfCleaned = dfCleaned.select('cleanedObj', 'rcn')
+dfCleaned = dfCleaned.select('cleanedObj', 'id')
 
-
-# Get the 'bag of words' to create the vocabulary
 Vector = CountVectorizer(inputCol='cleanedObj', outputCol='vectors')
 model = Vector.fit(dfCleaned)
 result = model.transform(dfCleaned)
 
-# Create the corpus
-corpus = result.select("rcn", "vectors").rdd.map(lambda (x,y): [x,Vectors.fromML(y)]).cache()
+corpus = result.select("id", "vectors").rdd.map(lambda (x,y): [x,Vectors.fromML(y)]).cache()
 
 
 ldaModel = LDA.train(corpus, k=7, optimizer='online')
@@ -93,3 +81,4 @@ for topic in range(len(topics_final)):
     for term in topics_final[topic]:
         print (term)
     print ('\n')
+
