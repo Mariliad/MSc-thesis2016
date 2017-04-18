@@ -51,8 +51,12 @@ rdd_1 = df1.rdd.map(lambda (obj,rcn): Row(rcn = rcn, obj = obj.split(" ")))
 dfSplit = rdd_1.toDF()
 
 # Remove stopwords
-remover = StopWordsRemover(inputCol="obj", outputCol="cleanedObj")
-dfCleaned = remover.transform(dfSplit)
+removerStopWords = StopWordsRemover(inputCol="obj", outputCol="cleanObj")
+dfClean = removerStopWords.transform(dfSplit)
+
+stopwords = ['research', 'project', 'technology', 'based', 'european', 'new', 'development', 'system', 'systems', 'develop', 'use', 'europe']
+remover = StopWordsRemover(inputCol="cleanObj", outputCol="cleanedObj", stopWords = stopwords)
+dfCleaned = remover.transform(dfClean)
 
 dfCleaned = dfCleaned.select('cleanedObj', 'rcn')
 
