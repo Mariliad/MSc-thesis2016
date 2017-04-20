@@ -8,7 +8,7 @@ from pyspark.sql import Row
 from pyspark.ml.feature import CountVectorizer
 from pyspark.mllib.clustering import LDA, LDAModel
 from pyspark.mllib.linalg import Vector, Vectors
-from pyspark.sql.functions import concat, col, lit
+from pyspark.sql.functions import concat, col, lit, when
 from pyspark.sql.functions import regexp_replace, trim, col, lower
 
 sc = SparkContext('local','example')
@@ -17,8 +17,17 @@ sql_sc = SQLContext(sc)
 df = sql_sc.read.load('./usa/*.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
 
 df = df.select('id', 'objective', 'title', 'subjects', 'foa')
-df = df.select('id', concat(col('objective'), lit(' '), col('title'), lit(' '), col('foa'), lit(' '), col('subjects')))
-df = (df.withColumnRenamed('concat(objective,  , title,  , foa,  , subjects)', 'objectives'))
+
+# def null_as_string(x):
+    # return when(col(x) != None, col(x)).otherwise(' ')
+
+# df = (df.withColumn("objective", null_as_string("objective")).withColumn("title", null_as_string("title")).withColumn("foa", null_as_string("foa")).withColumn("subjects", null_as_string("subjects")))
+
+# df = df.select('id', concat(col('objective'), lit(' '), col('title'), lit(' '), col('foa'), lit(' '), col('subjects')))
+# df = (df.withColumnRenamed('concat(objective,  , title,  , foa,  , subjects)', 'objectives'))
+df = (df.withColumnRenamed('objective', 'objectives'))
+
+# df.count()
 
 df = (df.withColumn('id', df.id.cast('bigint')))
 df = df.na.drop(how='any')
