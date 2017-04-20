@@ -14,7 +14,7 @@ from pyspark.sql.functions import regexp_replace, trim, col, lower
 sc = SparkContext('local','example')
 sql_sc = SQLContext(sc)
 
-df = sql_sc.read.load('./usa/*.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
+df = sql_sc.read.load('./dataset/usa/*.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
 
 df = df.select('id', 'objective', 'title', 'subjects', 'foa')
 
