@@ -14,11 +14,11 @@ from pyspark.sql.functions import regexp_replace, trim, col, lower
 sc = SparkContext('local','example')
 sql_sc = SQLContext(sc)
 
-df = sql_sc.read.load('usa_data.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
+df = sql_sc.read.load('./usa/*.csv', delimiter=';', format='com.databricks.spark.csv', header='true', inferSchema='true')
 
-df = df.select('id', 'objective', 'title')
-df = df.select('id', concat(col('objective'), lit(' '), col('title')))
-df = (df.withColumnRenamed('concat(objective,  , title)', 'objectives'))
+df = df.select('id', 'objective', 'title', 'subjects', 'foa')
+df = df.select('id', concat(col('objective'), lit(' '), col('title'), lit(' '), col('foa'), lit(' '), col('subjects')))
+df = (df.withColumnRenamed('concat(objective,  , title,  , foa,  , subjects)', 'objectives'))
 
 df = (df.withColumn('id', df.id.cast('bigint')))
 df = df.na.drop(how='any')
@@ -46,7 +46,7 @@ dfClean = removerStopWords.transform(dfSplit)
 stopwords = ['research', 'project', 'technology', 'based', 'new', 'development', 'system', 'systems', 'develop', 'use', 'study', 
 'also', 'data', 'used', 'using', 'students', 'student', 'university', 'important', 'br', 'understanding', 'program', 'provide', 'high', 
 'science', 'graduate', 'undergraduate', 'field', 'well', 'two', 'work', 'proposed', 'model', 'models', 'education', 'fellowship', 
-'postdoctoral', 'studies', 'materials', 'one', 'developed']
+'postdoctoral', 'studies', 'materials', 'one', 'developed', 'unassigned']
 remover = StopWordsRemover(inputCol="cleanObj", outputCol="cleanedObj", stopWords = stopwords)
 dfCleaned = remover.transform(dfClean)
 
