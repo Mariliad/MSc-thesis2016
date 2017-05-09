@@ -23,22 +23,11 @@ import logging
 
 dfH2020 = pd.read_pickle('dfs/df20')
 
+df1 = dfH2020[['title','objective']]
+df1 = df1.dropna(how='any')
+df1['merged'] = df1['title'] + ' ' + df1['objective']
 
-# In[5]:
-
-objectives = dfH2020['objective']
-objectives.shape
-
-
-# In[6]:
-
-objectives = objectives.dropna(how='any')
-objectives.shape
-
-
-# In[7]:
-
-import string
+objectives = df1['merged']
 
 # remove numbers???
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
@@ -56,7 +45,7 @@ objectives_split.head(2)
 
 # In[9]:
 
-additional_stopwords = set(['computer', 'will', 'develop', 'development',
+additional_stopwords = set(['will', 'develop', 'development',
                             'project', 'research', 'new', 'use', 
                             'europe', 'european', 'based'])
 stopwords = set(STOPWORDS) | additional_stopwords
@@ -94,11 +83,11 @@ lda = gensim.models.ldamodel.LdaModel(corpus=objectives_corpus,
 print("done in %0.3fs." % (time() - t0))
 
 
-print lda.print_topics(10)
+# print lda.print_topics(10)
 
 for t in range(lda.num_topics):
-    words = dict(lda.show_topic(t, 10))
-    elements = WordCloud(width=120, height=120, background_color='white').fit_words(words)
+    words = dict(lda.show_topic(t, 15))
+    elements = WordCloud(background_color='white').fit_words(words)
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")

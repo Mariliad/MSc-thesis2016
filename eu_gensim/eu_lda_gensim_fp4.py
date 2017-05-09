@@ -23,17 +23,11 @@ import logging
 
 dfFP4 = pd.read_pickle('dfs/df4')
 
+df1 = dfFP4[['title','objective']]
+df1 = df1.dropna(how='any')
+df1['merged'] = df1['title'] + ' ' + df1['objective']
 
-# In[5]:
-
-objectives = dfFP4['objective']
-objectives.shape
-
-
-# In[6]:
-
-objectives = objectives.dropna(how='any')
-objectives.shape
+objectives = df1['merged']
 
 
 # In[7]:
@@ -56,9 +50,9 @@ objectives_split.head(2)
 
 # In[9]:
 
-additional_stopwords = set(['computer', 'will', 'develop', 'development',
+additional_stopwords = set(['will', 'develop', 'development',
                             'project', 'research', 'new', 'use', 
-                            'europe', 'european'])
+                            'europe', 'european', 'based'])
 stopwords = set(STOPWORDS) | additional_stopwords
 
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if token not in stopwords])
@@ -97,8 +91,8 @@ print("done in %0.3fs." % (time() - t0))
 # print lda.print_topics(10)
 
 for t in range(lda.num_topics):
-    words = dict(lda.show_topic(t, 10))
-    elements = WordCloud(width=120, height=120, background_color='white').fit_words(words)
+    words = dict(lda.show_topic(t, 15))
+    elements = WordCloud(background_color='white').fit_words(words)
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
