@@ -11,38 +11,41 @@ from wordcloud import WordCloud
 from gensim import corpora
 from gensim import models
 from gensim.corpora.dictionary import Dictionary
-
 from gensim.parsing.preprocessing import STOPWORDS
+
 from time import time
 
 import string
 import logging
-
-
+# logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 
 df_name = ''
 while df_name not in ['FP4', 'FP5', 'FP6', 'FP7', 'H2020']:
-    df_name =raw_input("EU data: Choose dataset (options: FP4, FP5, FP6, FP7, H2020): ")
+	df_name =raw_input("USA data: Choose dataset (options: FP4, FP5, FP6, FP7, H2020): ")
 
-df = pd.read_pickle('dfs/' + df_name)
+df = pd.read_pickle('pickle_data/usa' + df_name)
 df1 = df[['title','objective']]
 df1 = df1.dropna(how='any')
 df1['merged'] = df1['title'] + ' ' + df1['objective']
 
 objectives = df1['merged']
 
+
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
-objectives = objectives.str.lower().str.replace('%l', '').str.replace(RE_PUNCTUATION, ' ')
+objectives = objectives.str.lower().str.replace(RE_PUNCTUATION, ' ')
 # objectives.head(2)
 
 objectives_split = objectives.str.strip().str.split()
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if len(token) > 2])
 # objectives_split.head(2)
 
-list_stopwords = ['will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based']
-if df_name == 'FP4':
-    list_stopwords.append('des')
+list_stopwords = ['based', 'new', 'project', 'university', 'student', 'students', 'research', 'study', 'program', 'development', 'study', 'studies', 'provide', 'use']
+if df_name == 'FP6':
+	list_stopwords.append('work')
+elif df_name == 'FP7':
+    list_stopwords.append('data')
+
 additional_stopwords = set(list_stopwords)
 stopwords = set(STOPWORDS) | additional_stopwords
 
@@ -62,11 +65,9 @@ objectives_corpus = ObjectivesCorpus(objectives_split, objectives_dictionary)
 
 
 t0 = time()
-iterations = 300
+iterations = 400
 if df_name == 'FP7':
-    iterations = 400
-elif df_name == 'H2020':
-    iterations = 250
+    iterations = 200
 lda = gensim.models.ldamodel.LdaModel(corpus=objectives_corpus, 
                                               id2word=objectives_dictionary, 
                                               num_topics=10,
@@ -85,5 +86,5 @@ for t in range(lda.num_topics):
     t = t + 1
     plt.title("Topic #" + str(t))
     # plt.show()
-    plt.savefig('EU' + df_name + '_topic' + str(t) + '.png')
-plt.close()
+    plt.savefig('USA' + df_name + '_topic' + str(t) + '.png')
+    plt.close()
