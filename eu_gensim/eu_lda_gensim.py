@@ -26,6 +26,10 @@ parser.add_argument('dataset',
                     choices=['FP4', 'FP5', 'FP6', 'FP7', 'H2020'],
                     help='input dataset')
 
+parser.add_argument('-i', '--iterations',
+                    default=500,
+                    help='number of iterations')
+
 args = parser.parse_args()
 
 df_name = args.dataset
@@ -86,15 +90,10 @@ objectives_corpus = ObjectivesCorpus(objectives_split)
 print(objectives_corpus)
 
 t0 = time()
-iterations = 300
-if df_name == 'FP7':
-    iterations = 400
-elif df_name == 'H2020':
-    iterations = 250
 lda = gensim.models.ldamodel.LdaModel(corpus=objectives_corpus, 
                                       id2word=objectives_dictionary, 
                                       num_topics=10,
-                                      iterations = iterations,
+                                      iterations = args.iterations,
                                       random_state=np.random.seed(42))
 print("done in %0.3fs." % (time() - t0))
 
