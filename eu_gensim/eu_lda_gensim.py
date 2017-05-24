@@ -62,19 +62,22 @@ objectives_dictionary = Dictionary(objectives_split)
 class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
     def get_texts(self):
         return iter(self.input)
+    def __calc_corpus_size__(self):
+        logging.info('Calculating corpus size')
+        self.length = 0
+        self.num_words = 0
+        for doc in self.get_texts():
+            self.length += 1
+            self.num_words += len(doc)
     def __len__(self):
         """Define this so we can use `len(corpus)`"""
         if 'length' not in self.__dict__:
-            logging.info('caching corpus size '
-                         '(calculating number of documents)')
-            self.length = sum(1 for doc in self.get_texts())            
+            self.__calc_corpus_size__()
         return self.length
     def __str__(self):
         if 'num_words' not in self.__dict__:
-            logging.info('caching corpus size '
-                         '(calculating number of words)')
-            self.num_words = sum(len(doc) for doc in self.get_texts())
-        return (str(self.__len__()) + ' documents, ' + str(self.num_words)
+            self.__calc_corpus_size__()
+        return (str(self.length) + ' documents, ' + str(self.num_words)
                 + ' words')
             
 
