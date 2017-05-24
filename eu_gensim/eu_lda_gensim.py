@@ -5,6 +5,9 @@ import numpy as np
 import re
 import pickle
 import gensim
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
@@ -27,6 +30,7 @@ parser.add_argument('dataset',
                     help='input dataset')
 
 parser.add_argument('-i', '--iterations',
+                    type=int,
                     default=500,
                     help='number of iterations')
 
@@ -40,7 +44,7 @@ df1 = df1.dropna(how='any')
 df1['merged'] = df1['title'] + ' ' + df1['objective']
 
 num_words = df1['merged'].str.lower().str.split().apply(lambda x: len(x)).sum()
-print(num_words, ' read')
+print(num_words, 'read')
 
 objectives = df1['merged']
 
@@ -90,11 +94,14 @@ objectives_corpus = ObjectivesCorpus(objectives_split)
 print(objectives_corpus)
 
 t0 = time()
-lda = gensim.models.ldamodel.LdaModel(corpus=objectives_corpus, 
-                                      id2word=objectives_dictionary, 
+
+lda = gensim.models.ldamodel.LdaModel(corpus=objectives_corpus,
+                                      id2word=objectives_dictionary,
                                       num_topics=10,
                                       iterations = args.iterations,
-                                      random_state=np.random.seed(42))
+                                      random_state=np.random.seed(42),
+                                      passes=10)
+
 print("done in %0.3fs." % (time() - t0))
 
 lda.print_topics(10)
