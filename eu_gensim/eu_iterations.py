@@ -21,7 +21,7 @@ import string
 import logging
 # logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 
-df_name = 'FP6'
+df_name = 'H2020'
 
 df = pd.read_pickle('dfs/' + df_name)
 df1 = df[['title','objective']]
@@ -65,27 +65,28 @@ objectives_corpus = ObjectivesCorpus(objectives_split, objectives_dictionary)
 t0 = time()
 # random_state=np.random.seed(42)
 iterations = 7000
-for i in range(8):
+for i in range(1):
     lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        iterations = iterations)
+                                        iterations = iterations,
+                                        random_state=np.random.seed(42))
 
-    with open('eu_'+ df_name + '_topics/eu_topics' + df_name + '_' + str(iterations) + '_' + str(i) + ".txt", "w") as text_file:
-        text_file.write(str(lda.print_topics(num_topics=10, num_words=15)))
-        text_file.close()
+    # with open('eu_'+ df_name + '_topics/eu_topics' + df_name + '_' + str(iterations) + '_' + str(i) + ".txt", "w") as text_file:
+    #     text_file.write(str(lda.print_topics(num_topics=10, num_words=15)))
+    #     text_file.close()
 
 print("done in %0.3fs." % (time() - t0))
 
-# for t in range(lda.num_topics):
-#     words = dict(lda.show_topic(t, 15))
-#     elements = WordCloud(background_color='white').fit_words(words)
-#     plt.figure()
-#     plt.imshow(elements)
-#     plt.axis("off")
-#     t = t + 1
-#     plt.title("Topic #" + str(t) + "with " + str(iterations) + ' iterations')
-#     # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-#     plt.savefig('eu_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-#     plt.close()
+for t in range(lda.num_topics):
+    words = dict(lda.show_topic(t, 15))
+    elements = WordCloud(background_color='white').fit_words(words)
+    plt.figure()
+    plt.imshow(elements)
+    plt.axis("off")
+    t = t + 1
+    plt.title("Topic #" + str(t) + "with " + str(iterations) + ' iterations')
+    # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
+    plt.savefig('eu_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
+    plt.close()
 
