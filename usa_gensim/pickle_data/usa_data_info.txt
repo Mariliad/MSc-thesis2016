@@ -1,3 +1,6 @@
 USA data saved as pandas dataframes (usin pickle). The data is separated just like the EU dataset (per framework programme):
 
+Download the binary files from:
 https://drive.google.com/drive/folders/0B2in98BkgzQ9VW43MG9YOHZRdGs?usp=sharing
+
+or unzip FP6.zip and FP7.zip

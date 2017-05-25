@@ -32,7 +32,7 @@ parser.add_argument('dataset',
 
 parser.add_argument('-i', '--iterations',
                     type=int,
-                    default=7000,
+                    default=8000,
                     help='number of iterations')
 
 args = parser.parse_args()
@@ -111,7 +111,7 @@ t0 = time()
 lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        iterations = iterations,
+                                        iterations = args.iterations,
                                         random_state=np.random.seed(42))
 
     # with open('usa_'+ df_name + '_topics/topics' + df_name + '_' + str(iterations) + '_' + str(i) + ".txt", "w") as text_file:
@@ -129,6 +129,6 @@ for t in range(lda.num_topics):
     t = t + 1
     plt.title("Topic #" + str(t))
     # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(i) + '_' + str(iterations) + '.png')
-    plt.savefig('usa_'+ df_name + '_wordclouds/USA' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
+    plt.savefig('usa_'+ df_name + '_wordclouds/USA' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
     plt.close()
 
