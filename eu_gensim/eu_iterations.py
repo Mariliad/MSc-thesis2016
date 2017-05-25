@@ -5,6 +5,9 @@ import numpy as np
 import re
 import pickle
 import gensim
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
@@ -18,8 +21,7 @@ from time import time
 
 import string
 import logging
-logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
-
+# logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -29,7 +31,8 @@ parser.add_argument('dataset',
                     help='input dataset')
 
 parser.add_argument('-i', '--iterations',
-                    default=15000,
+                    type=int,
+                    default=7000,
                     help='number of iterations')
 
 args = parser.parse_args()
@@ -55,7 +58,7 @@ objectives_split = objectives_split.apply(lambda tokens: [token for token in tok
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if not(token.isdigit())])
 # objectives_split.head(2)
 
-list_stopwords = ['will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based']
+list_stopwords = ['data','will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based']
 if df_name == 'FP4':
     list_stopwords.append('des')
 additional_stopwords = set(list_stopwords)
@@ -73,7 +76,7 @@ objectives_split = objectives_split.apply(lambda tokens: [token for token in tok
 
 objectives_dictionary = Dictionary(objectives_split)
 
-print 'Dictionary (unique tokens): ',(objectives_dictionary)
+print (objectives_dictionary)
 print
 # objectives_dictionary.filter_extremes(no_below=5)
 
@@ -110,7 +113,8 @@ for i in range(1):
     lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        random_state = np.random.seed(42),
+                                        passes=2,
+                                        random_state = np.random.seed(12),
                                         iterations = args.iterations)
 
     # with open('eu_'+ df_name + '_topics/eu_topics' + df_name + '_' + str(iterations) + '_' + str(i) + ".txt", "w") as text_file:
@@ -121,13 +125,13 @@ print("done in %0.3fs." % (time() - t0))
 
 for t in range(lda.num_topics):
     words = dict(lda.show_topic(t, 15))
-    elements = WordCloud(background_color='white').fit_words(words)
+    elements = WordCloud(background_color='white', width=300, height=180, max_font_size=36, colormap='winter', prefer_horizontal=1.0).fit_words(words)
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
     t = t + 1
     plt.title("Topic #" + str(t))
     # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-    plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
+    plt.savefig('eu_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
     plt.close()
 

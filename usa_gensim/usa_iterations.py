@@ -5,30 +5,41 @@ import numpy as np
 import re
 import pickle
 import gensim
+
 import matplotlib
-matplotlib.use('Agg') 
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
 from gensim import corpora
 from gensim import models
 from gensim.corpora.dictionary import Dictionary
-from gensim.parsing.preprocessing import STOPWORDS
 
+from collections import defaultdict
+from gensim.parsing.preprocessing import STOPWORDS
 from time import time
 
 import string
 import logging
+# logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
+import argparse
 
-# iterations_list = [5000, 6000, 7000, 7500]
+parser = argparse.ArgumentParser()
+parser.add_argument('dataset',
+                    action='store',
+                    choices=['FP4', 'FP5', 'FP6', 'FP7', 'H2020'],
+                    help='input dataset')
 
-# usa_dataset_list = ['FP4', 'FP5', 'FP6', 'FP7', 'H2020']
-# fp4 >= 3500
-# fp5 >= 3700
-# fp6: very close to 4000
-# fp7 >4500
-# H2020 = 5000
-df_name = 'H2020'
+parser.add_argument('-i', '--iterations',
+                    type=int,
+                    default=7000,
+                    help='number of iterations')
+
+args = parser.parse_args()
+
+df_name = args.dataset
+
+print args
 
 df = pd.read_pickle('pickle_data/usa' + df_name)
 df1 = df[['title','objective']]
@@ -54,24 +65,48 @@ stopwords = set(STOPWORDS) | additional_stopwords
 
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if token not in stopwords])
 
+
+frequency = defaultdict(int)
+for text in objectives_split:
+    for token in text:
+        frequency[token] += 1
+
+objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if (frequency[token] > 5)])
+
 objectives_dictionary = Dictionary(objectives_split)
 
-# check the method's 'filter_extremes' parameters
-objectives_dictionary.filter_extremes(no_below=5)
+print (objectives_dictionary)
+print
+# objectives_dictionary.filter_extremes(no_below=5)
 
-class ObjectivesCorpus(object):
-    def __init__(self, documents, dictionary):
-        self.documents = documents
-        self.dictionary = dictionary
-    def __iter__(self):
-        for document in self.documents:
-            yield self.dictionary.doc2bow(document)
+class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
+    def get_texts(self):
+        return iter(self.input)
+    def __calc_corpus_size__(self):
+        logging.info('Calculating corpus size')
+        self.length = 0
+        self.num_words = 0
+        for doc in self.get_texts():
+            self.length += 1
+            self.num_words += len(doc)
+    def __len__(self):
+        """Define this so we can use `len(corpus)`"""
+        if 'length' not in self.__dict__:
+            self.__calc_corpus_size__()
+        return self.length
+    def __str__(self):
+        if 'num_words' not in self.__dict__:
+            self.__calc_corpus_size__()
+        return (str(self.length) + ' documents, ' + str(self.num_words)
+                + ' words')
+            
 
-objectives_corpus = ObjectivesCorpus(objectives_split, objectives_dictionary)
+objectives_corpus = ObjectivesCorpus(objectives_split)
+
+print'Corpus size: ', (objectives_corpus)
 
 t0 = time()
-# random_state=np.random.seed(42)
-iterations = 7500
+
 # for i in range(8):
 lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
@@ -87,12 +122,12 @@ print("done in %0.3fs." % (time() - t0))
 
 for t in range(lda.num_topics):
     words = dict(lda.show_topic(t, 15))
-    elements = WordCloud(background_color='white').fit_words(words)
+    elements = WordCloud(background_color='white', width=300, height=180, max_font_size=36, colormap='winter', prefer_horizontal=1.0).fit_words(words)
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
     t = t + 1
-    plt.title("Topic #" + str(t) + "with " + str(iterations) + ' iterations')
+    plt.title("Topic #" + str(t))
     # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(i) + '_' + str(iterations) + '.png')
     plt.savefig('usa_'+ df_name + '_wordclouds/USA' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
     plt.close()
