@@ -89,9 +89,9 @@ Suppose that we have a collection of documents, and we want to find an organizat
 \begin{enumerate}
   \item Fix a multinomial distribution with parameter vector $\phi$ of length $V$
   \item for each word in the document:
-  \begin{itemize}
-  draw a word $w$ according to $\phi$
-  \end{itemize}
+  \begin{description}
+  \item draw a word $w$ according to $\phi$
+  \end{description}
 \end{enumerate}
 
 \vspace{3mm}
@@ -104,18 +104,18 @@ generative process is
 \begin{enumerate}
 \item Fix a multinomial $\alpha$ over categories $1$ to $K$\\
 for category number $1$ to category number $K$:
-\begin{itemize}
-fix a multinomial with parameter vector $\phi_k$
-\end{itemize}
+\begin{description}
+\item   fix a multinomial with parameter vector $\phi_k$
+\end{description}
 
 \item for document number $1$ to document number $M$:
-\begin{itemize}
-draw a category $z$ according to $\alpha$\\
-for each word in the document:\\
-  	\begin{itemize}
-  		draw a word $w$ according to $\phi_z$
-  	\end{itemize}
-\end{itemize}
+\begin{description}
+\item draw a category $z$ according to $\alpha$
+\item for each word in the document:
+  	\begin{description}
+  	\item	draw a word $w$ according to $\phi_z$
+  	\end{description}
+\end{description}
 \end{enumerate}
 \vspace{3mm}
 
@@ -172,12 +172,12 @@ Probabilistic Latent Semantic Indexing evolved from LSI and uses the same concep
 \begin{enumerate}
 \item Pick a document $w$ with probability $p(w)$
 \item For each of the $N$ words in $w$:
-\begin{itemize}
-(a) Pick a topic $z$ with probability $p(z|w)$
-\end{itemize}
-\begin{itemize}
-(b) Generate a word $w$ with probability $p(w|z)$
-\end{itemize}
+\begin{description}
+\item (a) Pick a topic $z$ with probability $p(z|w)$
+\end{description}
+\begin{description}
+\item (b) Generate a word $w$ with probability $p(w|z)$
+\end{description}
 \end{enumerate}
 
 \vspace{3mm}
@@ -200,17 +200,17 @@ The basic idea in LDA is that  we define a topic to be a Dirichlet distribution 
 \begin{enumerate}
 \item Randomly choose a distribution over topics.
 \item For each word in the document:
-\begin{itemize}
-(a) Randomly choose a topic from the distribution over topics in step #1.
-\end{itemize}
-\begin{itemize}
-(b) Randomly choose a word from the corresponding distribution over the vocabulary.
-\end{itemize}
+\begin{description}
+	\item (a) Randomly choose a topic from the distribution over topics in step 1.
+\end{description}
+\begin{description}
+	\item (b) Randomly choose a word from the corresponding distribution over the vocabulary.
+\end{description}
 \end{enumerate}
 
 \vspace{3mm}
 
-This statistical model reflects the intuition that documents exhibit multiple topics. Each document exhibits the topics with different proportion (step #1); each word in each document is drawn from one of the topics (step #2b), where the selected topic is chosen from the per-document distribution over topics (step #2a). All the documents in the corpus share the same set of topics, but each document exhibits those topics with different proportion - that’s the distinguishing characteristic of LDA.
+This statistical model reflects the intuition that documents exhibit multiple topics. Each document exhibits the topics with different proportion (step 1); each word in each document is drawn from one of the topics (step 2b), where the selected topic is chosen from the per-document distribution over topics (step 2a). All the documents in the corpus share the same set of topics, but each document exhibits those topics with different proportion - that’s the distinguishing characteristic of LDA.
 A more detailed explanation of the model follows in section 2.x.x.\par
 
 \vspace{10mm}

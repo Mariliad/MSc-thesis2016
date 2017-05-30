@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {2}Theoretic background}{1}
+\contentsline {subsection}{\numberline {2.1}The Multinomial Distribution}{2}
+\contentsline {subsection}{\numberline {2.2}Generative process}{3}
+\contentsline {subsection}{\numberline {2.3}Basic models in topic modeling}{5}
+\contentsline {subsubsection}{\numberline {2.3.1}Latent Semantic Indexing (LSI)}{5}
+\contentsline {subsubsection}{\numberline {2.3.2}Probabilistic Latent Semantic Indexing (PLSI)}{6}
+\contentsline {subsubsection}{\numberline {2.3.3}Latent Dirichlet Allocation (LDA)}{7}
+\contentsline {paragraph}{\numberline {2.3.3.1}Dirichlet distribution}{8}
+\contentsline {paragraph}{\numberline {2.3.3.2}Model}{9}
+\contentsline {paragraph}{\numberline {2.3.3.3}Expectation Maximization}{9}
+\contentsline {paragraph}{\numberline {2.3.3.4}Variational Inference}{9}
+\contentsline {section}{\numberline {3}Related work}{9}
+\contentsline {section}{\numberline {4}Methodology}{9}
+\contentsline {section}{\numberline {5}Analysis and results}{9}
+\contentsline {section}{\numberline {6}Conclusion}{9}
+\contentsline {section}{\numberline {7}Future work}{9}
