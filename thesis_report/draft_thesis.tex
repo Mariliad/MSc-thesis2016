@@ -9,6 +9,8 @@
 
 \usepackage{amsfonts}
 \usepackage{graphicx}
+\usepackage{biblatex}
+\addbibresource{sample.bib}
 
 
 \begin{document}
@@ -93,6 +95,7 @@ manufacturing process takes place.
 the words “buy” and “purchase”.
 
 \subsection{The Multinomial Distribution}
+
 Once we have a representation for individual documents, the natural next step
 is to select a model for a set of documents. It is important to understand the
 difference between a representation and a model. A representation is a way of
@@ -297,6 +300,10 @@ draws is a Dirichlet process.
 
 \paragraph{Model}
 
+LDA is a probabilistic model of text documents, which assumes a collection of 
+K topics. Each topic defines a multinomial distribution over the vocabulary 
+and is assumed to have been drawn from a Dirichlet 
+$\beta_k \sim Dirichlet(\eta)$. 
 
 In LDA, each document is represented by a mixture of the topics, with weight
 $\theta_w^2$ for topic $z$ in document $w$. These weight have a Dirichlet prior,
@@ -322,6 +329,15 @@ from one of the $k$ topics in step (b), where the probability of each word
 within a topic is parameterized by a $k \times V$ matrix , where $V$ is the
 size of the specified vocabulary. The most probable words in each topic could
 be used to identify the topic and gives an intuitive description for the topic.
+
+We can analyze a corpus of documents with LDA by examining the posterior 
+distribution of topics $\beta$, topic proportions $\theta$ and topic 
+assignments $z$ conditioned on the documents. This reveals latent structure 
+in the collection that can be used for prediction or data exploration. This 
+posterior can't be computed directly; it is usually approximated using Markov 
+Chain Monte Carlo (MCMC) or variational inference. Both methods are effective, 
+but also present significant computational challenges in large data sets \cite{onlineLDAvb}. In our implementation, we're using the online variational 
+LDA model, which is described in section 2.2.3.4.
  
 The key difference in LDA compared to PLSI is that the process outlined above
 actually is generative for documents. This means that, given a new document,
