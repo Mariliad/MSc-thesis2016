@@ -9,11 +9,12 @@
 
 \usepackage{amsfonts}
 \usepackage{graphicx}
-\usepackage{biblatex}
-\addbibresource{sample.bib}
+\usepackage{cite}
+\usepackage{algorithm2e}
 
 
 \begin{document}
+
 \maketitle
 \tableofcontents
 
@@ -330,13 +331,14 @@ within a topic is parameterized by a $k \times V$ matrix , where $V$ is the
 size of the specified vocabulary. The most probable words in each topic could
 be used to identify the topic and gives an intuitive description for the topic.
 
-We can analyze a corpus of documents with LDA by examining the posterior 
-distribution of topics $\beta$, topic proportions $\theta$ and topic 
-assignments $z$ conditioned on the documents. This reveals latent structure 
-in the collection that can be used for prediction or data exploration. This 
-posterior can't be computed directly; it is usually approximated using Markov 
-Chain Monte Carlo (MCMC) or variational inference. Both methods are effective, 
-but also present significant computational challenges in large data sets \cite{onlineLDAvb}. In our implementation, we're using the online variational 
+We can analyze a corpus of documents with LDA by examining the posterior
+distribution of topics $\beta$, topic proportions $\theta$ and topic
+assignments $z$ conditioned on the documents. This reveals latent structure in
+the collection that can be used for prediction or data exploration. This
+posterior can't be computed directly; it is usually approximated using Markov
+Chain Monte Carlo (MCMC) or variational inference. Both methods are effective,
+but also present significant computational challenges in large data sets
+~\cite{onlineLDAvb}. In our implementation, we're using the online variational
 LDA model, which is described in section 2.2.3.4.
  
 The key difference in LDA compared to PLSI is that the process outlined above
@@ -387,8 +389,8 @@ sum is however often intractable and the EM algorithm solves this problem by
 iterating the following two steps:
 
 \begin{itemize}
-\item \textbf{Expectation step (E - step)}: For the current estimate of the parameters 
-$\theta^t$, calculate the expected value of the log likelihood function:
+\item \textbf{Expectation step (E - step)}: For the current estimate of the 
+parameters $\theta^t$, calculate the expected value of the log likelihood function:
 \begin{equation}
 Q(\theta \mid \theta^t) \leftarrow \mathbb{E}_{Z \mid X, \theta^t}
  [\log(L(\theta \mid X, Z))]
@@ -402,27 +404,101 @@ with regard to the parameters:
 
 \paragraph{Variational Inference}
 
-Variational inference can be seen as an extension of the EM algorithm and is
-used to approximate intractable integrals. The goal of variational inference is
-to approximate an intractable probability distribution $p$, with a tractable
-one $q$, in a way that makes them as close as possible given a similarity
-measure. In this thesis, variational inference is used to approximate the
-posterior distribution of latent variables.
+Learning the various distributions (the set of topics, their associated word
+probabilities, the topic of each word, and the particular topic mixture of each
+document) is a problem of Bayesian inference. In the original paper it's being
+used a variational Bayes approximation of the posterior distribution;
+~\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
+expectation propagation. The goal of variational inference is to approximate an
+intractable probability distribution $p$, with a tractable one $q$, in a way
+that makes them as close as possible given a similarity measure. In this thesis,
+variational inference is used to approximate the posterior distribution of
+latent variables. A new distribution over the hidden variables $q(z, \beta)$
+(called the variational distribution) is  introduced. This new distribution has
+properties such that it can be efficiently computed. 
 
-For a bayesian model where x = x 1:n are observations and z = z 1:m are latent
-variables, the posterior distribution is
+The variational distribution is a function of a set of free parameters that are optimized such that the variational distribution is as close as possible to the 
+actual target posterior distribution where closeness is measured in terms of KL divergence.
+Minimizing the KL divergence between the variational distribution and the target
+posterior is equivalent to maximizing the Evidence Lower BOund (ELBO) which is
 
 \begin{equation}
-p(x \mid z) = \frac{p(x \mid z) p(z)}{\int\limits_{z} p(x \mid z)p(z)}
+L(q) = E_q [log p(x, z, \beta)] -  E_q [log q(z, \beta)]  
 \end{equation}
 
-For many models, this distribution is intractable due to the integral in the
-denominator. The posterior can be computed up to a constant, but the
-normalization constant cannot be computed. Variational inference methods can be
-used to approximate this integral. Applying variational inference to posterior
-distributions is sometimes called variational Bayes but is only an instance of
-a more general problem that variational inference solves.
+The variational distribution has the property that it can be efficiently
+computed. This is done by making each hidden variable independent of each other.
 
+\begin{equation}
+q(z, \beta) = q(\beta \mid \lambda) \prod\limits_{n=1}^N \prod\limits_{j=1}^J q(z_{nj} \mid \phi_{nj})   
+\end{equation}
+
+The posterior over the per-word topic assignments $z$ is parameterized by
+$\phi$, the posterior over per-document topic weights $\theta$ is parameterized
+by $\gamma$, and the posterior over the topics $\beta$ is parameterized by
+$\lambda$. Furthermore, each hidden variable is governed by its own variational
+parameter so the variational parameters $\lambda$ governs the global variables
+$\beta$ and the variational parameters $\phi_n$ govern the local variables $z_n
+q(\beta \mid \lambda)$ and $q(z_{nj} \mid \phi_{nj})$ take the same form as the
+complete conditionals $p(\beta \mid x, z, \alpha)$ and $p(z_{nj} \mid x_n, z_{n,
+-j}, \beta)$, but the natural parameters are now $\lambda$ and $\phi_{nj}$,
+respectively to give
+
+\begin{equation}
+q(\beta \mid \lambda) = h(\beta) exp(\lambda^T t(\beta) - \alpha_g(\lambda))
+\end{equation}
+\begin{equation}
+q(z_{nj} \mid \phi_{nj}) = h(z_{nj}) exp(\phi_{nj}^T t(z_{nj}) - \alpha_l(\phi_{nj}))
+\end{equation}
+
+Where $h(.)$ is called the base measure, $\alpha(.)$ is called the log-
+normalizer, $\eta(.)$ is called the natural parameter, and $t(.)$ is called the
+sufficient statistics. Furthermore, we also assume that the prior distribution
+over $\beta$ is part of the exponential family. We maximize the ELBO objective
+function with a coordinate ascent procedure. We find its gradient with respect
+to the global variational parameter $\lambda$ and find the value of $\lambda$
+that sets the gradient to zero. We do the same thing for the local parameters
+$\phi_n$. We iterate between these updates until we converge to the maximum of
+the ELBO. The updates are given without proof, but the general procedure is to
+write the ELBO in terms of parameter of interest (either $\lambda$ or $\phi_n$)
+then take the gradient and set it to zero.
+
+\begin{equation}
+\lambda = E_q[\eta_g(x, z, \alpha)]
+\end{equation}
+\begin{equation}
+\phi_{nj} = E_q[\eta_l(x_n, z{n, -j}, \beta)]
+\end{equation}
+
+Therefore the updates of each variational parameter are equal to the expected
+value of the natural parameters of the complete conditionals. A simple outline 
+of the algorithm ~\cite{alexminnar} is given below
+
+
+\begin{algorithm}[H] 
+\SetAlgoLined
+
+Initialize $\lambda^{(0)}$ randomly.
+\Repeat{the ELBO converges}{
+	\For{each local variational parameter $\phi_{nj}$}{\label{forins}
+		Update $\phi_{nj}^{(t)} = \mathbb{E}_{q^{(t - 1)}}[\eta_{l,j}(x_n, z_{n,-j}, \beta)]$.
+	}
+	Update the global variational parameters, $\lambda^{(t)} = \mathbb{E}_{q^{(t)}}[\eta_g (z_{1:N}, x_{1:N})]$.
+}
+\caption{Variational Bayes for LDA} 
+\end{algorithm}
+
+
+As you can see, in the local parameter update (in the $for$ loop), we have to
+iterate over every data point in the data set which is computationally
+expensive. The algorithm above has constant memory requirements and empirically
+converges faster than collapsed Gibbs sampling. However, it still requires a
+full pass through the entire corpus in each iteration. It can be slow to apply
+to very large datasets. An online variational inference algorithm is proposed by
+Hoffman et all. ~\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the
+variational posterior over the topic distributions $\beta$. The "online LDA" is
+nearly as simple as the variational algorithm, but converges much faster for
+large datasets.
 
 \section{Related work}
 
@@ -433,5 +509,8 @@ a more general problem that variational inference solves.
 \section{Conclusion}
 
 \section{Future work}
+
+\bibliography{references}{}
+\bibliographystyle{plain}
 
 \end{document}
