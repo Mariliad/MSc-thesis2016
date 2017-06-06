@@ -4,8 +4,10 @@
 
 \renewcommand{\thesection}{\arabic{section}}
 
-\setcounter{secnumdepth}{5}
-\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\setlength{\parskip}{1em}
 
 \usepackage{amsfonts}
 \usepackage{graphicx}
@@ -355,11 +357,13 @@ hashtags emerge over time. Another limitation is the fact that one has to state
 the number of topics the model should use. This is not a big issue, but could
 lead to some of the resulting topics to be insignificant.
 
+\begin{center}
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{LDA_standard_model.png}
 \caption{Plate notation of the standard LDA model}
 \end{figure}
+\end{center}
 
 
 \paragraph{Expectation Maximization}
@@ -506,7 +510,179 @@ large datasets.
 
 \section{Methodology}
 
+In this section, we explain the procedure that we followed in n order to apply the LDA model in our dataset. The dataset consists of two datasets: the one that contains all the information about EU projects founded for research and innovation under the FP4-H2020 and the dataset from USA about the awards/projects that got approved from 1994-2017. We consider the projects' description/abstract as the documents in LDA.
+ 
+
+\subsection{EU dataset}
+
+CORDIS (Community Research and Development Information Service) is the European Commission's primary public repository and portal to disseminate information on all EU-funded research projects and their results in the broadest sense. The website includes all public information held by the Commission (project factsheets, publishable reports and deliverables), editorial content to support communication and exploitation (news, events, success stories, magazines) and comprehensive links to external sources such as open access publications and websites. CORDIS is managed by the Publications Office of the European Union, on behalf of the European Commission's research Directorates-General and Agencies. CORDIS content dates back to the origin of the service in 1990 and the website has been online since 1994.
+
+Below, we provide the general topics of the EU projects as listed in the EU Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
+\begin{itemize}
+\item Agriculture, Fisheries and Food
+	\begin{description}
+	\item Agriculture, Food safety, Maritime affairs and fisheries
+	\end{description}
+\item Business
+	\begin{description}
+	\item Competition, Enterprise, Single market, Trade
+	\end{description}
+\item Culture and Education
+	\begin{description}
+	\item Audiovisual and media, Culture, Education training and youth, Multiligualism
+	\end{description}
+\item Customs and Tax
+	\begin{description}
+	\item Customs, Taxation
+	\end{description}
+\item Development and Humanitarian aid
+	\begin{description}
+	\item Development and cooperation, Humanitarian aid and Civil protection, Human rights
+	\end{description}
+\item Economy and Finance
+	\begin{description}
+	\item Budget, Economic and monetary affairs, Fraud prevention
+	\end{description}
+\item Employment and Social affairs
+\item Enlargement and Foreign affairs
+\item Environment and Energy
+	\begin{description}
+	\item Climate action, Energy, Environment
+	\end{description}
+\item EU institutions
+	\begin{description}
+	\item Institutional affairs
+	\end{description}
+\item Health
+	\begin{description}
+	\item Health, Sport
+	\end{description}
+\item Justice and Citizens’ rights
+	\begin{description}
+	\item EU citizenship, Consumers, Justice and Home affairs
+	\end{description}
+\item Regions and Local development
+	\begin{description}
+	\item Regional policy
+	\end{description}
+\item Science and Technology
+	\begin{description}
+	\item Space, Digital Economy and Society, Research and Innovation
+	\end{description}
+\item Transport and Travel
+\end{itemize}
+
+The data that are provided by CORDIS (via the EU Open Data Portal) are open, free and can be used in research, applications, commercial or non-commercial purposes. The dataset that we chose for the following analysis contains information about all the projects funded by the European Union from 1994 to 2017. These projects got approved under the framework programme (FP4-H2020) for research and technological development. For each project it is provided information, such as: reference, acronym, dates, funding, programmes, participant countries, subjects and objectives.
+
+In the provided dataset, the information is splitted into CSV files, based on the framework program that each project belongs. The frameworks from 1994 to 2020 are listed below:
+
+\begin{itemize}
+\item FP4: fourth framework programme (1994-1998)
+\item FP5: fifth framework programme (1998–2002)
+\item FP6: sixth framework programme (2002–2006)
+\item FP7: seventh framework programme (2007–2013)
+\item H2020: Horizon 2020 framework programme (2014-2020)
+\end{itemize}
+
+\subparagraph{Data preparation}
+
+Data cleaning is absolutely crucial for generating a useful topic model. We implemented the following steps, which are common to most natural language processing methods, in order to obtain the final corpus for the analysis:
+
+\begin{itemize}
+\item Remove punctuation and numbers
+\item Tokenize documents
+\item Remove stopwords
+\item Create a dictionary
+\item Filter out the most frequent and some rare words of the dictionary
+\end{itemize}
+
+To obtain the collection of the documents, we consider as ‘documents’ in LDA the project objectives, which is an accurate description for the project. We also added the ‘title’ value of each project to the objectives-documents, to increase the probability of finding accurate topics. For the majority of the projects the ‘start date’ and ‘end date’ value was null, so we kept the splitting of the dataset per framework, in order to keep the correlation to the time. We followed the same format in the dataset of USA awards.
+
+\begin{center}
+\begin{tabular}{l*{6}{c}r}
+Framework & Years & No of docs & No of unique tokens & No of words in the corpus \\
+\hline
+FP4 & 1994-1998 & 14567 & 7293 & 364263 \\
+FP5 & 1998-2002 & 17202 & 15756 & 1617232 \\
+FP6 & 2002-2006 & 10091 & 15521 & 1437607 \\
+FP7 & 2007-2013 & 25607 & 26499 & 3789837 \\
+H2020 & 2014-2017 & 9055 & 15835 & 1342882 \\
+\end{tabular}
+\end{center}
+
+As stopwords, we used the list that is provided by the Gensim Python library\footnote{http://radimrehurek.com/gensim/} and we added following very common words in the existing dataset: 'data', 'based', 'new', 'project', 'university', 'student', 'students', 'research', 'study', 'program', 'development', 'study', 'studies', 'provide', 'use'. We also removed the rare words that appear less than 5 times in the collection. Finally, we obtained a smaller corpus per framework (see the table above)
+
+In this section, we explain the procedure that we followed in n order to apply the LDA model in our dataset. The dataset consists of two datasets: the one that contains all the information about EU projects founded for research and innovation under the FP4-H2020 and the dataset from USA about the awards/projects that got approved from 1994-2017. We consider the projects' description/abstract as the documents in LDA.
+ 
+
+\subsection{USA dataset}
+
+The National Science Foundation (NSF) is a United States government agency that supports fundamental research and education in all the non-medical fields of science and engineering. Its medical counterpart is the National Institutes of Health. The NSF funds approximately 24\% of all federally supported basic research conducted by the United States' colleges and universities. In some fields, such as mathematics, computer science, economics, and the social sciences, the NSF is the major source of federal backing.
+ 
+The NSF organizes its research and education support through seven directorates, each encompassing several disciplines:
+
+\begin{itemize}
+\item Biological Sciences
+\begin{description}
+\item Molecular, Cellular and Organismal biology, Environmental science
+\end{description}
+\item Computer and Information Science and Engineering
+\begin{description}
+\item Fundamental computer science, Computer and networking systems, 
+Artificial Intelligence
+\end{description}
+\item Engineering
+\begin{description}
+\item Bioengineering, Environmental systems, Civil and Mechanical systems, 
+Chemical and Transport systems, Electrical and Communications systems, Design
+ and Manufacturing
+\end{description}
+\item Geosciences
+\begin{description}
+\item Geological, Atmospheric and Ocean sciences
+\end{description}
+\item Mathematical and Physical Sciences
+\begin{description}
+\item Mathematics, Astronomy, Physics, Chemistry and Materials science
+\end{description}
+\item Social, Behavioral and Economic Sciences
+\begin{description}
+\item Neuroscience, Management, Psychology, Sociology, Anthropology, 
+Linguistics, Science of science policy and economics
+\end{description}
+\item Education and Human Resources
+\begin{description}
+\item Science, Technology, Engineering and mathematics education at every level
+\end{description}
+\end{itemize}
+
+The data about the awards \footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can be used in research and applications. The dataset that we chose for the following analysis contains information about all the projects that got funded by the NSF from 1994 to 2017.
+ 
+In the provided dataset, the information is splitted into XML files, separated per year, from 1994 - 2017. In order to keep the correlation to time and be able to compare the two datasets later, we splitted the projects based on the year they were initialized (see Table below).
+
+\subparagraph{Data preparation}
+
+Just like the EU dataset, we followed the same preprocessing steps to obtain the final corpus. As stopwords, we used the list that is provided by the Gensim Python library and we removed following very common words in the existing dataset: 'data', 'work', 'based', 'new', 'project', 'university', 'student', 'students', 'research', 'study', 'program', 'development', 'study', 'studies', 'provide', 'use', 'understanding', 'important', 'support', 'proposed'. We also removed the rare words that appear less than 5 times in the collection. Finally, we obtained a smaller corpus per framework (see Table below).
+
+\begin{center}
+\begin{tabular}{l*{6}{c}r}
+Framework         & Years & No of docs & No of unique tokens & No of words in the corpus \\
+\hline
+FP4 & 1994-1997 & 36752 & 28038 & 4346604 \\
+FP5 & 1998-2001 & 37674 & 30728 & 5166316 \\
+FP6 & 2002-2006 & 54212 & 38476 & 8837298 \\
+FP7 & 2007-2013 & 87341 & 48277 & 15673424 \\
+H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
+\end{tabular}
+\end{center}
+
+\subsection{Model inference}
+
+Details about the implementation, system specs etc.
+
+
 \section{Analysis and results}
+
 
 \section{Conclusion}
 
