@@ -126,7 +126,7 @@ components of $\theta$ are non-negative and have unit $\sum\limits_{j=1}^m
 
 Like any discrete distribution, a multinomial has to sum to one, where the sum
 is over all possible data points. Here, a data point is a document containing
-$n$ words.
+$n$ words ~\cite{Huang_maximumlikelihood}.
 
 
 \subsection{Basic models in topic modeling}
@@ -156,7 +156,7 @@ correspond to words and columns to documents. Each element in this sparse
 matrix describes the number of times a word occurs in a document but this term
 count can also be weighted with for instance TF-IDF. Letting each word
 represent a dimension in a very high dimensional space, a document can be seen
-as a vector with components corresponding to its weighted term counts.
+as a vector with components corresponding to its weighted term counts ~\cite{Deerwester90indexingby}.
 
 A low-rank approximation of the term-document matrix is created using Single
 Value Decomposition, SVD, which creates new dimensions, called concepts, as
@@ -176,7 +176,8 @@ it with a small toolbox for what can be achieved using the model.
 Probabilistic Latent Semantic Indexing evolved from LSI and uses the same
 concept of finding a lower rank approximation of the term-document occurrence
 matrix. The difference is that instead of being based on linear algebra, PLSI
-is based on a mixture decomposition using a latent class model. PLSI associates
+is based on a mixture decomposition using a latent class model 
+~\cite{Hofmann:1999:PLS:312624.312649}. PLSI associates
 an unobserved class variable $z$ with each document-word observation pair $(w,
 w)$. This $z$ can be seen as a topic, since it is a probability distribution
 over words. As a generative model, PLSI can be defined in the following way for
@@ -219,7 +220,7 @@ each element describes the mixing proportion for a topic. A limitation with
 PLSI is that there is no generative model for these proportions, making it
 difficult to handle unseen documents. The Latent Dirichlet Allocation model
 tries to solve this limitation by setting a Dirichlet prior on the topic
-distribution.
+distribution ~\cite{blei2003latent}.
  
 Suppose that we have a collection of documents, and we want to find an
 organization for these, i.e. we want to do unsupervised learning. A common way
@@ -231,7 +232,7 @@ some refinement of this principle such as maximum a posterior probability.
  
 The basic idea in LDA is that we define a topic to be a Dirichlet distribution
 over a fixed vocabulary. Technically, the model assumes that the topics are
-generated first, before the documents. Now for each document in the collection,
+generated first, before the documents ~\cite{Blei11introductionto}. Now for each document in the collection,
 we generate the words in a two-stage process:
 
 
@@ -367,7 +368,8 @@ The Expectation Maximization, or EM, algorithm is an approach to deriving an
 algorithm for approximately obtaining maximum likelihood of variables in a
 statistical model. Normally one obtains a maximum likelihood solution by taking
 partial derivatives of the likelihood function with respect to all variables,
-setting these derivatives to zero and solving the equations simultaneously.
+setting these derivatives to zero and solving the equations simultaneously 
+~\cite{Myung:2003}.
 
 Due to latent variables it is not always possible to solve the equations
 directly and instead one typically gets two sets of equations that depend on
@@ -415,7 +417,7 @@ that makes them as close as possible given a similarity measure. In this thesis,
 variational inference is used to approximate the posterior distribution of
 latent variables. A new distribution over the hidden variables $q(z, \beta)$
 (called the variational distribution) is  introduced. This new distribution has
-properties such that it can be efficiently computed. 
+properties such that it can be efficiently computed ~\cite{Fox2011ATO}. 
 
 The variational distribution is a function of a set of free parameters that are optimized such that the variational distribution is as close as possible to the 
 actual target posterior distribution where closeness is measured in terms of KL divergence.
