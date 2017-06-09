@@ -1,6 +1,7 @@
 \documentclass[12pt]{report}
 
-\title{Topic modeling bla bla}
+\title{Topic modeling on EU and the USA research projects}
+\author{Maria Iliadi}
 
 \renewcommand{\thesection}{\arabic{section}}
 
@@ -97,7 +98,82 @@ manufacturing process takes place.
 - Synonymy is the capacity for several words to have similar meanings such as
 the words “buy” and “purchase”.
 
-\subsection{The Multinomial Distribution}
+\subsection{Some probability concepts}
+
+\subparagraph{Prior and posterior distributions}
+
+When introducing the Latent Dirichlet Allocation in section 2.x.x, we will be
+using the terms prior and posterior probabilities and likelihood function:
+
+\begin{itemize}
+\item The prior probability distribution of and uncertain quantity is the 
+probability distribution that express the value of this quantity before 
+some evidence is taken into account.
+\item The posterior probability is the conditional probability after some 
+evidence is taken into account.
+\item The likelihood function of a set of parameters given some outcome 
+is equal to the probability of observing said outcome given those 
+parameter values.
+\end{itemize}
+
+If the prior and the posterior distributions are in the same distribution
+family, then the prior and posterior are called conjugate distributions and the
+prior is called a conjugate prior for the likelihood funtion.
+
+Given a prior $p(\theta)$ and observations x with the likelihood 
+$p(x \mid \theta)$, the posterior is defined as:
+
+\begin{equation}
+p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{p(x)}
+\end{equation}
+
+
+\subparagraph{Jensen Inequality}
+
+In the context of probabilities, the Jensen Inequality is stated as follows: 
+If X is a random variable and f a convex function then:
+
+\begin{equation}
+f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)]
+\end{equation}
+
+And, if f is a concave function the inequality turns:
+
+\begin{equation}
+f(\mathbb{E}[X]) \geq \mathbb{E}[f(X)]
+\end{equation}
+
+
+\subparagraph{Kullback-Leibler (KL) divergence}
+
+When formulating the optimization problem in Latent Dirichlet Allocation we 
+will use the KL divergence to express the optimization problem. The KL divergence 
+is a measure of the difference between two probability distributions $P$ and $Q$. 
+It is important to note
+that the KL divergence is not symmetrical in $P$ and $Q$ so it’s not a metric.
+
+The KL divergence can be interpreted as a way to express the amount of 
+information lost when $Q$ is used to approximate $P$.
+
+Given two continuous distributions $P$ and $Q$ the KL divergence is defined as follows:
+
+\begin{equation}
+D_{KL}(P \mid \mid Q) = \int_{-\infty}^{+\infty} p(x) log\frac{p(x)}{q(x)}dx
+\end{equation}
+
+This can also be expressed using the definition of expectation (and expressing the 
+log of a division as difference of log) as:
+
+\begin{equation}
+D_{KL}(P \mid \mid Q) = \mathbb{E}_{p}[log p(x)] - \mathbb{E}_{p}[log q(x)]
+\end{equation}
+
+This is the expression we will use later on instead of the definition. We present 
+now the two probability distributions we will be using when we define the different 
+models in this work: the \textbf{Multinomial} and the \textbf{Dirichlet} distributions. 
+
+
+\subparagraph{Multinomial Distribution}
 
 Once we have a representation for individual documents, the natural next step
 is to select a model for a set of documents. It is important to understand the
@@ -129,6 +205,45 @@ components of $\theta$ are non-negative and have unit $\sum\limits_{j=1}^m
 Like any discrete distribution, a multinomial has to sum to one, where the sum
 is over all possible data points. Here, a data point is a document containing
 $n$ words ~\cite{Huang_maximumlikelihood}.
+
+
+\subparagraph{Dirichlet distribution}
+
+The Dirichlet distribution is a way to model random probability mass functions
+(PMFs)\footnote{If you roll 1000 dice, the theoretical odds of any particular
+number showing up (i.e. a 1, 2, 3, 4, 5, or 6) are 1/6. However, you won’t get
+that exact distribution in a real experiment due to manufacturing defects. If
+you have ten dice, each die will have its own probability mass function (PMF).}
+for finite sets. It is also sometimes used as a prior in Bayesian statistics.
+The Dirichlet is the multivariate generalization of the beta distribution. It
+is an extension of the beta distribution for modeling probabilities for two or
+more events; when the result of the event has only 2 values, the Dirichlet
+distribution is equal to the beta distribution.
+
+The Dirichlet distribution is a prior for the multinomial distribution. This
+means that if the prior distribution of the multinomial parameters is Dirichlet
+then the posterior distribution is also a Dirichlet distribution (with
+parameters different from those of the prior).
+
+The Dirichlet process is a way to model randomness of a probability mass
+function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
+bag). The process is similar Polya’s Urn, only instead of having a set number
+of ball colors you have an unlimited amount:
+
+\begin{itemize}
+\item Start out with an empty urn.
+\item Randomly pick a colored ball and place it in the urn.
+\item Then choose one option:
+\begin{enumerate}
+\item Randomly pick a colored ball and place it in the urn.
+\item Randomly remove a colored ball from the urn, then put it back with another 
+ball of the same color.
+\end{enumerate}
+\end{itemize}
+ 
+As the number of balls in the urn increase, the probability of picking a new
+color decreases. The proportion of balls in the urn after an infinite amount of
+draws is a Dirichlet process.
 
 
 \subsection{Basic models in topic modeling}
@@ -258,49 +373,7 @@ selected topic is chosen from the per-document distribution over topics (step
 2a). All the documents in the corpus share the same set of topics, but each
 document exhibits those topics with different proportion - that’s the
 distinguishing characteristic of LDA. A more detailed explanation of the model
-follows in section 2.3.3.2.
-
-
-\paragraph{Dirichlet distribution}
-
-
-The Dirichlet distribution is a way to model random probability mass functions
-(PMFs)\footnote{If you roll 1000 dice, the theoretical odds of any particular
-number showing up (i.e. a 1, 2, 3, 4, 5, or 6) are 1/6. However, you won’t get
-that exact distribution in a real experiment due to manufacturing defects. If
-you have ten dice, each die will have its own probability mass function (PMF).}
-for finite sets. It is also sometimes used as a prior in Bayesian statistics.
-The Dirichlet is the multivariate generalization of the beta distribution. It
-is an extension of the beta distribution for modeling probabilities for two or
-more events; when the result of the event has only 2 values, the Dirichlet
-distribution is equal to the beta distribution.
-
-
-The Dirichlet distribution is a prior for the multinomial distribution. This
-means that if the prior distribution of the multinomial parameters is Dirichlet
-then the posterior distribution is also a Dirichlet distribution (with
-parameters different from those of the prior).
-
-The Dirichlet process is a way to model randomness of a probability mass
-function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
-bag). The process is similar Polya’s Urn, only instead of having a set number
-of ball colors you have an unlimited amount:
-
-\begin{itemize}
-\item Start out with an empty urn.
-\item Randomly pick a colored ball and place it in the urn.
-\item Then choose one option:
-\begin{enumerate}
-\item Randomly pick a colored ball and place it in the urn.
-\item Randomly remove a colored ball from the urn, then put it back with another 
-ball of the same color.
-\end{enumerate}
-\end{itemize}
- 
-As the number of balls in the urn increase, the probability of picking a new
-color decreases. The proportion of balls in the urn after an infinite amount of
-draws is a Dirichlet process.
-
+follows in section 2.3.3.1.
 
 \paragraph{Model}
 
