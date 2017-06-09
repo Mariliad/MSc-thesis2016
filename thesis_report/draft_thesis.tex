@@ -573,11 +573,99 @@ iterate over every data point in the data set which is computationally
 expensive. The algorithm above has constant memory requirements and empirically
 converges faster than collapsed Gibbs sampling. However, it still requires a
 full pass through the entire corpus in each iteration. It can be slow to apply
-to very large datasets. An online variational inference algorithm is proposed by
-Hoffman et all. ~\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the
-variational posterior over the topic distributions $\beta$. The "online LDA" is
-nearly as simple as the variational algorithm, but converges much faster for
-large datasets.
+to very large datasets.
+
+\paragraph{Online variational LDA}
+
+
+An online variational inference algorithm is proposed by Hoffman et all.
+~\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
+posterior over the topic distributions $\beta$. The "online LDA" is nearly as
+simple as the variational algorithm, but converges much faster for large
+datasets. Variational inference requires to pass through the whole dataset for
+each iteration, and that can be a problem when working with big datasets and is
+not an option to use cases where the data is arriving constantly. The Online
+Variational Inference algorithm aims to solve both problems without compromising
+the quality of the obtained topics and with an algorithm nearly as simple as
+Variational Inference. For this algorithm we will only highlight the differences
+respect the Variational Inference and the resulting algorithm. The key
+difference is the way to fit the variational parameter $\lambda$ respect the
+Variational Inference explained in the previous section.
+
+The $t$-th document (or equivalently a vector of words counts) we perform the
+E-step like Variational inference to find locally optimal values for $\gamma_t$
+and $\phi_t$ while holding $]\lambda$ fixed. And then (the M-step) compute the
+optimal value for $\lambda$ if the whole document corpus consisted of this
+$t$-th document repeated $M$ times (M: the number of documents in the corpus).
+After we have the optimal value of $\lambda$ for the   document, $\lambda$*, we
+update the value of $\lambda$ using a weighted average of its previous value and
+$\lambda_d$∗. The weight given to $\lambda$∗ is given by 
+$\rho_t = (\tau_{0} + t)^{-\kappa}$, with $\kappa \in (0.5, 1]$. 
+$\kappa$ controls the importance we give to most recents values of $\lambda$∗.
+
+In short, we approximate the true distribution by a simple distribution $q$, and
+associate parameters $\phi,\gamma,\lambda$ with the original parameters $z,\theta,
+\beta$ respectively. Recall that $z$ gives the topic assignments for each
+word in each document, $\theta$ gives the topic composition of each document, 
+and $\beta$ gives the word-topic probabilities for each word and each topic.
+
+Our goal is to estimate $\phi, \gamma, \lambda$. In both variational 
+and online variational LDA, we alternate between two steps:
+
+\begin{enumerate}
+\item E-Step: Estimate $\phi, \gamma$ using the current value of $\lambda$
+\item M-Step: Update $\lambda$, using the current value of $\phi$
+\end{enumerate}
+
+Algorithm 2 shows the inference process given a vector of word counts. The
+explicit formulas for $\mathbb{E}_q[log \theta_{tk}]$ and $\mathbb{E}_q[log
+\beta_{kw}]$ are:
+
+\begin{equation}
+\mathbb{E}_q[log \theta_{tk}] = \Psi(\gamma_{tk}) - \Psi(\sum_{i=1}^K \gamma_{ti})
+\end{equation}
+
+\begin{equation}
+\mathbb{E}_q[log \beta_{kw}] = \Psi(\lambda_{kw}) - \Psi(\sum_{i=1}^W \lambda_{ki})
+\end{equation}
+
+Where $\Psi$ denotes the derivative of the logarithm of the gamma function.
+
+
+\begin{algorithm}
+\SetAlgoLined
+Define $\rho_t = (\tau_{0} + t)^{-\kappa}$
+
+Initialize $\lambda$ randomly.
+
+\For{$t = 0 to \infty$}{\label{forins}
+	E step:
+	
+	Initialize $\gamma_{tk} = 1$
+	
+	\Repeat{$\frac{1}{K} \sum_k$ |change in $\gamma_{tk}$| $< 0.00001$}{
+		Set $\phi_{twk} \propto exp${$\mathbb{E}_q[log \theta_{tk}]$ + $\mathbb{E}_q[log\beta_{kw}]$}
+		
+		Set $\gamma_{tk} = \alpha + \sum_w \phi_{twk}n_{tw}$
+	}
+	M step:
+	
+	Compute $\lambda_{kw}* = \eta + Dn_{tw}\phi_{twk}$
+	
+	Set $\lambda = (1 - \rho_t)\lambda + \rho_{t}\lambda*$
+}
+
+We can see that unlike variational LDA, in online LDA we only need to hold a
+small chunk of the data at a time, and once we’re done analyzing it, we never
+need it again. As with batch, once we’ve estimated $\lambda$, we can find the 
+most probable words for each topic by looking at the word probabilities in 
+each row of $\lambda$.
+
+
+\caption{Online Variational Bayes for LDA} 
+\end{algorithm}
+
+
 
 \section{Related work}
 
