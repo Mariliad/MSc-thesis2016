@@ -130,14 +130,6 @@ print("done in %0.3fs." % (time() - t0))
 
 # corpus_lda = lda[objectives_corpus]
 
-
-# for doc in df_all['merged']:
-#     print doc
-#     topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
-#     print topic_doc_list
-#     top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
-#     print top_topic
-#     print
 def get_top_probability(doc):
     topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
     top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
