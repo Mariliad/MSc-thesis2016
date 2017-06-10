@@ -23,6 +23,7 @@ from gensim.parsing.preprocessing import STOPWORDS
 import string
 import logging
 
+# Code for merging into one dataframe all projects from each framework programme
 # df4 = pd.read_pickle('dfs/' + 'FP4')
 # df5 = pd.read_pickle('dfs/' + 'FP5')
 # df6 = pd.read_pickle('dfs/' + 'FP6')
@@ -38,17 +39,9 @@ import logging
 
 # df_all = pd.concat([get_merged_docs(df) for df in [df4, df5] ])
 
-# print objectives.columns
-# print objectives.shape
+# df_all.to_pickle('df_all')
 
-# objectives.to_pickle('df_all')
-# ######################################################3
 df_all = pd.read_pickle('dfs/df_all')
-
-# print df_all.columns
-# print df_all.shape
-# print df_all.head(3)
-# print
 
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
@@ -104,8 +97,6 @@ class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
 
 objectives_corpus = ObjectivesCorpus(df_all['merged'])
 
-# print df_all['merged'].head(1)
-
 t0 = time()
 lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
@@ -115,6 +106,7 @@ lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus,
 
 print("done in %0.3fs." % (time() - t0))
 
+# Code for visualizing topics to Wordclouds
 
 # for t in range(lda.num_topics):
 #     words = dict(lda.show_topic(t, 20))
@@ -125,22 +117,23 @@ print("done in %0.3fs." % (time() - t0))
 #     t = t + 1
 #     plt.title("Topic #" + str(t))
 #     # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-#     plt.savefig('EU' + '_topic' + str(t) + '_all_docs' + '.png')
+#     plt.savefig('eu_all_wordclouds/EU' + '_topic' + str(t) + '_all_docs' + '.png')
 #     plt.close()
 
-# corpus_lda = lda[objectives_corpus]
 
+# Get the probability of the topic with the highest probability for each doc
 def get_top_probability(doc):
     topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
     top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
     return top_topic[1]
 
+# Gret the topic with the highest probability for each doc
 def get_top_topic(doc):
     topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
     top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
     return top_topic[0]
 
-# for doc in df_all['merged']:
+
 df_all['top_prob_topic'] = df_all['merged'].apply(lambda docs: get_top_probability(docs))
 df_all['top_topic'] = df_all['merged'].apply(lambda docs: get_top_topic(docs))
 
