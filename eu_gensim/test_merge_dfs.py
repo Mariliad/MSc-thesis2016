@@ -36,13 +36,13 @@ import logging
 #     df1 = df[['merged', 'framework_programme']]
 #     return df1
 
-# objectives = pd.concat([get_merged_docs(df) for df in [df4, df5, df6, df7, df20] ])
+# df_all = pd.concat([get_merged_docs(df) for df in [df4, df5] ])
 
 # print objectives.columns
 # print objectives.shape
 
 # objectives.to_pickle('df_all')
-
+# ######################################################3
 df_all = pd.read_pickle('dfs/df_all')
 
 # print df_all.columns
@@ -130,15 +130,28 @@ print("done in %0.3fs." % (time() - t0))
 
 # corpus_lda = lda[objectives_corpus]
 
-l_merged = df_all['merged'].tolist()
 
+# for doc in df_all['merged']:
+#     print doc
+#     topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
+#     print topic_doc_list
+#     top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
+#     print top_topic
+#     print
+def get_top_probability(doc):
+    topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
+    top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
+    return top_topic[1]
 
-for i in range(2):
-    print l_merged[i]
-    print lda.get_document_topics(l_merged[i])
-    print lda.get_document_topics(l_merged[i], per_word_topics=True)
+def get_top_topic(doc):
+    topic_doc_list = lda.get_document_topics(objectives_dictionary.doc2bow(doc))
+    top_topic = sorted(topic_doc_list,key=lambda x: x[1], reverse=True)[0]
+    return top_topic[0]
 
+# for doc in df_all['merged']:
+df_all['top_prob_topic'] = df_all['merged'].apply(lambda docs: get_top_probability(docs))
+df_all['top_topic'] = df_all['merged'].apply(lambda docs: get_top_topic(docs))
 
+print df_all.shape
 
-# # ************************************
-# # get_document_topics ???
+df_all.to_pickle('dfs/df_topics')
