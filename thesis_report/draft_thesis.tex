@@ -14,7 +14,7 @@
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{algorithm2e}
-
+\usepackage{url}
 
 \begin{document}
 
@@ -63,7 +63,7 @@ vector is $x$ then its $j$-th component $x_j$ is the number of appearances of
 word $j$ in the document. The length of the document is $n=\sum\limits_{j=1}^m
 x^j$.
 
-Many applications of if topic modeling also eliminate from the vocabulary so-
+Many applications of topic modeling also eliminate from the vocabulary so-
 called “stop” words. These are words that are common in most documents and do
 not correspond to any particular subject matter. They include pronouns (you,
 he, it), connectives (and, because, however), prepositions (to, of, before),
@@ -176,18 +176,23 @@ models in this work: the \textbf{Multinomial} and the \textbf{Dirichlet} distrib
 \subparagraph{Multinomial Distribution}
 
 Once we have a representation for individual documents, the natural next step
-is to select a model for a set of documents. It is important to understand the
-difference between a representation and a model. A representation is a way of
-encoding an entity as a data structure. A model is an abstraction of a set of
-entities, for example a probability distribution. Given a training set of
+is to select a model for a set of documents. Given a training set of
 documents, we will choose values for the parameters of a probabilistic model
 that make the training documents have high probability. Then, given a test
 document, we can evaluate its probability according to the model. The higher
 this probability is, the more similar the test document is to the training set.
 
 
-The probability distribution that we use is the multinomial. Mathematically,
-this distribution is:
+The probability distribution that we use is the multinomial. In probability 
+theory, the multinomial distribution is a generalization of the binomial 
+distribution. For example, it models the probability of counts for rolling 
+a k-sided dice n times. For n independent trials each of which leads to a 
+success for exactly one of k categories, with each category having a given 
+fixed success probability, the multinomial distribution gives the 
+probability of any particular combination of numbers of successes for the 
+various categories \footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}. 
+
+Mathematically, this distribution is: 
 
 \begin{equation}
 p(x;\theta) = \left(\frac{n!}{\prod\limits_{j=1}^m x^j!}\right)\left
@@ -200,7 +205,7 @@ Intuitively, $\theta_j$ is the probability of word $j$ while $x_j$ is the count
 of word $j$. Each time word $j$ appears in the document it contributes an amount
 $\theta_j$ to the total probability, hence the term $\theta_j^{x_j}$. The
 components of $\theta$ are non-negative and have unit $\sum\limits_{j=1}^m
-\theta_j = 1$. A vector with these properties is called a unit vector.
+\theta_j = 1$.
 
 Like any discrete distribution, a multinomial has to sum to one, where the sum
 is over all possible data points. Here, a data point is a document containing
@@ -227,7 +232,7 @@ parameters different from those of the prior).
 
 The Dirichlet process is a way to model randomness of a probability mass
 function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
-bag). The process is similar Polya’s Urn, only instead of having a set number
+bag). The process is similar Polya’s Urn \footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
 of ball colors you have an unlimited amount:
 
 \begin{itemize}
