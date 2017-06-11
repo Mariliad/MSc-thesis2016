@@ -42,7 +42,8 @@ import logging
 # print dfusa.shape
 
 # dfusa.to_pickle('pickle_data/df_usa_all')
-dfusa = pd.read_pickle('pickle_data/df_usa_all')
+
+dfusa = pd.read_pickle('pickle_data/dfUSA')
 
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
@@ -113,7 +114,7 @@ for t in range(lda.num_topics):
     t = t + 1
     plt.title("Topic #" + str(t))
     # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(i) + '_' + str(iterations) + '.png')
-    plt.savefig('USA' + '_topic' + str(t) + '_8000.png')
+    plt.savefig('usa_all_wordclouds/USA' + '_topic' + str(t) + '_8000_all_docs.png')
     plt.close()
 
 def get_top_probability(doc):
@@ -132,4 +133,4 @@ dfusa['top_topic'] = dfusa['merged'].apply(lambda docs: get_top_topic(docs))
 
 print dfusa.shape
 
-dfusa.to_pickle('df_usa_topics')
+dfusa.to_pickle('pickle_data/df_usa_topics')
