@@ -9,7 +9,7 @@
 \setcounter{tocdepth}{4}
 
 \setlength{\parskip}{1em}
-
+\usepackage[justification=centering]{caption}
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{cite}
@@ -44,7 +44,7 @@ for organization, finding similar documents, or any other similar tasks. A
 topic is here defined as a probability distribution of words, meaning that
 certain words are more likely within a certain topic. Since the topics emerge
 from the analysis of the original texts, topic modeling algorithms do not
-require any prior annotations or labeling of the documents.
+require any prior annotations or labeling of the documents.\cite{Blei:2012:PTM:2133806.2133826}
 
 In order to apply a topic model to our data, the first question we must answer
 is how to represent documents. For understanding of natural language one must
@@ -73,37 +73,36 @@ is represented as a two-dimensional matrix where each row describes a document
 and each column corresponds to a word. Each entry in this matrix is an integer
 count; most entries are zero. It makes sense to view each column as a feature.
 
-Some further common concepts and terms in topic modeling:
-
-- A word is defined as an item from a vocabulary indexed from ${1, ..., V}$,
-where V is the size of the vocabulary. All words are represented as unit-basis
-vectors with one component equal to one and the rest equal to zero.
-
-- A document is a collection of words denoted by $w = {w_1, ..., w_N}$, where
-$w_n$ is the $n$th word and $N$ is the total number of words in the collection.
-
-- A corpus is a collection of documents in a dataset. It is denoted $D = {w_1,
-..., w_M}$, where $w_m$ is the $m$th document in the corpus and $M$ is the
-total number of documents.
-
-- Latent variables are variables that may not be directly observed, unlike
-observable variables. Latent variables can instead be inferred from other
-observable variables.
-
-- Polysemy is the capacity for a word to have multiple related meanings. An
-example of this is the word “plant” which can mean a living organism of the
-kind exemplified by trees, herbs etc., or a place where an industrial or
+Some further common concepts and terms in topic modeling: 
+\begin{itemize}
+\item[] A \textit{word} is defined as an item from a vocabulary indexed from 
+${1, ..., V}$, where V is the size of the vocabulary. All words are 
+represented as unit-basis vectors with one component equal to one and 
+the rest equal to zero.
+\item[] A \textit{document} is a collection of words denoted by $w = {w_1, ..., w_N}$, 
+where $w_n$ is the $n$th word and $N$ is the total number of words in the 
+collection.
+\item[] A \textit{corpus} is a collection of documents in a dataset. It is denoted 
+$D = {w_1,..., w_M}$, where $w_m$ is the $m$th document in the corpus and 
+$M$ is the total number of documents.
+\item[] \textit{Latent variables} are variables that may not be directly observed, 
+unlike observable variables. Latent variables can instead be inferred 
+from other observable variables.
+\item[] \textit{Polysemy} is the capacity for a word to have multiple related meanings. 
+An example of this is the word “plant” which can mean a living organism of 
+the kind exemplified by trees, herbs etc., or a place where an industrial or
 manufacturing process takes place.
-
-- Synonymy is the capacity for several words to have similar meanings such as
+\item[] \textit{Synonymy} is the capacity for several words to have similar meanings such as
 the words “buy” and “purchase”.
+\end{itemize}
 
 \subsection{Some probability concepts}
 
 \subparagraph{Prior and posterior distributions}
 
-When introducing the Latent Dirichlet Allocation in section 2.x.x, we will be
-using the terms prior and posterior probabilities and likelihood function:
+When introducing the Latent Dirichlet Allocation in section 2.2.3, we 
+will be using the terms prior and posterior probabilities and 
+likelihood function:
 
 \begin{itemize}
 \item The prior probability distribution of and uncertain quantity is the 
@@ -190,7 +189,7 @@ a k-sided dice n times. For n independent trials each of which leads to a
 success for exactly one of k categories, with each category having a given 
 fixed success probability, the multinomial distribution gives the 
 probability of any particular combination of numbers of successes for the 
-various categories \footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}. 
+various categories\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}. 
 
 Mathematically, this distribution is: 
 
@@ -209,7 +208,7 @@ components of $\theta$ are non-negative and have unit $\sum\limits_{j=1}^m
 
 Like any discrete distribution, a multinomial has to sum to one, where the sum
 is over all possible data points. Here, a data point is a document containing
-$n$ words ~\cite{Huang_maximumlikelihood}.
+$n$ words.\cite{Huang_maximumlikelihood}
 
 
 \subparagraph{Dirichlet distribution}
@@ -232,7 +231,7 @@ parameters different from those of the prior).
 
 The Dirichlet process is a way to model randomness of a probability mass
 function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
-bag). The process is similar Polya’s Urn \footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
+bag). The process is similar Polya’s Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
 of ball colors you have an unlimited amount:
 
 \begin{itemize}
@@ -262,8 +261,8 @@ semantic space. Furthermore, a word that can mean two or more different things
 is represented as a weighted average of the different meanings.
  
 After LSI was introduced, Hofmann presented the Probabilistic Latent Semantic
-Indexing, or PLSI model. PLSI is a so-called topic model where each word in a
-document is generated from a single “topic” which results in that each document
+Indexing, or PLSI model. PLSI is a topic model where each word in a
+document is generated from a single topic which results in that each document
 in a corpus can be represented with a topic distribution. Later, in 2003 Blei et
 al. presented the Latent Dirichlet Allocation, or LDA. As opposed to PLSI, LDA
 is a statistically generative model for documents where each word in a document
@@ -272,20 +271,20 @@ can be generated by all topics.
 \subsubsection{Latent Semantic Indexing (LSI)}
 
 Latent Semantic Indexing was one of the earliest methods for finding
-relationships between documents and the words that occur in them. In LSI a
+relationships between documents and the words that occur in them.\cite{Deerwester90indexingby} In LSI a
 term-document matrix is created by analyzing the corpus, where the rows
 correspond to words and columns to documents. Each element in this sparse
 matrix describes the number of times a word occurs in a document but this term
 count can also be weighted with for instance TF-IDF. Letting each word
 represent a dimension in a very high dimensional space, a document can be seen
-as a vector with components corresponding to its weighted term counts ~\cite{Deerwester90indexingby}.
+as a vector with components corresponding to its weighted term counts.
+\cite{Salton:1988:TAA:54259.54260}
 
 A low-rank approximation of the term-document matrix is created using Single
 Value Decomposition, SVD, which creates new dimensions, called concepts, as
 linear combinations of the original words. This allows similarity measures and
 clustering methods by reducing the volume of the word space and thus making
 this space more densely populated.
-
 
 The drawbacks with LSI are mainly the lack of a statistical foundation in the
 model. LSI is based on linear algebra instead of probabilistic modeling leaving
@@ -298,31 +297,36 @@ it with a small toolbox for what can be achieved using the model.
 Probabilistic Latent Semantic Indexing evolved from LSI and uses the same
 concept of finding a lower rank approximation of the term-document occurrence
 matrix. The difference is that instead of being based on linear algebra, PLSI
-is based on a mixture decomposition using a latent class model 
-~\cite{Hofmann:1999:PLS:312624.312649}. PLSI associates
-an unobserved class variable $z$ with each document-word observation pair $(w,
+is based on a mixture decomposition using a latent class model.
+~\cite{Hofmann:1999:PLS:312624.312649} PLSI associates an unobserved class 
+variable $z$ with each document-word observation pair (\textbf{w},$
 w)$. This $z$ can be seen as a topic, since it is a probability distribution
-over words. As a generative model, PLSI can be defined in the following way for
-a corpus $D$:
+over words. As a generative model, PLSI can be defined in the following way 
+for a corpus $D$:
 
 \begin{enumerate}
-\item Pick a document $w$ with probability $p(w)$
-\item For each of the $N$ words in $w$:
+\item Pick a document \textbf{w} with probability $p($\textbf{w}$)$
+\item For each of the $N$ words in \textbf{w}:
 \begin{description}
-\item (a) Pick a topic $z$ with probability $p(z|w)$
+\item (a) Pick a topic $z$ with probability $p(z|$\textbf{w}$)$
 \end{description}
 \begin{description}
 \item (b) Generate a word $w$ with probability $p(w|z)$
 \end{description}
 \end{enumerate}
-
-
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth, natwidth=548,natheight=201]{figs/PLSI_plate_notation.png}
+\caption{Plate notation representing the PLSI model. \textbf{w} is the document index, $z$ is the topic drawn for the word $w$ from the topic distribution of the document}
+\end{figure}
+\end{center}
 The result from PLSI is that every document is represented as mixing proportions
-for the topics, given by $p(z|w)$. Even though PLSI is generative for the
-analyzed corpus, it is not generative for new documents, which means is that
+for the topics, given by $p(z|$\textbf{w}$)$. Even though PLSI is generative for 
+the analyzed corpus, it is not generative for new documents, which means is that
 there is no clear way of assigning probability to a document that is not part
-of the training data. Another problem is that the number of parameters in the
-model grows linearly with the number of documents.
+of the training data.\cite{blei2003latent} Another problem is that the number 
+of parameters in the model grows linearly with the number of documents.
 
 
 \subsubsection{Latent Dirichlet Allocation (LDA)}
@@ -334,15 +338,17 @@ model that allows sets of observations to be explained by unobserved groups
 that explain why some parts of the data are similar. For example, if
 observations are words collected into documents, it posits that each document
 is a mixture of a small number of topics and that each word's occurrence is
-attributable to one of the document's topics. This is similar to PLSI, except
-that in LDA the topic distribution is assumed to have a Dirichlet prior (see
-2.3.3.1). In practice, this results in more reasonable mixtures of topics in a
+attributable to one of the document's topics.\cite{Blei:2012:PTM:2133806.2133826}
+
+This is similar to PLSI, except
+that in LDA the topic distribution is assumed to have a Dirichlet prior. 
+In practice, this results in more reasonable mixtures of topics in a
 document. The reduced document description result in PLSI is a vector where
 each element describes the mixing proportion for a topic. A limitation with
 PLSI is that there is no generative model for these proportions, making it
 difficult to handle unseen documents. The Latent Dirichlet Allocation model
 tries to solve this limitation by setting a Dirichlet prior on the topic
-distribution ~\cite{blei2003latent}.
+distribution.\cite{blei2003latent}
  
 Suppose that we have a collection of documents, and we want to find an
 organization for these, i.e. we want to do unsupervised learning. A common way
@@ -354,22 +360,22 @@ some refinement of this principle such as maximum a posterior probability.
  
 The basic idea in LDA is that we define a topic to be a Dirichlet distribution
 over a fixed vocabulary. Technically, the model assumes that the topics are
-generated first, before the documents ~\cite{Blei11introductionto}. Now for each document in the collection,
-we generate the words in a two-stage process:
+generated first, before the documents.\cite{Blei11introductionto} Now for 
+each document in the collection, we generate the words in a two-stage process:
 
+\begin{algorithm}[H]
+\SetAlgoNoLine
+1. Randomly choose a distribution over topics.
 
-\begin{enumerate}
-\item Randomly choose a distribution over topics.
-\item For each word in the document:
-\begin{description}
-	\item (a) Randomly choose a topic from the distribution over topics in step 1.
-\end{description}
-\begin{description}
-	\item (b) Randomly choose a word from the corresponding distribution over the 
-	vocabulary.
-\end{description}
-\end{enumerate}
-
+2. 
+\For{each word in the document}{
+	(a) Randomly choose a topic from the distribution over topics in 
+	step 1
+	
+	(b) Randomly choose a word from the corresponding distribution over 
+	the vocabulary
+}
+\end{algorithm}
 
 This statistical model reflects the intuition that documents exhibit multiple
 topics. Each document exhibits the topics with different proportion (step 1);
@@ -378,32 +384,49 @@ selected topic is chosen from the per-document distribution over topics (step
 2a). All the documents in the corpus share the same set of topics, but each
 document exhibits those topics with different proportion - that’s the
 distinguishing characteristic of LDA. A more detailed explanation of the model
-follows in section 2.3.3.1.
+follows in section 2.2.3.1.
 
 \paragraph{Model}
 
 LDA is a probabilistic model of text documents, which assumes a collection of 
 K topics. Each topic defines a multinomial distribution over the vocabulary 
 and is assumed to have been drawn from a Dirichlet 
-$\beta_k \sim Dirichlet(\eta)$. 
+$\beta_k \sim Dirichlet(\eta)$.
 
 In LDA, each document is represented by a mixture of the topics, with weight
 $\theta_w^2$ for topic $z$ in document $w$. These weight have a Dirichlet prior,
 parameterized by a hyper-parameter $\alpha$. Each topic is a probability
 distribution over the vocabulary, with probability $\beta^w_z$ for word $w$ in
-topic $z$.
- 
-For each document $w$, in corpus $D$, the LDA generative process is as follows:
+topic $z$. We define the following variables and notation:
+\begin{itemize}
+  \item[] $k$ is the number of topics.
+  \item[] $V$ is the number of unique words in the vocabulary.
+  \item[] $\theta$  is the topic distribution (of length $k$) for a document,
+   drawn from a uniform Dirichlet distribution with parameter $\alpha$.
+  \item[] $z_{n}$ is a topic assignment for $word w_{n}$, sampled from 
+  $p(z_{n} = i|\theta) = \theta_{i}$.
+  \item[] \textbf{w}$ = (w_{1}, ... , w_{N})$ is a document with $N$ words.
+  \item[] $w_{n}^{i} = 1$ means that the word $w_{n}$ is the $i$-th word 
+  of the vocabulary.
+  \item[] $\beta$  is a $k \times V$ matrix, where each row $\beta_{i}$ 
+  is the multinomial distribution for the $i$-th topic. That is, 
+  $\beta_{ij} = p(w^{j} = 1 | z_{j} = i)$.
+\end{itemize}
 
-\begin{enumerate}
-	\item Draw topic distribution $\theta_w \sim Dir(\alpha)$
-	\item For each of the $N$ words $w_n$:
-	\begin{description}
-	\item (a) Draw a specific topic $z_n \sim Multinomial(\theta)$
-	\item (b) Draw a word $w_n \sim Multinomial(\beta_{zn})$
-	\end{description}
-\end{enumerate}
+For each document $w$, in corpus $D$, the LDA generative process is as follows, 
+with corresponding plate notation in Figure 2:
 
+\begin{algorithm}[H]
+\SetAlgoNoLine
+1. Draw topic distribution $\theta_w \sim Dir(\alpha)$
+
+2. 
+\For{each of the $N$ words $w_n$}{
+	(a) Draw a specific topic $z_n \sim Multinomial(\theta)$
+	
+	(b) Draw a word $w_n \sim Multinomial(\beta_{zn})$
+}
+\end{algorithm}
 
 As seen in step 1, each document contains topics in different proportions,
 determined by the scaling parameter $\alpha$. The individual words are drawn
@@ -430,19 +453,17 @@ distribution $\theta$ for this new document.
 A limitation with the standard LDA model is the fix vocabulary. This means that
 new words cannot enter the model and that you have to know a priori what words
 will model the corpus effectively. A setting where this could be problematic is
-when analyzing twitter data where new words in the form of slang, names and
-hashtags emerge over time. Another limitation is the fact that one has to state
+when analyzing data where new words in the form of slang or names emerge over 
+time. Another limitation is the fact that one has to state
 the number of topics the model should use. This is not a big issue, but could
 lead to some of the resulting topics to be insignificant.
-
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{LDA_standard_model.png}
+\includegraphics[width=0.6\textwidth, natwidth=561,natheight=197]{figs/LDA_standard_model.png}
 \caption{Plate notation of the standard LDA model}
 \end{figure}
 \end{center}
-
 
 \paragraph{Expectation Maximization}
 
@@ -450,8 +471,8 @@ The Expectation Maximization, or EM, algorithm is an approach to deriving an
 algorithm for approximately obtaining maximum likelihood of variables in a
 statistical model. Normally one obtains a maximum likelihood solution by taking
 partial derivatives of the likelihood function with respect to all variables,
-setting these derivatives to zero and solving the equations simultaneously 
-~\cite{Myung:2003}.
+setting these derivatives to zero and solving the equations simultaneously.
+\cite{Myung:2003}
 
 Due to latent variables it is not always possible to solve the equations
 directly and instead one typically gets two sets of equations that depend on
@@ -491,15 +512,14 @@ with regard to the parameters:
 Learning the various distributions (the set of topics, their associated word
 probabilities, the topic of each word, and the particular topic mixture of each
 document) is a problem of Bayesian inference. In the original paper it's being
-used a variational Bayes approximation of the posterior distribution;
-~\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
+used a variational Bayes approximation of the posterior distribution;\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
 expectation propagation. The goal of variational inference is to approximate an
 intractable probability distribution $p$, with a tractable one $q$, in a way
 that makes them as close as possible given a similarity measure. In this thesis,
 variational inference is used to approximate the posterior distribution of
 latent variables. A new distribution over the hidden variables $q(z, \beta)$
 (called the variational distribution) is  introduced. This new distribution has
-properties such that it can be efficiently computed ~\cite{Fox2011ATO}. 
+properties such that it can be efficiently computed.\cite{Fox2011ATO}
 
 The variational distribution is a function of a set of free parameters that are optimized such that the variational distribution is as close as possible to the 
 actual target posterior distribution where closeness is measured in terms of KL divergence.
@@ -583,8 +603,7 @@ to very large datasets.
 \paragraph{Online variational LDA}
 
 
-An online variational inference algorithm is proposed by Hoffman et all.
-~\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
+An online variational inference algorithm is proposed by Hoffman et all.\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
 posterior over the topic distributions $\beta$. The "online LDA" is nearly as
 simple as the variational algorithm, but converges much faster for large
 datasets. Variational inference requires to pass through the whole dataset for
