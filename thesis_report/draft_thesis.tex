@@ -435,10 +435,21 @@ within a topic is parameterized by a $k \times V$ matrix , where $V$ is the
 size of the specified vocabulary. The most probable words in each topic could
 be used to identify the topic and gives an intuitive description for the topic.
 
-We can analyze a corpus of documents with LDA by examining the posterior
-distribution of topics $\beta$, topic proportions $\theta$ and topic
-assignments $z$ conditioned on the documents. This reveals latent structure in
-the collection that can be used for prediction or data exploration. This
+We can see that this does in fact generate a document based on the topic 
+mixture $\theta$, the topic-word assignments $z$, and the probability 
+matrix $\beta$. Then, we can analyze a corpus of documents with LDA by 
+examining $\beta$, which is the posterior distribution of topics, $\theta$ 
+and $z$ conditioned on the documents. This reveals latent structure in
+the collection that can be used for prediction or data exploration. 
+
+Hence, we observe the document, and must infer the latent topic mixture 
+$\theta$ and topic-word assignments $z$. LDA aims to infer:
+
+\begin{equation}
+p(\theta, \textbf{z} |\textbf{w}, \alpha, \beta)
+\end{equation}
+
+This
 posterior can't be computed directly; it is usually approximated using Markov
 Chain Monte Carlo (MCMC) or variational inference. Both methods are effective,
 but also present significant computational challenges in large data sets
@@ -481,38 +492,25 @@ values for the latent variables in the first set of equations, use the result
 in the second set of equations, and then alternate between the two sets until
 convergence.
 
-Consider a statistical model accompanied by a set of observed data $X$, a set of
-latent data $Z$, a set of latent variables $\theta$ and a likelihood function
-$L(\theta \mid X, Z)$. The marginal likelihood of the observed data is then
+The general idea behind the Expectation-Maximization algorithm is this:
 
-\begin{equation}
-L(\theta \mid X) = p(X \mid \theta) = \sum\limits_{Z} p(X, Z \mid \theta)
-\end{equation}
+\begin{enumerate}
+\item Start with an initial estimate of what each parameter might be.
+\item \textbf{E step}: Compute the likelihood that each parameter produces 
+the data point.
+\item Calculate weights for each data point based on the likelihood of it 
+being produced by a parameter.
+\item \textbf{M step}: Combine these weights together with the data to 
+compute a better estimate for the parameters.
+\item Repeat steps 2 to 4 until the parameter estimate converges.
+\end{enumerate}
 
-which determines the maximum likelihood estimate of the latent variables. The
-sum is however often intractable and the EM algorithm solves this problem by
-iterating the following two steps:
-
-\begin{itemize}
-\item \textbf{Expectation step (E - step)}: For the current estimate of the 
-parameters $\theta^t$, calculate the expected value of the log likelihood function:
-\begin{equation}
-Q(\theta \mid \theta^t) \leftarrow \mathbb{E}_{Z \mid X, \theta^t}
- [\log(L(\theta \mid X, Z))]
-\end{equation}
-\item \textbf{Maximization step (M - step)} Maximize the expected value function 
-with regard to the parameters:
-\begin{equation}
-\theta^{t + 1} \leftarrow arg \max\limits_{\theta} Q(\theta \mid \theta^t)
-\end{equation}
-\end{itemize}
 
 \paragraph{Variational Inference}
 
-Learning the various distributions (the set of topics, their associated word
-probabilities, the topic of each word, and the particular topic mixture of each
-document) is a problem of Bayesian inference. In the original paper it's being
-used a variational Bayes approximation of the posterior distribution;\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
+In LDA, our ultimate goal is to find the posterior distribution of latent topic variables after observing training data. However, computing this distribution is intractable, so we’re forced to approximate. One approximation approach is to 
+use an optimization method called Variational Bayes. In the original paper it's 
+being used a variational Bayes approximation of the posterior distribution;\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
 expectation propagation. The goal of variational inference is to approximate an
 intractable probability distribution $p$, with a tractable one $q$, in a way
 that makes them as close as possible given a similarity measure. In this thesis,
@@ -521,81 +519,72 @@ latent variables. A new distribution over the hidden variables $q(z, \beta)$
 (called the variational distribution) is  introduced. This new distribution has
 properties such that it can be efficiently computed.\cite{Fox2011ATO}
 
-The variational distribution is a function of a set of free parameters that are optimized such that the variational distribution is as close as possible to the 
-actual target posterior distribution where closeness is measured in terms of KL divergence.
-Minimizing the KL divergence between the variational distribution and the target
-posterior is equivalent to maximizing the Evidence Lower BOund (ELBO) which is
+In short, we approximate the true distribution by a simple distribution $q$, and associate parameters $\phi$, $\gamma$, $\lambda$ with the original parameters 
+$z$, $\theta$, $\beta$ respectively. Recall that $z$ gives the topic assignments 
+for each word in each document, $\theta$ gives the topic composition of each 
+document, and $\beta$ gives the word-topic probabilities for each word and each 
+topic. The variational distribution is a function of a set of free parameters that 
+are optimized such that the variational distribution is as close as possible to 
+the actual target posterior distribution where closeness is measured in terms of 
+KL divergence.
 
+Specifically, we have:
 \begin{equation}
-L(q) = E_q [log p(x, z, \beta)] -  E_q [log q(z, \beta)]  
+q(z_{di}=k) = \phi_{dw_{di}k}
 \end{equation}
-
-The variational distribution has the property that it can be efficiently
-computed. This is done by making each hidden variable independent of each other.
-
 \begin{equation}
-q(z, \beta) = q(\beta \mid \lambda) \prod\limits_{n=1}^N \prod\limits_{j=1}^J q(z_{nj} \mid \phi_{nj})   
+q(\theta_{d}) = dirichlet(\theta_{d}; \gamma_{d})
+\end{equation}
+\begin{equation}
+q(\beta_{k}) = dirichlet(\beta_{k}; \lambda_{k})
 \end{equation}
 
 The posterior over the per-word topic assignments $z$ is parameterized by
 $\phi$, the posterior over per-document topic weights $\theta$ is parameterized
 by $\gamma$, and the posterior over the topics $\beta$ is parameterized by
-$\lambda$. Furthermore, each hidden variable is governed by its own variational
-parameter so the variational parameters $\lambda$ governs the global variables
-$\beta$ and the variational parameters $\phi_n$ govern the local variables $z_n
-q(\beta \mid \lambda)$ and $q(z_{nj} \mid \phi_{nj})$ take the same form as the
-complete conditionals $p(\beta \mid x, z, \alpha)$ and $p(z_{nj} \mid x_n, z_{n,
--j}, \beta)$, but the natural parameters are now $\lambda$ and $\phi_{nj}$,
-respectively to give
+$\lambda$. 
 
-\begin{equation}
-q(\beta \mid \lambda) = h(\beta) exp(\lambda^T t(\beta) - \alpha_g(\lambda))
-\end{equation}
-\begin{equation}
-q(z_{nj} \mid \phi_{nj}) = h(z_{nj}) exp(\phi_{nj}^T t(z_{nj}) - \alpha_l(\phi_{nj}))
-\end{equation}
+Our goal is to estimate $\phi$, $\gamma$ and $\lambda$. In both VB and 
+online VB LDA, we alternate between two steps:
+\begin{enumerate}
+\item E-Step: Estimate $\phi$, $\gamma$ using the current value of $\lambda$
+\item M-Step: Update $\lambda$, using the current value of $\phi$
+\end{enumerate}
 
-Where $h(.)$ is called the base measure, $\alpha(.)$ is called the log-
-normalizer, $\eta(.)$ is called the natural parameter, and $t(.)$ is called the
-sufficient statistics. Furthermore, we also assume that the prior distribution
-over $\beta$ is part of the exponential family. We maximize the ELBO objective
-function with a coordinate ascent procedure. We find its gradient with respect
-to the global variational parameter $\lambda$ and find the value of $\lambda$
-that sets the gradient to zero. We do the same thing for the local parameters
-$\phi_n$. We iterate between these updates until we converge to the maximum of
-the ELBO. The updates are given without proof, but the general procedure is to
-write the ELBO in terms of parameter of interest (either $\lambda$ or $\phi_n$)
-then take the gradient and set it to zero.
+In Variational Bayes, we perform multiple passes over the entire dataset, 
+checking each time for convergence. During each pass, the algorithm does an 
+E-Step using the entire dataset and an M-Step, which updates $\lambda$ using 
+$\phi$ values from every document. At a high level:
 
-\begin{equation}
-\lambda = E_q[\eta_g(x, z, \alpha)]
-\end{equation}
-\begin{equation}
-\phi_{nj} = E_q[\eta_l(x_n, z{n, -j}, \beta)]
-\end{equation}
+\begin{algorithm}
+\SetAlgoNoLine
+E Step:
 
-Therefore the updates of each variational parameter are equal to the expected
-value of the natural parameters of the complete conditionals. A simple outline 
-of the algorithm ~\cite{alexminnar} is given below
-
-
-\begin{algorithm}[H] 
-\SetAlgoLined
-
-Initialize $\lambda^{(0)}$ randomly.
-\Repeat{the ELBO converges}{
-	\For{each local variational parameter $\phi_{nj}$}{\label{forins}
-		Update $\phi_{nj}^{(t)} = \mathbb{E}_{q^{(t - 1)}}[\eta_{l,j}(x_n, z_{n,-j}, \beta)]$.
-	}
-	Update the global variational parameters, $\lambda^{(t)} = \mathbb{E}_{q^{(t)}}[\eta_g (z_{1:N}, x_{1:N})]$.
+\For{$d = 1$ to $numDocs$}{
+	initialize $\gamma$
+    
+    \Repeat{change in $\phi < \epsilon$}{
+        update $\phi$
+        update $\gamma$
+     }
 }
-\caption{Variational Bayes for LDA} 
+M Step:
+
+update $\lambda$
 \end{algorithm}
 
-
-As you can see, in the local parameter update (in the $for$ loop), we have to
-iterate over every data point in the data set which is computationally
-expensive. The algorithm above has constant memory requirements and empirically
+The specific updates are:
+\begin{equation}
+\phi_{d,word_{i},k} \propto e^{E_{q}(log \theta_{d,k})+E_{q}(log\beta_{k,word_{i}})}
+\end{equation}
+\begin{equation}
+\gamma_{d,k} = \alpha + \sum_{word_{i}}\phi_{d,word_{i},k}n_{d,word_{i}}
+\end{equation}
+\begin{equation}
+\lambda_{k,word_{i}}=\eta +\sum_{d}n_{d,word_{i}}\phi_{d,word_{i},k}
+\end{equation}
+Where $n_{d,word_{i}}$ is the number of occurrences of $word_{i}$ in document $d$.
+The algorithm above has constant memory requirements and empirically
 converges faster than collapsed Gibbs sampling. However, it still requires a
 full pass through the entire corpus in each iteration. It can be slow to apply
 to very large datasets.
@@ -616,20 +605,9 @@ respect the Variational Inference and the resulting algorithm. The key
 difference is the way to fit the variational parameter $\lambda$ respect the
 Variational Inference explained in the previous section.
 
-The $t$-th document (or equivalently a vector of words counts) we perform the
-E-step like Variational inference to find locally optimal values for $\gamma_t$
-and $\phi_t$ while holding $]\lambda$ fixed. And then (the M-step) compute the
-optimal value for $\lambda$ if the whole document corpus consisted of this
-$t$-th document repeated $M$ times (M: the number of documents in the corpus).
-After we have the optimal value of $\lambda$ for the   document, $\lambda$*, we
-update the value of $\lambda$ using a weighted average of its previous value and
-$\lambda_d$∗. The weight given to $\lambda$∗ is given by 
-$\rho_t = (\tau_{0} + t)^{-\kappa}$, with $\kappa \in (0.5, 1]$. 
-$\kappa$ controls the importance we give to most recents values of $\lambda$∗.
-
 In short, we approximate the true distribution by a simple distribution $q$, and
 associate parameters $\phi,\gamma,\lambda$ with the original parameters $z,\theta,
-\beta$ respectively. Recall that $z$ gives the topic assignments for each
+\beta$ respectively, as in VB. Recall that $z$ gives the topic assignments for each
 word in each document, $\theta$ gives the topic composition of each document, 
 and $\beta$ gives the word-topic probabilities for each word and each topic.
 
@@ -641,54 +619,39 @@ and online variational LDA, we alternate between two steps:
 \item M-Step: Update $\lambda$, using the current value of $\phi$
 \end{enumerate}
 
-Algorithm 2 shows the inference process given a vector of word counts. The
-explicit formulas for $\mathbb{E}_q[log \theta_{tk}]$ and $\mathbb{E}_q[log
-\beta_{kw}]$ are:
+In online Variational Bayes, we only make a single sweep of the entire dataset, analyzing a chunk of documents at a time. A chunk could be a single document, 
+50 documents, or even the entire dataset. Let’s let a chunk be 1000 documents.
 
-\begin{equation}
-\mathbb{E}_q[log \theta_{tk}] = \Psi(\gamma_{tk}) - \Psi(\sum_{i=1}^K \gamma_{ti})
-\end{equation}
-
-\begin{equation}
-\mathbb{E}_q[log \beta_{kw}] = \Psi(\lambda_{kw}) - \Psi(\sum_{i=1}^W \lambda_{ki})
-\end{equation}
-
-Where $\Psi$ denotes the derivative of the logarithm of the gamma function.
-
+The online E-Step only uses the current chunk; instead of holding all the 
+documents we now only have to hold 1000 in memory. The E-Step finds locally 
+optimal values for $\phi$ and $\gamma$, while in the M-Step, we first compute 
+$\lambda^{*}$, which is the value of $\lambda$ if we imagined that the entire 
+dataset is made up of $\frac{numDocs}{chunkSize}$ copies of the current chunk. 
+Then $\lambda$ is updated using a weighted sum of $\lambda^{*}$ and $\lambda$:
 
 \begin{algorithm}
-\SetAlgoLined
-Define $\rho_t = (\tau_{0} + t)^{-\kappa}$
+\SetAlgoNoLine
+E Step:
 
-Initialize $\lambda$ randomly.
+initialize $\gamma$
 
-\For{$t = 0 to \infty$}{\label{forins}
-	E step:
-	
-	Initialize $\gamma_{tk} = 1$
-	
-	\Repeat{$\frac{1}{K} \sum_k$ |change in $\gamma_{tk}$| $< 0.00001$}{
-		Set $\phi_{twk} \propto exp${$\mathbb{E}_q[log \theta_{tk}]$ + $\mathbb{E}_q[log\beta_{kw}]$}
-		
-		Set $\gamma_{tk} = \alpha + \sum_w \phi_{twk}n_{tw}$
-	}
-	M step:
-	
-	Compute $\lambda_{kw}* = \eta + Dn_{tw}\phi_{twk}$
-	
-	Set $\lambda = (1 - \rho_t)\lambda + \rho_{t}\lambda*$
+\Repeat{change in $\phi < \epsilon$}{
+        update $\phi$
+        
+        update $\gamma$
 }
+M Step:
+
+compute $\lambda^{*}$
+
+update $\lambda$
+\end{algorithm}
 
 We can see that unlike variational LDA, in online LDA we only need to hold a
 small chunk of the data at a time, and once we’re done analyzing it, we never
 need it again. As with batch, once we’ve estimated $\lambda$, we can find the 
 most probable words for each topic by looking at the word probabilities in 
-each row of $\lambda$.
-
-
-\caption{Online Variational Bayes for LDA} 
-\end{algorithm}
-
+each row of $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
 
 
 \section{Related work}
