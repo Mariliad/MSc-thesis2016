@@ -59,6 +59,33 @@ of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
 topic modeling with existing categories. We also use the abstacts of the
 projects as documents for the model. (to be continued)
 
+Griffiths and Steyvers describe LDA and present a Marckv Chain Monte Carlo
+algorithm for inference in the model, illustrating the operation of the
+suggested algorithm on a small dataset, and then on a larger corpus of PNAS
+abstracts. Finally, they define the dynamics of the topics as a means of gaining
+insight into the dynamics of science. As "hot" topics are identified the topics
+that appear more frequently over the years (positive linear trend), and as
+"cold" the ones that appear less frequently (negative linear trends over time).
+We also analyze the topics over time, in order to highlight potential trends in
+scientific research in EU and USA.
+
+Inspired by Griffiths and Steyvers, L.Sun and Y.Yin wrote a paper, "Discovering
+themes and trends in transportation research using topic modeling",
+\cite{Sun201749} about topic modeling in transportation research. 
+Considering approximately 17000 abstracts of articles published on 22 
+leading journals in transportation research as documents, they infer 50 
+topics by using LDA. Compared to "Finding scientific topics", Sun and 
+Yin use more than one journal (22 popular journals) and they
+investigate the journal-topic distribution and journal similarity. In our
+analysis, we assume that EU and USA are 2 countries (like 2 different journals),
+with different proportions of documents-projects, and we visualize the topic
+similarity of the two countries per framework programme.
+
+To best of our knowledge, there is no work done in the field of topic modeling
+on scientific projects between EU and USA. There is limited information from
+European Commission about the evolution and the results of the projects provided
+by the official website.
+
 
 \section{Theoretic background}
 
