@@ -31,6 +31,34 @@ A brief introduction about the main subject.
 \section{Introduction}
 This is where you tell people why they should bother reading your article.
 
+\section{Related work}
+
+This chapter surveys previous work in topic modeling on scientific data. Topic
+modeling algorithms provides a suite of algorithms to discover hidden thematic
+structure in large collections of texts and can be adapted to many kinds of
+data. These algorithms can be used to summarize, visualize and explore a
+collection of documents. The papers listed below are applying a Latend Dirichlet
+Allocation model in an interesting approach on their corpus.
+
+D.Blei's research focuses on probabilistic topic models, Bayesian methods and
+approximate posterior inference. In his work "Introduction to Probabilistic
+Topic Models",\cite{Blei11introductionto} he describes the basic ideas behind
+LDA and applies the model to articles from the journal "Science". The model
+assumes that the topics are generated first, before the documents and that the
+documents axhibit multiple topics, but each one of them exhibit those topics in
+different proportion. In our implementation we also use the LDA model and we
+follow a similar approach, since we don't use any previous information about the
+subjects that run through our dataset and the documents are not labeled with
+keywords or topics. The topic distributions arise by computing the hidden
+structure that resembles the thematic structure of the collection.
+
+The paper that mostly infuenced our work is "Finding Scientific Topics", by
+T.Griffiths and M.Steyvers.\cite{griffiths_steyvers04} They investigated
+abstract data from articles published in the Proceedings of the National Academy
+of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
+topic modeling with existing categories. We also use the abstacts of the
+projects as documents for the model. (to be continued)
+
 
 \section{Theoretic background}
 
@@ -44,7 +72,7 @@ for organization, finding similar documents, or any other similar tasks. A
 topic is here defined as a probability distribution of words, meaning that
 certain words are more likely within a certain topic. Since the topics emerge
 from the analysis of the original texts, topic modeling algorithms do not
-require any prior annotations or labeling of the documents.\cite{Blei:2012:PTM:2133806.2133826}
+require any prior annotations or labeling of the documents.\cite{Blei11introductionto}
 
 In order to apply a topic model to our data, the first question we must answer
 is how to represent documents. For understanding of natural language one must
@@ -338,7 +366,7 @@ model that allows sets of observations to be explained by unobserved groups
 that explain why some parts of the data are similar. For example, if
 observations are words collected into documents, it posits that each document
 is a mixture of a small number of topics and that each word's occurrence is
-attributable to one of the document's topics.\cite{Blei:2012:PTM:2133806.2133826}
+attributable to one of the document's topics.\cite{Blei11introductionto}
 
 This is similar to PLSI, except
 that in LDA the topic distribution is assumed to have a Dirichlet prior. 
@@ -652,9 +680,6 @@ small chunk of the data at a time, and once we’re done analyzing it, we never
 need it again. As with batch, once we’ve estimated $\lambda$, we can find the 
 most probable words for each topic by looking at the word probabilities in 
 each row of $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
-
-
-\section{Related work}
 
 \section{Methodology}
 
