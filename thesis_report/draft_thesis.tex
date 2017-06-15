@@ -77,9 +77,9 @@ leading journals in transportation research as documents, they infer 50
 topics by using LDA. Compared to "Finding scientific topics", Sun and 
 Yin use more than one journal (22 popular journals) and they
 investigate the journal-topic distribution and journal similarity. In our
-analysis, we assume that EU and USA are 2 countries (like 2 different journals),
+analysis, we identify the EU and the USA as 2 regions (like 2 different journals),
 with different proportions of documents-projects, and we visualize the topic
-similarity of the two countries per framework programme.
+similarity of the two regions per framework programme.
 
 To best of our knowledge, there is no work done in the field of topic modeling
 on scientific projects between EU and USA. There is limited information from
@@ -878,10 +878,42 @@ H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
 
 \subsection{Model inference}
 
-Details about the implementation, system specs etc.
+For the implementation, we used the Gensim package (Radim Řehůřek,
+2009)\cite{rehurek_lrec} which implements an efficient online LDA algorithm, to
+extract the topics of a given corpus. Gensim uses a fast implementation of
+online LDA parameter estimation based on "Online Learning for Latent Dirichlet
+Allocation".\cite{onlineLDAvb} The algorithm runs in constant memory, which
+means that the size of the training corpus does not affect memory footprint, so
+it can process corpus larger than RAM.
+
+The LDA model requires some basic input parameters; for both datasets we chose
+the number of topics $K=10$. The hyperparameter $\alpha$, which affects the
+sparsity of the document-topic distribution $\theta$, is by default a symmetric
+$\frac{1.0}{num_topics} = 0.1$ prior. We left the default value of $chunksize=2000$. We
+started with 50 iterations and later we increased the number of iterations,
+until the training converged. We used 7000 iterations for each framework
+programme of the EU dataset and 8000 for each framework of the USA dataset. In
+the USA dataset, we used $passes=1$, while in the EU dataset we switched to
+$passes=2$, because the training could not converge, despite the large number of
+the iterations.
+
+The implementation was run on a computer with an Intel® Xeon® Processor E5-1410
+(10MB Cache, 2.8 GHz, 4 cores, 8 threads) and RAM=12 GB.
 
 
 \section{Analysis and results}
+
+In this section, we show our main results. We focus on finding differents
+between the two datasets in terms of topic distribution and later we 
+investigate the evolution of the topics over time of each dataset separately.
+
+
+\subsection{Discovering topics on EU and USA projects}
+
+wordclouds per FP?
+
+
+\subsection{Topic evolution over time}
 
 
 \section{Conclusion}
