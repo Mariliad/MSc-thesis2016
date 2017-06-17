@@ -23,27 +23,10 @@ from gensim.parsing.preprocessing import STOPWORDS
 import string
 import logging
 
-# df4 = pd.read_pickle('pickle_data/usa' + 'FP4')
-# df5 = pd.read_pickle('pickle_data/usa' + 'FP5')
-# df6 = pd.read_pickle('pickle_data/usa' + 'FP6')
-# df7 = pd.read_pickle('pickle_data/usa' + 'FP7')
-# df20 = pd.read_pickle('pickle_data/usa' + 'H2020')
-
-# def get_merged_docs(df):
-#     df = df[['title','objective', 'framework_programme']]
-#     df = df.dropna(how='any')
-#     df['merged'] = df['title'] + ' ' + df['objective']
-#     df1 = df[['merged', 'framework_programme']]
-#     return df1
-
-# dfusa = pd.concat([get_merged_docs(df) for df in [df4, df5, df6, df7, df20] ])
-
-# print dfusa.columns
-# print dfusa.shape
-
-# dfusa.to_pickle('pickle_data/df_usa_all')
 
 dfusa = pd.read_pickle('pickle_data/dfUSA')
+
+print dfusa[dfusa['year'].astype(str).str.contains('2017')]
 
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
@@ -95,12 +78,14 @@ class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
 
 objectives_corpus = ObjectivesCorpus(dfusa['merged'])
 
+iterations = 8000
+# passes = 10
 t0 = time()
-
+logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        iterations = 8000,
+                                        iterations = iterations,
                                         random_state=np.random.seed(42))
 
 print("done in %0.3fs." % (time() - t0))
@@ -111,10 +96,9 @@ for t in range(lda.num_topics):
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
-    t = t + 1
     plt.title("Topic #" + str(t))
     # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(i) + '_' + str(iterations) + '.png')
-    plt.savefig('usa_all_wordclouds/USA' + '_topic' + str(t) + '_8000_all_docs.png')
+    plt.savefig('usa_all_wordclouds/USA' + '_topic' + str(t) + '_' + str(iterations) + '_all_docs.png')
     plt.close()
 
 def get_top_probability(doc):
