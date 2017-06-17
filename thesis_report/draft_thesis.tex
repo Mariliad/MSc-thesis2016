@@ -15,6 +15,7 @@
 \usepackage{cite}
 \usepackage{algorithm2e}
 \usepackage{url}
+\usepackage{subfig}
 
 \begin{document}
 
@@ -914,6 +915,45 @@ wordclouds per FP?
 
 
 \subsection{Topic evolution over time}
+
+One of our goals is to identify trends in scientific research in EU and USA, in
+order to give some insights to researchers and scientists regarding potential
+trends. Fot this analysis, we run the model for the whole dataset, instead of
+running the model per FP), for the EU and the USA, respectively. The outcome was
+10 topics for each region from 1994 to 2017 for the EU and from 1994 to 2016 for
+the USA.\footnote{in this implementation we removed the projects of the year
+2017 from the USA dataset, because the amount of projects-documents was too
+small compared to the other years and it was affecting the result of the trend
+for eact topic.}
+
+\subparagraph{Trends in the EU}
+
+In figure x we show the 10 topics that consists of the 20 top words with the
+highest posterior probability of belonging to the topic. The size of each word
+is in proportion to each probability; the bigger the word, the higher the
+probability. Each wordcloud describes a topic, which we can find intuitevely.
+Below are listed the topics that we found corresponding to the words that
+describe them:
+\begin{center}
+\begin{figure}
+\begin{tabular}{rcl}
+\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic0_all.png}} &
+\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic1_all.png}} &
+\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic2_all.png}}\\
+\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic3_all.png}} &
+\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic4_all.png}} &
+\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic5_all.png}}\\
+\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic6_all.png}} &
+\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic7_all.png}} &
+\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic8_all.png}}\\
+\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic9_all.png}} &
+\end{tabular}
+\caption{Wordclouds of topics of the EU dataset (1994-2017)}
+\end{figure}
+\end{center}
+
+
+\subparagraph{Trends in the USA	}
 
 
 \section{Conclusion}
