@@ -937,23 +937,48 @@ describe them:
 \begin{center}
 \begin{figure}
 \begin{tabular}{rcl}
-\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic0_all.png}} &
-\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic1_all.png}} &
-\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic2_all.png}}\\
-\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic3_all.png}} &
-\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic4_all.png}} &
-\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic5_all.png}}\\
-\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic6_all.png}} &
-\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic7_all.png}} &
-\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic8_all.png}}\\
-\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/EU_topic9_all.png}} &
+\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic0_all.png}} &
+\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic1_all.png}} &
+\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic2_all.png}}\\
+\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic3_all.png}} &
+\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic4_all.png}} &
+\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic5_all.png}}\\
+\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic6_all.png}} &
+\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic7_all.png}} &
+\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic8_all.png}}\\
+\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic9_all.png}} &
 \end{tabular}
 \caption{Wordclouds of topics of the EU dataset (1994-2017)}
 \end{figure}
 \end{center}
 
-
 \subparagraph{Trends in the USA	}
+
+Just like the EU dataset, we found the 10 topics of the USA dataset from 1994 to
+2016. Since, we're looking for the topic distribution over time, in this
+implementation we took the projects per year (instead of using the separation of
+the dataset per FP), to visualize the evolution of each topic per year. We ran
+the LDA model with 12000 iterations and the dame value of the rest of the
+parameters, as described in section 4.3.
+
+Each one of the wordclouds in figure X represents a topic. The topics that are
+described in the wordclouds are listed below:
+
+\begin{itemize}
+\item[] Topic 0: Material science and High energy physics
+\item[] Topic 1: Mathematics
+\item[] Topic 2: (Molecular) biology, Genetics
+\item[] Topic 3: Science of social policy and economics
+\item[] Topic 4: International research and conferences
+\item[] Topic 5: Chemistry and Materials science
+\item[] Topic 6: STEM education
+\item[] Topic 7: Climatology, Atmospheric and Ocean sciences
+\item[] Topic 8: Molecular biology 
+\item[] Topic 9: Mechanical engineering
+\end{itemize}
+
+!!!Write what you computed to get the results
+
 
 \begin{center}
 \begin{figure}
@@ -973,6 +998,16 @@ describe them:
 \caption{Wordclouds of topics of the USA dataset (1994-2016)}
 \end{figure}
 \end{center}
+
+\begin{center}
+\begin{figure}
+\includegraphics[width=1.0\textwidth, natwidth=707,natheight=483]
+{figs/topic-evolution-usa.png}
+\caption{Topics over time in USA}
+\end{figure}
+\end{center}
+
+
 
 \section{Conclusion}
 
