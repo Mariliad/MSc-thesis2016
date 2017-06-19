@@ -8,6 +8,7 @@ import gensim
 
 import matplotlib
 matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
@@ -18,7 +19,7 @@ from gensim.corpora.dictionary import Dictionary
 from collections import defaultdict
 from gensim.parsing.preprocessing import STOPWORDS
 from time import time
-
+import json
 import string
 import logging
 # logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
@@ -75,6 +76,7 @@ for text in objectives_split:
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if (frequency[token] > 5)])
 
 objectives_dictionary = Dictionary(objectives_split)
+# objectives_dictionary.save('./lda_saved/dict_eu' + df_name + '.dict')
 
 print (objectives_dictionary)
 print
@@ -103,6 +105,7 @@ class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
             
 
 objectives_corpus = ObjectivesCorpus(objectives_split)
+# corpora.MmCorpus.serialize('./lda_saved/corpus_eu' + df_name + '.mm', objectives_corpus)
 
 print'Corpus size: ', (objectives_corpus)
 
@@ -121,7 +124,11 @@ for i in range(1):
     #     text_file.write(str(lda.print_topics(num_topics=10, num_words=15)))
     #     text_file.close()
 
+
 print("done in %0.3fs." % (time() - t0))
+
+lda.save('./lda_saved/lda_eu' + df_name + '.model')
+
 
 for t in range(lda.num_topics):
     words = dict(lda.show_topic(t, 15))
@@ -129,7 +136,6 @@ for t in range(lda.num_topics):
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
-    t = t + 1
     plt.title("Topic #" + str(t))
     # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
     plt.savefig('eu_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
