@@ -952,6 +952,23 @@ describe them:
 \end{figure}
 \end{center}
 
+In order to find the topic distribution over time, we need the topic
+distribution of each project-document. As we mentioned before, LDA assumes that
+each document exhibits multiple topics. After running the model to our dataset,
+we get the document-topic distribution and we keep the topic with the highest
+probability (the one that most likely belongs to this document). Then, we
+calculate the proportion of each topic per FP, using the following equation:
+\begin{equation}
+topicProportion(k, fp) = \frac{\sum num of docs_{k,fp}}{\sum num of docs_{fp}} * 100
+\end{equation}
+where $k$ is the number of the topic id, $fp$ is the framework programme,
+$fp \in [FP4, FP5, FP6, FP7, H2020]$. The topic proportion of each topic in 
+the FP equals to the sum of the number of the documents assigned to this 
+topic during the FP, nomralized by the number of the documents-projects 
+occuring in this FP. In figure X we plot the results of the topic proportion 
+over time.
+
+
 \subparagraph{Trends in the USA	}
 
 Just like the EU dataset, we found the 10 topics of the USA dataset from 1994 to
@@ -977,9 +994,6 @@ described in the wordclouds are listed below:
 \item[] Topic 9: Mechanical engineering
 \end{itemize}
 
-!!!Write what you computed to get the results
-
-
 \begin{center}
 \begin{figure}
 \centering
@@ -999,12 +1013,35 @@ described in the wordclouds are listed below:
 \end{figure}
 \end{center}
 
+Just like the computation in the EU dataset, we calculate the topic 
+distribution over time for the USA dataset. We get the document-topic 
+distribution, we keep the topic with the highest probability and finally 
+we calculate the proportion of each topic per
+year (instead of FP), using the following equation:
+
+\begin{equation}
+topicProportion(k, y) = \frac{\sum num of docs_{k,y}}{\sum num of docs_{y}} * 100
+\end{equation}
+
+where $k$ is the number of the topic id, $y$ is the year between 1994-2016. The
+topic proportion of each topic per year equals to the sum of the number of the
+documents assigned to this topic during the year, nomralized by the number of
+the documents-projects  occuring in this year.
+
 In figure X we plot the topic distribition over time. We can easily observe that
 the topic 6, which refers to STEM education, is becoming a trend in the United
 States over the years, while most of the other topics' evolution doesn't show up
 such a high increace. Topics 5 and 8, which refer to Chemistry \& Materials
 science and Molecular biology, respectively, show a small decreace over the
-years.  +++
+years. Topics 9 and 0 (Mechanical Engineering, Materiac Science and High energy
+physics) show a small increase over the last 5 years. Mathematics' evolution
+over time (Topic 1) looks stable on average and shows up as a popular subject
+over the last 22 years, while Social Sciences and International Research (Topic
+3 and 4) show a small decrease over the last 3 years.  Molecular biology and
+Genetics (Topic 2) has an increasing polularity from 1994 to 2001 and later is
+starting to stabilize. Climatology, Atmospheric and Ocean sciences look stable
+the first years, while from 2006 up to date it is gradually becoming less
+popular over the years.
 
 In general, the STEM (science, technology, engineering and math) related
 research and education is becoming more and more popular, which is not
