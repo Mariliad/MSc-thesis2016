@@ -46,7 +46,7 @@ approximate posterior inference. In his work "Introduction to Probabilistic
 Topic Models",\cite{Blei11introductionto} he describes the basic ideas behind
 LDA and applies the model to articles from the journal "Science". The model
 assumes that the topics are generated first, before the documents and that the
-documents axhibit multiple topics, but each one of them exhibit those topics in
+documents exhibit multiple topics, but each one of them exhibit those topics in
 different proportion. In our implementation we also use the LDA model and we
 follow a similar approach, since we don't use any previous information about the
 subjects that run through our dataset and the documents are not labeled with
@@ -57,10 +57,10 @@ The paper that mostly infuenced our work is "Finding Scientific Topics", by
 T.Griffiths and M.Steyvers.\cite{griffiths_steyvers04} They investigated
 abstract data from articles published in the Proceedings of the National Academy
 of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
-topic modeling with existing categories. We also use the abstacts of the
-projects as documents for the model. (to be continued)
+topic modeling with existing categories. In our implementation, we also use 
+the abstacts of the projects as documents for the model.
 
-Griffiths and Steyvers describe LDA and present a Marckv Chain Monte Carlo
+Griffiths and Steyvers describe LDA and present a Markov Chain Monte Carlo
 algorithm for inference in the model, illustrating the operation of the
 suggested algorithm on a small dataset, and then on a larger corpus of PNAS
 abstracts. Finally, they define the dynamics of the topics as a means of gaining
