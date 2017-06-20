@@ -39,9 +39,11 @@ import logging
 
 # df_all = pd.concat([get_merged_docs(df) for df in [df4, df5] ])
 
-# df_all.to_pickle('df_all')
+# df_all.to_pickle('dfs/df_all')
 
 df_all = pd.read_pickle('dfs/df_all')
+
+print df_all.shape
 
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
@@ -52,8 +54,9 @@ df_all['merged'] = df_all['merged'].apply(lambda tokens: [token for token in tok
 df_all['merged'] = df_all['merged'].apply(lambda tokens: [token for token in tokens if not(token.isdigit())])
 df_all['merged'].head(2)
 
-
-list_stopwords = ['data','will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based']
+# , 'study', 'propose', '•'
+list_stopwords = ['data','will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based', 
+                    'study', '•']
 # if dfname == 'FP4':
 #     list_stopwords.append('des')
 
@@ -97,28 +100,31 @@ class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
 
 objectives_corpus = ObjectivesCorpus(df_all['merged'])
 
+# random seed = 1, 42
+# ,random_state = np.random.seed(42)
 t0 = time()
+logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
+
 lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
-                                        num_topics = 10,
-                                        random_state = np.random.seed(42),
-                                        iterations = 7000)
+                                        num_topics = 12,
+                                        passes = 3,
+                                        iterations = 10000)
 
 print("done in %0.3fs." % (time() - t0))
 
 # Code for visualizing topics to Wordclouds
 
-# for t in range(lda.num_topics):
-#     words = dict(lda.show_topic(t, 20))
-#     elements = WordCloud(background_color='white', width=300, height=180, max_font_size=36, colormap='winter', prefer_horizontal=1.0).fit_words(words)
-#     plt.figure()
-#     plt.imshow(elements)
-#     plt.axis("off")
-#     t = t + 1
-#     plt.title("Topic #" + str(t))
-#     # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-#     plt.savefig('eu_all_wordclouds/EU' + '_topic' + str(t) + '_all_docs' + '.png')
-#     plt.close()
+for t in range(lda.num_topics):
+    words = dict(lda.show_topic(t, 15))
+    elements = WordCloud(background_color='white', width=300, height=180, max_font_size=36, colormap='winter', prefer_horizontal=1.0).fit_words(words)
+    plt.figure()
+    plt.imshow(elements)
+    plt.axis("off")
+    plt.title("Topic #" + str(t))
+    # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
+    plt.savefig('eu_all_wordclouds/EU' + '_topic' + str(t) + '_all' + '.png')
+    plt.close()
 
 
 # Get the probability of the topic with the highest probability for each doc
