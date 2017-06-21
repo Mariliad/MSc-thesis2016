@@ -10,7 +10,7 @@ import dit
 
 from gensim import corpora, models, similarities, matutils
 from gensim.corpora.dictionary import Dictionary
-from dit.divergences import jensen_shannon_divergence
+import dit.divergences as dd
 from scipy.stats import entropy
 from numpy.linalg import norm
 
@@ -26,68 +26,61 @@ args = parser.parse_args()
 df = args.dataset
 
 # Load the LDA model of the two datasets
-ldaEU = gensim.models.ldamodel.LdaModel.load('./eu_gensim/lda_saved/lda_eu'+ df +'.model')
-ldaUSA = gensim.models.ldamodel.LdaModel.load('./usa_gensim/lda_saved/lda_usa'+ df +'.model')
+ldaEU = gensim.models.ldamodel.LdaModel.load('./eu_gensim/lda_saved/lda_eu'
+                                             + df +'.model')
+ldaUSA = gensim.models.ldamodel.LdaModel.load('./usa_gensim/lda_saved/lda_usa'
+                                              + df +'.model')
 
 def get_topic_vectors(topic_eu_id, topic_usa_id):
-	# get the words and their probabilities per topic
-	get_topic_terms_eu = ldaEU.show_topic(topic_eu_id, topn=ldaEU.num_terms)
-	get_topic_terms_usa = ldaUSA.show_topic(topic_usa_id, topn=ldaUSA.num_terms)
 
-	# keep the words in a list as a dictionary
-	eu_list = [x[0] for x in get_topic_terms_eu]
-	usa_list = [x[0] for x in get_topic_terms_usa]
+    # get the words and their probabilities for the topic
+    eu_topic_terms_tuples = ldaEU.show_topic(topic_eu_id,
+                                             topn=ldaEU.num_terms)
+    us_topic_terms_tuples = ldaUSA.show_topic(topic_usa_id,
+                                              topn=ldaUSA.num_terms)
 
-	# add the words that don't exist in one of them, with probability = 0.0
-	for i in get_topic_terms_eu:
-		if i[0] not in usa_list:
-			get_topic_terms_usa.append((i[0], 0.0))
+    # keep the words in set
+    eu_topic_terms = { x[0] for x in eu_topic_terms_tuples }
+    us_topic_terms = { x[0] for x in us_topic_terms_tuples }
 
-	for j in get_topic_terms_usa:
-		if j[0] not in eu_list:
-			get_topic_terms_eu.append((j[0], 0.0))
+    # add the words that don't exist in one of them, with probability = 0.0
+    for eu_missing in us_topic_terms - eu_topic_terms:
+        eu_topic_terms_tuples.append((eu_missing, 0.0))
+                    
+    for us_missing in eu_topic_terms - us_topic_terms:
+        us_topic_terms_tuples.append((us_missing, 0.0))
 
-	# sort the list of the tuples (word, probability) in alphabetic order
-	get_topic_terms_eu = sorted(get_topic_terms_eu, key=lambda x: x[0])
-	get_topic_terms_usa = sorted(get_topic_terms_usa, key=lambda x: x[0])
+    # sort the list of the tuples (word, probability) in alphabetic order
+    eu_topic_terms_tuples = sorted(eu_topic_terms_tuples, key=lambda x: x[0])
+    us_topic_terms_tuples = sorted(us_topic_terms_tuples, key=lambda x: x[0])
 
-	# get only the probabilities as vectors
-	topicEUvec = [x[1] for x in get_topic_terms_eu]
-	topicUSAvec = [x[1] for x in get_topic_terms_usa]
+    # get only the probabilities as vectors
+    eu_topic_probs = [ x[1] for x in eu_topic_terms_tuples ]
+    usa_topic_probs = [ x[1] for x in us_topic_terms_tuples ]
 
+    return eu_topic_probs, usa_topic_probs
 
-	topicEUvec = dit.ScalarDistribution([x[0] for x in get_topic_terms_eu], [x[1] for x in get_topic_terms_eu])
-	topicUSAvec = dit.ScalarDistribution([x[0] for x in get_topic_terms_usa], [x[1] for x in get_topic_terms_usa])
-
-	return topicEUvec, topicUSAvec
 
 # Function for calculating the Jensen Shannon Divergence
-def JSD(P, Q):
-    # _P = P / norm(P, ord=1)
-    # _Q = Q / norm(Q, ord=1)
+def calc_jsd(P, Q):
     _P = np.array(P)
     _Q = np.array(Q)
     _M = 0.5 * (_P + _Q)
     return 0.5 * (entropy(_P, _M) + entropy(_Q, _M))
-# check if it computes the KL
 
-# print JSD(topicEUvec, topicUSAvec)
-
-print 'Framework Programme', df
-print
+print('Framework Programme ' +  df)
 
 eu = [i for i in range(10)]
 usa = [i for i in range(10)]
 dfJSD = pd.DataFrame(index=eu, columns=usa)
 
-
 # for eu_topic in range(ldaEU.num_topics):
-# 	for usa_topic in range(ldaUSA.num_topics):
-# 		topicEUvec, topicUSAvec = get_topic_vectors(eu_topic, usa_topic)
-		# print 'EU topic: ', eu_topic, ' USA topic: ', usa_topic,
-		# print ' --> JSD = ', JSD(topicEUvec, topicUSAvec)
-		# dfJSD.set_value(index=eu_topic, col=usa_topic, value=JSD(topicEUvec, topicUSAvec))
-		# dfJSD.set_value(index=eu_topic, col=usa_topic, value=jensen_shannon_divergence([topicEUvec, topicUSAvec]))
+#       for usa_topic in range(ldaUSA.num_topics):
+#               topicEUvec, topicUSAvec = get_topic_vectors(eu_topic, usa_topic)
+                # print 'EU topic: ', eu_topic, ' USA topic: ', usa_topic,
+                # print ' --> JSD = ', JSD(topicEUvec, topicUSAvec)
+                # dfJSD.set_value(index=eu_topic, col=usa_topic, value=JSD(topicEUvec, topicUSAvec))
+                # dfJSD.set_value(index=eu_topic, col=usa_topic, value=jensen_shannon_divergence([topicEUvec, topicUSAvec]))
 
 # dfJSD.to_pickle('compared_FPs/JSD_' + df)
 
@@ -95,9 +88,8 @@ dfJSD = pd.DataFrame(index=eu, columns=usa)
 
 # # Caluculates symmetric Kullback-Leibler divergence.
 # def symmetric_kl_divergence(p, q):
-# 	return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
+#       return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
 
 
-topicEUvec, topicUSAvec = get_topic_vectors(0, 0)
-# print JSD(topicEUvec, topicUSAvec)
-print jensen_shannon_divergence([topicEUvec, topicUSAvec])
+eu_topic_probs, us_topic_probs = get_topic_vectors(0, 0)
+print(calc_jsd(eu_topic_probs, us_topic_probs))
