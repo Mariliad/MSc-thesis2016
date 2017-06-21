@@ -6,11 +6,9 @@ import gensim
 import argparse
 import pickle
 import scipy.stats as stats
-import dit
 
 from gensim import corpora, models, similarities, matutils
 from gensim.corpora.dictionary import Dictionary
-import dit.divergences as dd
 from scipy.stats import entropy
 from numpy.linalg import norm
 
