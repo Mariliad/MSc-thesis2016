@@ -68,26 +68,18 @@ def calc_jsd(P, Q):
 
 print('Framework Programme ' +  df)
 
-eu = [i for i in range(10)]
-usa = [i for i in range(10)]
+eu = [('eu' + str(i)) for i in range(10)]
+usa = [('usa' + str(i)) for i in range(10)]
 dfJSD = pd.DataFrame(index=eu, columns=usa)
 
-# for eu_topic in range(ldaEU.num_topics):
-#       for usa_topic in range(ldaUSA.num_topics):
-#               topicEUvec, topicUSAvec = get_topic_vectors(eu_topic, usa_topic)
-                # print 'EU topic: ', eu_topic, ' USA topic: ', usa_topic,
-                # print ' --> JSD = ', JSD(topicEUvec, topicUSAvec)
-                # dfJSD.set_value(index=eu_topic, col=usa_topic, value=JSD(topicEUvec, topicUSAvec))
-                # dfJSD.set_value(index=eu_topic, col=usa_topic, value=jensen_shannon_divergence([topicEUvec, topicUSAvec]))
+for eu_topic in range(ldaEU.num_topics):
+	for usa_topic in range(ldaUSA.num_topics):
+		eu_topic_probs, us_topic_probs = get_topic_vectors(eu_topic, usa_topic)
+		dfJSD.set_value(index=('eu'+ str(eu_topic)), col=('usa'+ str(usa_topic)), value=calc_jsd(eu_topic_probs, us_topic_probs))
 
-# dfJSD.to_pickle('compared_FPs/JSD_' + df)
+dfJSD.to_pickle('compared_FPs/JSD_' + df)
 
-# print dfJSD.head(1)
-
-# # Caluculates symmetric Kullback-Leibler divergence.
-# def symmetric_kl_divergence(p, q):
-#       return numpy.sum([stats.entropy(p, q), stats.entropy(q, p)])
-
-
-eu_topic_probs, us_topic_probs = get_topic_vectors(0, 0)
-print(calc_jsd(eu_topic_probs, us_topic_probs))
+print dfJSD.index
+print dfJSD.columns
+# eu_topic_probs, us_topic_probs = get_topic_vectors(0, 0)
+# print(calc_jsd(eu_topic_probs, us_topic_probs))
