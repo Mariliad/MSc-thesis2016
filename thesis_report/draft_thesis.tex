@@ -17,6 +17,7 @@
 \usepackage{url}
 \usepackage{subfig}
 
+
 \begin{document}
 
 \maketitle
@@ -38,7 +39,7 @@ This chapter surveys previous work in topic modeling on scientific data. Topic
 modeling algorithms provides a suite of algorithms to discover hidden thematic
 structure in large collections of texts and can be adapted to many kinds of
 data. These algorithms can be used to summarize, visualize and explore a
-collection of documents. The papers listed below are applying a Latend Dirichlet
+collection of documents. The papers listed below are applying a Latent Dirichlet
 Allocation model in an interesting approach on their corpus.
 
 D.Blei's research focuses on probabilistic topic models, Bayesian methods and
@@ -53,12 +54,12 @@ subjects that run through our dataset and the documents are not labeled with
 keywords or topics. The topic distributions arise by computing the hidden
 structure that resembles the thematic structure of the collection.
 
-The paper that mostly infuenced our work is "Finding Scientific Topics", by
+The paper that mostly influenced our work is "Finding Scientific Topics", by
 T.Griffiths and M.Steyvers.\cite{griffiths_steyvers04} They investigated
 abstract data from articles published in the Proceedings of the National Academy
 of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
 topic modeling with existing categories. In our implementation, we also use 
-the abstacts of the projects as documents for the model.
+the abstracts of the projects as documents for the model.
 
 Griffiths and Steyvers describe LDA and present a Markov Chain Monte Carlo
 algorithm for inference in the model, illustrating the operation of the
@@ -173,7 +174,7 @@ parameter values.
 
 If the prior and the posterior distributions are in the same distribution
 family, then the prior and posterior are called conjugate distributions and the
-prior is called a conjugate prior for the likelihood funtion.
+prior is called a conjugate prior for the likelihood function.
 
 Given a prior $p(\theta)$ and observations x with the likelihood 
 $p(x \mid \theta)$, the posterior is defined as:
@@ -453,7 +454,7 @@ $\beta_k \sim Dirichlet(\eta)$.
 
 In LDA, each document is represented by a mixture of the topics, with weight
 $\theta_w^2$ for topic $z$ in document $w$. These weight have a Dirichlet prior,
-parameterized by a hyper-parameter $\alpha$. Each topic is a probability
+parametrized by a hyper-parameter $\alpha$. Each topic is a probability
 distribution over the vocabulary, with probability $\beta^w_z$ for word $w$ in
 topic $z$. We define the following variables and notation:
 \begin{itemize}
@@ -489,7 +490,7 @@ with corresponding plate notation in Figure 2:
 As seen in step 1, each document contains topics in different proportions,
 determined by the scaling parameter $\alpha$. The individual words are drawn
 from one of the $k$ topics in step (b), where the probability of each word
-within a topic is parameterized by a $k \times V$ matrix , where $V$ is the
+within a topic is parametrized by a $k \times V$ matrix , where $V$ is the
 size of the specified vocabulary. The most probable words in each topic could
 be used to identify the topic and gives an intuitive description for the topic.
 
@@ -595,15 +596,15 @@ Specifically, we have:
 q(z_{di}=k) = \phi_{dw_{di}k}
 \end{equation}
 \begin{equation}
-q(\theta_{d}) = dirichlet(\theta_{d}; \gamma_{d})
+q(\theta_{d}) = Dirichlet(\theta_{d}; \gamma_{d})
 \end{equation}
 \begin{equation}
-q(\beta_{k}) = dirichlet(\beta_{k}; \lambda_{k})
+q(\beta_{k}) = Dirichlet(\beta_{k}; \lambda_{k})
 \end{equation}
 
-The posterior over the per-word topic assignments $z$ is parameterized by
-$\phi$, the posterior over per-document topic weights $\theta$ is parameterized
-by $\gamma$, and the posterior over the topics $\beta$ is parameterized by
+The posterior over the per-word topic assignments $z$ is parametrized by
+$\phi$, the posterior over per-document topic weights $\theta$ is parametrized
+by $\gamma$, and the posterior over the topics $\beta$ is parametrized by
 $\lambda$. 
 
 Our goal is to estimate $\phi$, $\gamma$ and $\lambda$. In both VB and 
@@ -731,7 +732,7 @@ CORDIS (Community Research and Development Information Service) is the European
 Commission's primary public repository and portal to disseminate information on
 all EU-funded research projects and their results in the broadest sense. The
 website includes all public information held by the Commission (project
-factsheets, publishable reports and deliverables), editorial content to support
+fact sheets, publishable reports and deliverables), editorial content to support
 communication and exploitation (news, events, success stories, magazines) and
 comprehensive links to external sources such as open access publications and
 websites. CORDIS is managed by the Publications Office of the European Union, on
@@ -753,7 +754,7 @@ Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
 	\end{description}
 \item Culture and Education
 	\begin{description}
-	\item Audiovisual and media, Culture, Education training and youth, Multiligualism
+	\item Audiovisual and media, Culture, Education training and youth, Multilingualism
 	\end{description}
 \item Customs and Tax
 	\begin{description}
@@ -802,7 +803,7 @@ purposes. The dataset that we chose for the following analysis contains
 information about all the projects funded by the European Union from 1994 to
 2017. These projects got approved under the framework programme (FP4-H2020) for
 research and technological development. For each project it is provided
-information, such as: reference, acronym, dates, funding, programmes,
+information, such as: reference, acronym, dates, funding, programs,
 participant countries, subjects and objectives.
 
 In the provided dataset, the information is splitted into CSV files, based on
@@ -963,7 +964,7 @@ means that the size of the training corpus does not affect memory footprint, so
 it can process corpus larger than RAM.
 
 The LDA model requires some basic input parameters; for both datasets we chose
-the number of topics $K=10$. The hyperparameter $\alpha$, which affects the
+the number of topics $K=10$. The hyper-parameter $\alpha$, which affects the
 sparsity of the document-topic distribution $\theta$, is by default a symmetric
 $\frac{1.0}{num_topics} = 0.1$ prior. We left the default value of $chunksize=2000$. We
 started with 50 iterations and later we increased the number of iterations,
@@ -979,7 +980,7 @@ The implementation was run on a computer with an Intel® Xeon® Processor E5-141
 
 \section{Analysis and results}
 
-In this section, we show our main results. We focus on finding differents
+In this section, we show our main results. We focus on finding differences
 between the two datasets in terms of topic distribution and later we 
 investigate the evolution of the topics over time of each dataset separately.
 
@@ -988,11 +989,11 @@ investigate the evolution of the topics over time of each dataset separately.
 
 In general, the most popular subject in European Union over the years is
 Information systems. In our dataset we fount projects related to almost all
-kinds of information systems, and especially Quality managemest systems
+kinds of information systems, and especially Quality management systems
 (1994-2002), Management information systems, Network information systems and
 Information systems as a service to all kinds of organizations, including
 universities and companies. Since technology has an impact in every aspect
-nowadays, it is normal to have such polularity over the years and it's becoming
+nowadays, it is normal to have such popularity over the years and it's becoming
 popular in education, as well. The same period of time, Innovation in Business
 emerged as a trending topic, with projects related to new technologies and
 software systems in the industry and how they assist the businesses and the
@@ -1002,15 +1003,15 @@ which nowadays has lost part of its popularity in research.
 
 Another popular subject that appears the last 22 years is Materials research;
 the projects related to material research are mostly related to the discovery
-and design of new materials, with an emphasis on solids. Matelials properties
-and performace are used in many disciplines, like chemistry, physics and
+and design of new materials, with an emphasis on solids. Materials properties
+and performance are used in many disciplines, like chemistry, physics and
 engineering.
 
-The third most polular subject is Molecular biology and Genetics. These projects
+The third most popular subject is Molecular biology and Genetics. These projects
 are related to the cellular molecules that carry out the biological processes
 essential for the cell's functions and maintenance. These affect many aspects of
 our lives, including evolution, nutrition and the spread of diseases. Especially
-from 1998 up to day, there is a focus in Healthcare and Diagnostics, and fot the
+from 1998 up to day, there is a focus in Health care and Diagnostics, and for the
 last decade researchers are studying the cancer detection and treatment, which
 is a common cause of death in EU and the second most common cause of death in
 USA.
@@ -1022,9 +1023,9 @@ the natural world around us, protecting it from damage and destruction. Many
 projects are related to one of the Three Pillars of Sustainability\footnote{http
 ://www.thwink.org/sustain/glossary/ThreePillarsOfSustainability.htm}. The
 European Union is considered by some to have the most extensive environmental
-laws of any international organisation, started by the  European Economic
+laws of any international organization, started by the  European Economic
 Community (EEC), which is the beginning of the EU's environmental policy. Social
-and Econimic policies are also popular in the EU region over the last decate.
+and Economic policies are also popular in the EU region over the last decade.
 Also, the last two decades there is a focus on the Green energy production, like
 hydropower, solar and nuclear energy.
 
@@ -1038,7 +1039,7 @@ physics in EU (see Appendix: Wordclouds of topics of the EU).
 \subsection{Discovering topics on the USA projects}
 
 The National Science Foundation mostly supports fundamental research and
-education in the non-medicalin science and engineering. Its medical counterpart
+education in the non-medical science and engineering. Its medical counterpart
 is the National Institutes of Health.\footnote{\url{https://en.wikipedia.org/wik
 i/National_Science_Foundation}} With STEM being the top priority in USA, most of
 the projects founded by NSF are related to engineering, computer science,
@@ -1046,7 +1047,7 @@ mathematics and information systems, in general. The subjects STEM \& Education,
 Software engineering, Information systems and Mathematics, arise as topics in
 all these years, from 1994-2017.
 
-While NSF promotes the progress of science, it also enhances the effords to
+While NSF promotes the progress of science, it also enhances the efforts to
 maintain the national health, prosperity, and welfare. Over the last 22 years,
 many projects are related to the environment effects of climate change. Topics
 like Environmental Science, Atmospheric \& Ocean sciences, Geology, Climate
@@ -1062,7 +1063,7 @@ biomedical engineering, patterns of inheritance and molecular genetics.
 Another popular subject that appears the last 22 years is Materials and
 Chemistry; the projects related to material research are mostly refer to the
 materials' properties and applications in engineering. The last 3 years,
-researchers from the USA focus on materials applications and desing in
+researchers from the USA focus on materials applications and design in
 mechanical engineering, bioengineering and chemical \& transport systems. In
 2002-2006 many projects are related to the subject of transport that is
 sustainable in the senses of social, environmental and climate impacts (Green
@@ -1103,25 +1104,25 @@ applications in manufacturing and engineering.
 
 One of our goals is to identify trends in scientific research in EU and USA, in
 order to give some insights to researchers and scientists regarding potential
-trends. Fot this analysis, we run the model for the whole dataset, instead of
+trends. For this analysis, we run the model for the whole dataset, instead of
 running the model per FP), for the EU and the USA, respectively. The outcome was
 10 topics for each region from 1994 to 2017 for the EU and from 1994 to 2016 for
 the USA.\footnote{in this implementation we removed the projects of the year
 2017 from the USA dataset, because the amount of projects-documents was too
 small compared to the other years and it was affecting the result of the trend
-for eact topic.}
+for each topic.}
 
 \subparagraph{Trends in the EU}
 
 In figure x we show the 10 topics that consists of the 20 top words with the
 highest posterior probability of belonging to the topic. The size of each word
 is in proportion to each probability; the bigger the word, the higher the
-probability. Each wordcloud describes a topic, which we can find intuitevely.
+probability. Each wordcloud describes a topic, which we can find intuitively.
 Below are listed the topics that we found corresponding to the words that
 describe them:
 \begin{itemize}
 \item[] Topic 0: Molecular biology
-\item[] Topic 1: Marerials \& Manufacturing
+\item[] Topic 1: Materials \& Manufacturing
 \item[] Topic 2: Social policy
 \item[] Topic 3: Disease detection \& treatment
 \item[] Topic 4: Materials science / Physics
@@ -1164,8 +1165,8 @@ topicProportion(k, fp) = \frac{\sum num of docs_{k,fp}}{\sum num of docs_{fp}} *
 where $k$ is the number of the topic id, $fp$ is the framework programme,
 $fp \in [FP4, FP5, FP6, FP7, H2020]$. The topic proportion of each topic in 
 the FP equals to the sum of the number of the documents assigned to this 
-topic during the FP, nomralized by the number of the documents-projects 
-occuring in this FP. In figure X we plot the results of the topic proportion 
+topic during the FP, normalized by the number of the documents-projects 
+occurring in this FP. In figure X we plot the results of the topic proportion 
 over time.
 
 \begin{center}
@@ -1232,20 +1233,20 @@ topicProportion(k, y) = \frac{\sum num of docs_{k,y}}{\sum num of docs_{y}} * 10
 
 where $k$ is the number of the topic id, $y$ is the year between 1994-2016. The
 topic proportion of each topic per year equals to the sum of the number of the
-documents assigned to this topic during the year, nomralized by the number of
-the documents-projects  occuring in this year.
+documents assigned to this topic during the year, normalized by the number of
+the documents-projects  occurring in this year.
 
-In figure X we plot the topic distribition over time. We can easily observe that
+In figure X we plot the topic distribution over time. We can easily observe that
 the topic 6, which refers to STEM education, is becoming a trend in the United
 States over the years, while most of the other topics' evolution doesn't show up
-such a high increace. Topics 5 and 8, which refer to Chemistry \& Materials
-science and Molecular biology, respectively, show a small decreace over the
-years. Topics 9 and 0 (Mechanical Engineering, Materiac Science and High energy
+such a high increase. Topics 5 and 8, which refer to Chemistry \& Materials
+science and Molecular biology, respectively, show a small decrease over the
+years. Topics 9 and 0 (Mechanical Engineering, Material Science and High energy
 physics) show a small increase over the last 5 years. Mathematics' evolution
 over time (Topic 1) looks stable on average and shows up as a popular subject
 over the last 22 years, while Social Sciences and International Research (Topic
 3 and 4) show a small decrease over the last 3 years.  Molecular biology and
-Genetics (Topic 2) has an increasing polularity from 1994 to 2001 and later is
+Genetics (Topic 2) has an increasing popularity from 1994 to 2001 and later is
 starting to stabilize. Climatology, Atmospheric and Ocean sciences look stable
 the first years, while from 2006 up to date it is gradually becoming less
 popular over the years.
@@ -1337,7 +1338,7 @@ division.
 \subfloat[Hydropower / Energy production]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic1_7000.png}}&
 \subfloat[Information technologies]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic2_7000.png}}\\
 \subfloat[Quality control systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic3_7000.png}}&
-\subfloat[Healthcare / Medical genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
+\subfloat[Health care / Medical genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
 \subfloat[Environmental sustainability and policies]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic5_7000.png}}\\
 \subfloat[Molecular biology (genes)]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic6_7000.png}} &
 \subfloat[Optical quantum computing]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic7_7000.png}}&
