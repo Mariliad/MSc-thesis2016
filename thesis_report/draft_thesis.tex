@@ -374,7 +374,9 @@ for a corpus $D$:
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\textwidth, natwidth=548,natheight=201]{figs/PLSI_plate_notation.png}
-\caption{Plate notation representing the PLSI model. \textbf{w} is the document index, $z$ is the topic drawn for the word $w$ from the topic distribution of the document}
+\caption{Plate notation representing the PLSI model. \textbf{w} is the document 
+index, $z$ is the topic drawn for the word $w$ from the topic distribution of 
+the document}
 \end{figure}
 \end{center}
 The result from PLSI is that every document is represented as mixing proportions
@@ -564,9 +566,12 @@ compute a better estimate for the parameters.
 
 \paragraph{Variational Inference}
 
-In LDA, our ultimate goal is to find the posterior distribution of latent topic variables after observing training data. However, computing this distribution is intractable, so we’re forced to approximate. One approximation approach is to 
+In LDA, our ultimate goal is to find the posterior distribution of latent topic 
+variables after observing training data. However, computing this distribution 
+is intractable, so we’re forced to approximate. One approximation approach is to 
 use an optimization method called Variational Bayes. In the original paper it's 
-being used a variational Bayes approximation of the posterior distribution;\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
+being used a variational Bayes approximation of the posterior distribution;
+\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
 expectation propagation. The goal of variational inference is to approximate an
 intractable probability distribution $p$, with a tractable one $q$, in a way
 that makes them as close as possible given a similarity measure. In this thesis,
@@ -575,7 +580,8 @@ latent variables. A new distribution over the hidden variables $q(z, \beta)$
 (called the variational distribution) is  introduced. This new distribution has
 properties such that it can be efficiently computed.\cite{Fox2011ATO}
 
-In short, we approximate the true distribution by a simple distribution $q$, and associate parameters $\phi$, $\gamma$, $\lambda$ with the original parameters 
+In short, we approximate the true distribution by a simple distribution $q$, and 
+associate parameters $\phi$, $\gamma$, $\lambda$ with the original parameters 
 $z$, $\theta$, $\beta$ respectively. Recall that $z$ gives the topic assignments 
 for each word in each document, $\theta$ gives the topic composition of each 
 document, and $\beta$ gives the word-topic probabilities for each word and each 
@@ -675,7 +681,8 @@ and online variational LDA, we alternate between two steps:
 \item M-Step: Update $\lambda$, using the current value of $\phi$
 \end{enumerate}
 
-In online Variational Bayes, we only make a single sweep of the entire dataset, analyzing a chunk of documents at a time. A chunk could be a single document, 
+In online Variational Bayes, we only make a single sweep of the entire dataset, 
+analyzing a chunk of documents at a time. A chunk could be a single document, 
 50 documents, or even the entire dataset. Let’s let a chunk be 1000 documents.
 
 The online E-Step only uses the current chunk; instead of holding all the 
@@ -711,14 +718,30 @@ each row of $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/l
 
 \section{Methodology}
 
-In this section, we explain the procedure that we followed in n order to apply the LDA model in our dataset. The dataset consists of two datasets: the one that contains all the information about EU projects founded for research and innovation under the FP4-H2020 and the dataset from USA about the awards/projects that got approved from 1994-2017. We consider the projects' description/abstract as the documents in LDA.
- 
+In this section, we explain the procedure that we followed in n order to apply
+the LDA model in our dataset. The dataset consists of two datasets: the one that
+contains all the information about EU projects founded for research and
+innovation under the FP4-H2020 and the dataset from USA about the
+awards/projects that got approved from 1994-2017. We consider the projects'
+description/abstract as the documents in LDA. 
 
 \subsection{EU dataset}
 
-CORDIS (Community Research and Development Information Service) is the European Commission's primary public repository and portal to disseminate information on all EU-funded research projects and their results in the broadest sense. The website includes all public information held by the Commission (project factsheets, publishable reports and deliverables), editorial content to support communication and exploitation (news, events, success stories, magazines) and comprehensive links to external sources such as open access publications and websites. CORDIS is managed by the Publications Office of the European Union, on behalf of the European Commission's research Directorates-General and Agencies. CORDIS content dates back to the origin of the service in 1990 and the website has been online since 1994.
+CORDIS (Community Research and Development Information Service) is the European
+Commission's primary public repository and portal to disseminate information on
+all EU-funded research projects and their results in the broadest sense. The
+website includes all public information held by the Commission (project
+factsheets, publishable reports and deliverables), editorial content to support
+communication and exploitation (news, events, success stories, magazines) and
+comprehensive links to external sources such as open access publications and
+websites. CORDIS is managed by the Publications Office of the European Union, on
+behalf of the European Commission's research Directorates-General and Agencies.
+CORDIS content dates back to the origin of the service in 1990 and the website
+has been online since 1994.
 
-Below, we provide the general topics of the EU projects as listed in the EU Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
+
+Below, we provide the general topics of the EU projects as listed in the EU 
+Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
 \begin{itemize}
 \item Agriculture, Fisheries and Food
 	\begin{description}
@@ -773,9 +796,18 @@ Below, we provide the general topics of the EU projects as listed in the EU Open
 \item Transport and Travel
 \end{itemize}
 
-The data that are provided by CORDIS (via the EU Open Data Portal) are open, free and can be used in research, applications, commercial or non-commercial purposes. The dataset that we chose for the following analysis contains information about all the projects funded by the European Union from 1994 to 2017. These projects got approved under the framework programme (FP4-H2020) for research and technological development. For each project it is provided information, such as: reference, acronym, dates, funding, programmes, participant countries, subjects and objectives.
+The data that are provided by CORDIS (via the EU Open Data Portal) are open,
+free and can be used in research, applications, commercial or non-commercial
+purposes. The dataset that we chose for the following analysis contains
+information about all the projects funded by the European Union from 1994 to
+2017. These projects got approved under the framework programme (FP4-H2020) for
+research and technological development. For each project it is provided
+information, such as: reference, acronym, dates, funding, programmes,
+participant countries, subjects and objectives.
 
-In the provided dataset, the information is splitted into CSV files, based on the framework program that each project belongs. The frameworks from 1994 to 2020 are listed below:
+In the provided dataset, the information is splitted into CSV files, based on
+the framework program that each project belongs. The frameworks from 1994 to
+2020 are listed below:
 
 \begin{itemize}
 \item FP4: fourth framework programme (1994-1998)
@@ -787,7 +819,10 @@ In the provided dataset, the information is splitted into CSV files, based on th
 
 \subparagraph{Data preparation}
 
-Data cleaning is absolutely crucial for generating a useful topic model. We implemented the following steps, which are common to most natural language processing methods, in order to obtain the final corpus for the analysis:
+Data cleaning is absolutely crucial for generating a useful topic model. 
+We implemented the following steps, which are common to most natural 
+language processing methods, in order to obtain the final corpus for the 
+analysis:
 
 \begin{itemize}
 \item Remove punctuation and numbers
@@ -797,7 +832,14 @@ Data cleaning is absolutely crucial for generating a useful topic model. We impl
 \item Filter out the most frequent and some rare words of the dictionary
 \end{itemize}
 
-To obtain the collection of the documents, we consider as ‘documents’ in LDA the project objectives, which is an accurate description for the project. We also added the ‘title’ value of each project to the objectives-documents, to increase the probability of finding accurate topics. For the majority of the projects the ‘start date’ and ‘end date’ value was null, so we kept the splitting of the dataset per framework, in order to keep the correlation to the time. We followed the same format in the dataset of USA awards.
+To obtain the collection of the documents, we consider as ‘documents’ in LDA the
+project objectives, which is an accurate description for the project. We also
+added the ‘title’ value of each project to the objectives-documents, to increase
+the probability of finding accurate topics. For the majority of the projects the
+‘start date’ and ‘end date’ value was null, so we kept the splitting of the
+dataset per framework, in order to keep the correlation to the time. We followed
+the same format in the dataset of USA awards.
+
 
 \begin{center}
 \begin{tabular}{l*{6}{c}r}
@@ -811,16 +853,34 @@ H2020 & 2014-2017 & 9055 & 15835 & 1342882 \\
 \end{tabular}
 \end{center}
 
-As stopwords, we used the list that is provided by the Gensim Python library\footnote{http://radimrehurek.com/gensim/} and we added following very common words in the existing dataset: 'data', 'based', 'new', 'project', 'university', 'student', 'students', 'research', 'study', 'program', 'development', 'study', 'studies', 'provide', 'use'. We also removed the rare words that appear less than 5 times in the collection. Finally, we obtained a smaller corpus per framework (see the table above)
+As stopwords, we used the list that is provided by the Gensim Python
+library\footnote{http://radimrehurek.com/gensim/} and we added following very
+common words in the existing dataset: 'data', 'based', 'new', 'project',
+'university', 'student', 'students', 'research', 'study', 'program',
+'development', 'study', 'studies', 'provide', 'use'. We also removed the rare
+words that appear less than 5 times in the collection. Finally, we obtained a
+smaller corpus per framework (see the table above)
 
-In this section, we explain the procedure that we followed in n order to apply the LDA model in our dataset. The dataset consists of two datasets: the one that contains all the information about EU projects founded for research and innovation under the FP4-H2020 and the dataset from USA about the awards/projects that got approved from 1994-2017. We consider the projects' description/abstract as the documents in LDA.
- 
+In this section, we explain the procedure that we followed in n order to apply
+the LDA model in our dataset. The dataset consists of two datasets: the one that
+contains all the information about EU projects founded for research and
+innovation under the FP4-H2020 and the dataset from USA about the
+awards/projects that got approved from 1994-2017. We consider the projects'
+description/abstract as the documents in LDA. 
 
 \subsection{USA dataset}
 
-The National Science Foundation (NSF) is a United States government agency that supports fundamental research and education in all the non-medical fields of science and engineering. Its medical counterpart is the National Institutes of Health. The NSF funds approximately 24\% of all federally supported basic research conducted by the United States' colleges and universities. In some fields, such as mathematics, computer science, economics, and the social sciences, the NSF is the major source of federal backing.
+The National Science Foundation (NSF) is a United States government agency that
+supports fundamental research and education in all the non-medical fields of
+science and engineering. Its medical counterpart is the National Institutes of
+Health. The NSF funds approximately 24\% of all federally supported basic
+research conducted by the United States' colleges and universities. In some
+fields, such as mathematics, computer science, economics, and the social
+sciences, the NSF is the major source of federal backing.
+
  
-The NSF organizes its research and education support through seven directorates, each encompassing several disciplines:
+The NSF organizes its research and education support through seven 
+directorates, each encompassing several disciplines:
 
 \begin{itemize}
 \item Biological Sciences
@@ -857,17 +917,32 @@ Linguistics, Science of science policy and economics
 \end{description}
 \end{itemize}
 
-The data about the awards \footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can be used in research and applications. The dataset that we chose for the following analysis contains information about all the projects that got funded by the NSF from 1994 to 2017.
+The data about the awards
+\footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can
+be used in research and applications. The dataset that we chose for the
+following analysis contains information about all the projects that got funded
+by the NSF from 1994 to 2017.
  
-In the provided dataset, the information is splitted into XML files, separated per year, from 1994 - 2017. In order to keep the correlation to time and be able to compare the two datasets later, we splitted the projects based on the year they were initialized (see Table below).
+In the provided dataset, the information is splitted into XML files, separated
+per year, from 1994 - 2017. In order to keep the correlation to time and be able
+to compare the two datasets later, we splitted the projects based on the year
+they were initialized (see Table below).
+
 
 \subparagraph{Data preparation}
 
-Just like the EU dataset, we followed the same preprocessing steps to obtain the final corpus. As stopwords, we used the list that is provided by the Gensim Python library and we removed following very common words in the existing dataset: 'data', 'work', 'based', 'new', 'project', 'university', 'student', 'students', 'research', 'study', 'program', 'development', 'study', 'studies', 'provide', 'use', 'understanding', 'important', 'support', 'proposed'. We also removed the rare words that appear less than 5 times in the collection. Finally, we obtained a smaller corpus per framework (see Table below).
+Just like the EU dataset, we followed the same preprocessing steps to obtain the
+final corpus. As stopwords, we used the list that is provided by the Gensim
+Python library and we removed following very common words in the existing
+dataset: 'data', 'work', 'based', 'new', 'project', 'university', 'student',
+'students', 'research', 'study', 'program', 'development', 'study', 'studies',
+'provide', 'use', 'understanding', 'important', 'support', 'proposed'. We also
+removed the rare words that appear less than 5 times in the collection. Finally,
+we obtained a smaller corpus per framework (see Table below).
 
 \begin{center}
 \begin{tabular}{l*{6}{c}r}
-Framework         & Years & No of docs & No of unique tokens & No of words in the corpus \\
+Framework& Years & No of docs & No of unique tokens & No of words in the corpus \\
 \hline
 FP4 & 1994-1997 & 36752 & 28038 & 4346604 \\
 FP5 & 1998-2001 & 37674 & 30728 & 5166316 \\
@@ -962,6 +1037,67 @@ physics in EU (see Appendix: Wordclouds of topics of the EU).
 
 \subsection{Discovering topics on the USA projects}
 
+The National Science Foundation mostly supports fundamental research and
+education in the non-medicalin science and engineering. Its medical counterpart
+is the National Institutes of Health.\footnote{\url{https://en.wikipedia.org/wik
+i/National_Science_Foundation}} With STEM being the top priority in USA, most of
+the projects founded by NSF are related to engineering, computer science,
+mathematics and information systems, in general. The subjects STEM \& Education,
+Software engineering, Information systems and Mathematics, arise as topics in
+all these years, from 1994-2017.
+
+While NSF promotes the progress of science, it also enhances the effords to
+maintain the national health, prosperity, and welfare. Over the last 22 years,
+many projects are related to the environment effects of climate change. Topics
+like Environmental Science, Atmospheric \& Ocean sciences, Geology, Climate
+change and its impact in the United States emerge during all these years. The
+last three years there is a focus on the Green energy production, like
+hydropower and wind power. Among with climate change, there is many research
+related to Biology and Evolution. A less popular subject that appears during the
+years 1994-1997 and 2007-2013 is Molecular, Cellular \& Organismal biology and
+Genetics. These projects mostly refer to applied genetics, as well as cell
+functionality. Topics include receptor biology, regulation of gene expression,
+biomedical engineering, patterns of inheritance and molecular genetics.
+
+Another popular subject that appears the last 22 years is Materials and
+Chemistry; the projects related to material research are mostly refer to the
+materials' properties and applications in engineering. The last 3 years,
+researchers from the USA focus on materials applications and desing in
+mechanical engineering, bioengineering and chemical \& transport systems. In
+2002-2006 many projects are related to the subject of transport that is
+sustainable in the senses of social, environmental and climate impacts (Green
+transportation).
+
+From 1994-2006 and the last three years, International Research and conferences
+came up as a trending topic. Re- searchers have a great interest to collaborate
+with other colleagues from all over the world and share their knowledge. A big
+part of the projects funded by the EU that is related to international research,
+is also related to Physics, in general, and High energy physics in EU (see
+Appendix: Wordclouds of topics of the EU).
+
+NSF shows a great interest in international activities across all NSF supported
+disciplines. The goal of these projects is to support high quality research and
+education, which could not occur without international collaboration. NSF seeks
+to catalyze a higher level of international engagement in the U.S. science and
+engineering community by promoting International conferences and university
+projects and partnerships. An interesting fact regarding international
+partnerships is that the European Commission and the Government of the United
+States of America concluded on 17 October 2016 an Implementing Arrangement that
+simplifies the cooperation between Horizon 2020 projects and US entities.
+European and American researchers will be able to work together more closely on
+projects funded under Horizon 2020, the European Union's research and innovation
+programme.\footnote{\url{http://ec.europa.eu/research/iscp/index.cfm?pg=usa}}
+
+From 2002 up to day, Economic and Social Sciences emerge as a topic in our
+dataset. Researchers show a great interest in identifying policies which help
+the communities and they also do lots of Qualitative and Quantitative research
+to investigate the size or extent of particular issues or trends in society.
+
+Finally, a topic that used to be popular in the past, in 1994-1997 and
+2007-2013, is High energy Physics in USA, which has lost its popularity
+nowadays. The last 5 years, there is an interest around STEM and its
+applications in manufacturing and engineering.
+
 
 \subsection{Topic evolution over time}
 
@@ -1032,6 +1168,13 @@ topic during the FP, nomralized by the number of the documents-projects
 occuring in this FP. In figure X we plot the results of the topic proportion 
 over time.
 
+\begin{center}
+\begin{figure}
+\includegraphics[width=1.0\textwidth, natwidth=707,natheight=483]
+{figs/eu-topic-evolution.png}
+\caption{Topics over time in EU}
+\end{figure}
+\end{center}
 
 \subparagraph{Trends in the USA	}
 
@@ -1125,6 +1268,38 @@ division.
 \end{center}
 
 
+\subsection{Comparison of the two regions per framework programme}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+{figs/heatmaps/heatmapFP4.png}
+\caption{Heatmap of the similarity of the two regions during 1994-1997}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+{figs/heatmaps/heatmapFP5.png}
+\caption{Heatmap of the similarity of the two regions during 1998-2001}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+{figs/heatmaps/heatmapFP6.png}
+\caption{Heatmap of the similarity of the two regions during 2002-2006}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+{figs/heatmaps/heatmapFP7.png}
+\caption{Heatmap of the similarity of the two regions during 2007-2013}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+{figs/heatmaps/heatmapH2020.png}
+\caption{Heatmap of the similarity of the two regions during 2014-2017}
+\end{figure}
 
 \section{Conclusion}
 
