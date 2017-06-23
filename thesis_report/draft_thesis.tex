@@ -16,7 +16,35 @@
 \usepackage{algorithm2e}
 \usepackage{url}
 \usepackage{subfig}
-
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
 
 \begin{document}
 
@@ -374,7 +402,7 @@ for a corpus $D$:
 \begin{center}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth, natwidth=548,natheight=201]{figs/PLSI_plate_notation.png}
+\includegraphics[width=0.6\textwidth]{figs/PLSI_plate_notation.png}
 \caption{Plate notation representing the PLSI model. \textbf{w} is the document 
 index, $z$ is the topic drawn for the word $w$ from the topic distribution of 
 the document}
@@ -530,7 +558,7 @@ lead to some of the resulting topics to be insignificant.
 \begin{center}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth, natwidth=561,natheight=197]{figs/LDA_standard_model.png}
+\includegraphics[width=0.6\textwidth]{figs/LDA_standard_model.png}
 \caption{Plate notation of the standard LDA model}
 \end{figure}
 \end{center}
@@ -975,7 +1003,8 @@ $passes=2$, because the training could not converge, despite the large number of
 the iterations.
 
 The implementation was run on a computer with an Intel® Xeon® Processor E5-1410
-(10MB Cache, 2.8 GHz, 4 cores, 8 threads) and RAM=12 GB.
+(10MB Cache, 2.8 GHz, 4 cores, 8 threads) and RAM=12 GB. Check the Appendix for 
+the actual implementation.
 
 
 \section{Analysis and results}
@@ -1137,18 +1166,18 @@ describe them:
 \begin{center}
 \begin{figure}
 \begin{tabular}{rcl}
-\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic0_all.png}} &
-\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic1_all.png}} &
-\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic2_all.png}}\\
-\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic3_all.png}} &
-\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic4_all.png}} &
-\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic5_all.png}}\\
-\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic6_all.png}} &
-\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic7_all.png}} &
-\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic8_all.png}}\\
-\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic9_all.png}} &
-\subfloat[Topic 10]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic10_all.png}} &
-\subfloat[Topic 11]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/EU_topic11_all.png}}\\
+\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic0_all.png}} &
+\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic1_all.png}} &
+\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic2_all.png}}\\
+\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic3_all.png}} &
+\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic4_all.png}} &
+\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic5_all.png}}\\
+\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic6_all.png}} &
+\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic7_all.png}} &
+\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic8_all.png}}\\
+\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic9_all.png}} &
+\subfloat[Topic 10]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic10_all.png}} &
+\subfloat[Topic 11]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic11_all.png}}\\
 \end{tabular}
 \caption{Wordclouds of topics of the EU dataset (1994-2017)}
 \end{figure}
@@ -1169,14 +1198,51 @@ topic during the FP, normalized by the number of the documents-projects
 occurring in this FP. In figure X we plot the results of the topic proportion 
 over time.
 
+Based on this plot, topic 10, which refers to International Research, has an
+interesting evolution; During the years 1994-1998 is appears as less popular
+topic, compared to other topics. However, this state changes drastically in
+1998-2002 ($+14\%$) and in 2002-2006 it is at its peak ($+18\% since 1994$).
+This period many activities and projects where initialized in order to support
+and promote international education and conferences to attract researchers from
+all over the world. Strangely, this trend has a significant decrease the last 10
+years, compared to other topics ($-12\%$). We already know that in Horizon 2020
+there is an agreement between EU and USA for supporting the cooperation of the
+two regions.Our hypothesis for the evolution of the International Research is
+that the EU successfully managed to create the foundation for supporting
+international people and there is no need to invest more on projects that
+attempt to promote cooperation between international researchers, because it is
+already considered as a common practice nowadays.
+
+Materials and Manufacturing was a hot topic in 1994-1998, but it also appears a
+big decrease during the years 1998-2006 and it has a stable trend since then.
+Materials Science/Chemistry \& Physics' popularity (topic 4) line has an
+increase during 2002-2013 and the last 3 years a small decrease of $2-3\%$.
+Topics 2 and 3 (Social policy, Disease detection \& treatment) follow the same
+linear trend as Materials science \& Physics. Energy production (topic 11) was
+less popular in 1994-2002 and is becoming slightly popular the last 15 years.
+
+Topic 9, which refers to Information systems in general, is a subject that has a
+stable trend and it appears as a popular topic the last 22 years compared to
+other topics, with a percentage of $12.5\%$ of the projects in EU on average.
+
+Biology and the study of molecular mechanisms have a small decrease of
+popularity on average. This may happen because the projects related to medical
+fields are supported by another institute, National Institutes of Health. Also,
+research in Climate change and Environmental science is another subject that
+paradoxically appears as a topic that is gradually losing its popularity over
+the last years.
+
+Finally, topic 6, which is related to Business \& Innovation, has a huge
+increase the last 3 years. We can assume that the EU is very interested in
+supporting the economy by funding projects about businesses and monetary
+affairs.
 \begin{center}
 \begin{figure}
-\includegraphics[width=1.0\textwidth, natwidth=707,natheight=483]
+\includegraphics[width=1.0\textwidth]
 {figs/eu-topic-evolution.png}
 \caption{Topics over time in EU}
 \end{figure}
 \end{center}
-
 \subparagraph{Trends in the USA	}
 
 Just like the EU dataset, we found the 10 topics of the USA dataset from 1994 to
@@ -1206,16 +1272,16 @@ described in the wordclouds are listed below:
 \begin{figure}
 \centering
 \begin{tabular}{rcl}
-\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic0_12000_all_docs.png}} &
-\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic1_12000_all_docs.png}} &
-\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic2_12000_all_docs.png}}\\
-\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic3_12000_all_docs.png}} &
-\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic4_12000_all_docs.png}} &
-\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic5_12000_all_docs.png}}\\
-\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic6_12000_all_docs.png}} &
-\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic7_12000_all_docs.png}} &
-\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic8_12000_all_docs.png}}\\
-\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/USA_topic9_12000_all_docs.png}} &
+\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic0_12000_all_docs.png}} &
+\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic1_12000_all_docs.png}} &
+\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic2_12000_all_docs.png}}\\
+\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic3_12000_all_docs.png}} &
+\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic4_12000_all_docs.png}} &
+\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic5_12000_all_docs.png}}\\
+\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic6_12000_all_docs.png}} &
+\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic7_12000_all_docs.png}} &
+\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic8_12000_all_docs.png}}\\
+\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic9_12000_all_docs.png}} &
 \end{tabular}
 \caption{Wordclouds of topics of the USA dataset (1994-2016)}
 \end{figure}
@@ -1258,46 +1324,43 @@ the jobs available during the next decade will require math and science skills.
 Even the concept of STEM was first introduced by Judith A. Ramaley, the former
 director of the National Science Foundation’s education and human resources
 division.
-
-
 \begin{center}
 \begin{figure}
-\includegraphics[width=1.0\textwidth, natwidth=707,natheight=483]
+\includegraphics[width=1.0\textwidth]
 {figs/topic-evolution-usa.png}
 \caption{Topics over time in USA}
 \end{figure}
 \end{center}
 
-
 \subsection{Comparison of the two regions per framework programme}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+\includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP4.png}
 \caption{Heatmap of the similarity of the two regions during 1994-1997}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+\includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP5.png}
 \caption{Heatmap of the similarity of the two regions during 1998-2001}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+\includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP6.png}
 \caption{Heatmap of the similarity of the two regions during 2002-2006}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+\includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP7.png}
 \caption{Heatmap of the similarity of the two regions during 2007-2013}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth, natwidth=1080,natheight=720]
+\includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapH2020.png}
 \caption{Heatmap of the similarity of the two regions during 2014-2017}
 \end{figure}
@@ -1311,183 +1374,191 @@ division.
 
 
 \clearpage
-\appendix
+\section{Appendix}
+
+\textbf{eu iterations.py}
+
+\lstinputlisting[language=Python]{code/eu_iterations.py}
+
+\textbf{usa iterations.py}
+
+\lstinputlisting[language=Python]{code/usa_iterations.py}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Quality Management Systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic0_7000.png}} &
-\subfloat[Agriculture, Fisheries and Food]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic1_7000.png}}&
-\subfloat[Molecular biology, Genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic2_7000.png}}\\
-\subfloat[EU transport]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic3_7000.png}}&
-\subfloat[Digital systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic4_7000.png}} &
-\subfloat[Materials processing]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic5_7000.png}}\\
-\subfloat[Genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic6_7000.png}} &
-\subfloat[Policy for environmental sustainability]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic7_7000.png}}&
-\subfloat[Energy technologies]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic8_7000.png}}\\
-\subfloat[Applications in mobile networks]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic9_7000.png}}&
+\subfloat[Quality Management Systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic0_7000.png}} &
+\subfloat[Agriculture, Fisheries and Food]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic1_7000.png}}&
+\subfloat[Molecular biology, Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic2_7000.png}}\\
+\subfloat[EU transport]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic3_7000.png}}&
+\subfloat[Digital systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic4_7000.png}} &
+\subfloat[Materials processing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic5_7000.png}}\\
+\subfloat[Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic6_7000.png}} &
+\subfloat[Policy for environmental sustainability]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic7_7000.png}}&
+\subfloat[Energy technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic8_7000.png}}\\
+\subfloat[Applications in mobile networks]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic9_7000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the EU FP4 (1994-1998)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Management software]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic0_7000.png}} &
-\subfloat[Hydropower / Energy production]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic1_7000.png}}&
-\subfloat[Information technologies]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic2_7000.png}}\\
-\subfloat[Quality control systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic3_7000.png}}&
-\subfloat[Health care / Medical genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
-\subfloat[Environmental sustainability and policies]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic5_7000.png}}\\
-\subfloat[Molecular biology (genes)]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic6_7000.png}} &
-\subfloat[Optical quantum computing]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic7_7000.png}}&
-\subfloat[Education in Nuclear physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic8_7000.png}}\\
-\subfloat[Education, training]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic9_7000.png}}&
+\subfloat[Management software]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic0_7000.png}} &
+\subfloat[Hydropower / Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic1_7000.png}}&
+\subfloat[Information technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic2_7000.png}}\\
+\subfloat[Quality control systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic3_7000.png}}&
+\subfloat[Health care / Medical genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
+\subfloat[Environmental sustainability and policies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic5_7000.png}}\\
+\subfloat[Molecular biology (genes)]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic6_7000.png}} &
+\subfloat[Optical quantum computing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic7_7000.png}}&
+\subfloat[Education in Nuclear physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic8_7000.png}}\\
+\subfloat[Education, training]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic9_7000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the EU FP5 (1998-2002)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[International research]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic0_7000.png}} &
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic1_7000.png}}&
-\subfloat[Embedded systems design]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic2_7000.png}}\\
-\subfloat[Molecular biology, genes]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic3_7000.png}}&
-\subfloat[Evolution / Formation]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic4_7000.png}} &
-\subfloat[Sustainable production / Energy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic5_7000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic6_7000.png}} &
-\subfloat[Environmental management services]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic7_7000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic8_7000.png}}\\
-\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic9_7000.png}}&
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic0_7000.png}} &
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic1_7000.png}}&
+\subfloat[Embedded systems design]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic2_7000.png}}\\
+\subfloat[Molecular biology, genes]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic3_7000.png}}&
+\subfloat[Evolution / Formation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic4_7000.png}} &
+\subfloat[Sustainable production / Energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic5_7000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic6_7000.png}} &
+\subfloat[Environmental management services]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic7_7000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic8_7000.png}}\\
+\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic9_7000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the EU FP6 (2002-2006)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic0_7000.png}} &
-\subfloat[(High energy) physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic1_7000.png}}&
-\subfloat[Energy production]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic2_7000.png}}\\
-\subfloat[Social Sciences]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic3_7000.png}}&
-\subfloat[Molecular Biology / Genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic4_7000.png}} &
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic5_7000.png}}\\
-\subfloat[International research]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic6_7000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic7_7000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic8_7000.png}}\\
-\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic9_7000.png}}&
+\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic0_7000.png}} &
+\subfloat[(High energy) physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic1_7000.png}}&
+\subfloat[Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic2_7000.png}}\\
+\subfloat[Social Sciences]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic3_7000.png}}&
+\subfloat[Molecular Biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic4_7000.png}} &
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic5_7000.png}}\\
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic6_7000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic7_7000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic8_7000.png}}\\
+\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic9_7000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the EU FP7 (2007-2013)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic0_20000.png}} &
-\subfloat[Environmental sustainability \& food production]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic1_20000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic2_20000.png}}\\
-\subfloat[?]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic3_20000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic4_20000.png}} &
-\subfloat[Environmental sustainability / Green energy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic5_20000.png}}\\
-\subfloat[Physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic6_20000.png}} &
-\subfloat[Business \& Innovation]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic7_20000.png}}&
-\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic8_20000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic9_20000.png}}&
+\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic0_20000.png}} &
+\subfloat[Environmental sustainability \& food production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic1_20000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic2_20000.png}}\\
+\subfloat[?]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic3_20000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic4_20000.png}} &
+\subfloat[Environmental sustainability / Green energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic5_20000.png}}\\
+\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic6_20000.png}} &
+\subfloat[Business \& Innovation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic7_20000.png}}&
+\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic8_20000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic9_20000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the EU H2020 (2014-2020)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Software engineering]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic0_8000.png}} &
-\subfloat[Climate change]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic1_8000.png}}&
-\subfloat[International research \& Education]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic2_8000.png}}\\
-\subfloat[Chemistry]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic3_8000.png}}&
-\subfloat[Economic \& Social science]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic4_8000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic5_8000.png}}\\
-\subfloat[Molecular biology / Genetics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic6_8000.png}} &
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic7_8000.png}}&
-\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic8_8000.png}}\\
-\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic9_8000.png}}&
+\subfloat[Software engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic0_8000.png}} &
+\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic1_8000.png}}&
+\subfloat[International research \& Education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic2_8000.png}}\\
+\subfloat[Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic3_8000.png}}&
+\subfloat[Economic \& Social science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic4_8000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic5_8000.png}}\\
+\subfloat[Molecular biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic6_8000.png}} &
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic7_8000.png}}&
+\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic8_8000.png}}\\
+\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic9_8000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the USA (1994-1997)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Applied Sciences]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic0_8000.png}} &
-\subfloat[Environment \& Climate change]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic1_8000.png}}&
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic2_8000.png}}\\
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic3_8000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic4_8000.png}} &
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic5_8000.png}}\\
-\subfloat[Systems ?]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic6_8000.png}} &
-\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic7_8000.png}}&
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic8_8000.png}}\\
-\subfloat[International conferences]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic9_8000.png}}&
+\subfloat[Applied Sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic0_8000.png}} &
+\subfloat[Environment \& Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic1_8000.png}}&
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic2_8000.png}}\\
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic3_8000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic4_8000.png}} &
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic5_8000.png}}\\
+\subfloat[Systems ?]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic6_8000.png}} &
+\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic7_8000.png}}&
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic8_8000.png}}\\
+\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic9_8000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the USA (1998-2001)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic0_8000.png}} &
-\subfloat[Education (in engineering)]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic1_8000.png}}&
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic2_8000.png}}\\
-\subfloat[International conferences]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic3_8000.png}}&
-\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic4_8000.png}} &
-\subfloat[Green transportation]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic5_8000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic6_8000.png}} &
-\subfloat[Climate change]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic7_8000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic8_8000.png}}\\
-\subfloat[Physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic9_8000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic0_8000.png}} &
+\subfloat[Education (in engineering)]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic1_8000.png}}&
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic2_8000.png}}\\
+\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic3_8000.png}}&
+\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic4_8000.png}} &
+\subfloat[Green transportation]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic5_8000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic6_8000.png}} &
+\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic7_8000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic8_8000.png}}\\
+\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic9_8000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the USA (2002-2006)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic0_9000.png}} &
-\subfloat[Computer \& Networking systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic1_9000.png}}&
-\subfloat[Chemistry \& Materials science]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic2_9000.png}}\\
-\subfloat[Climate change \ Environmental science]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic3_9000.png}}&
-\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic4_9000.png}} &
-\subfloat[Atmospheric \& Ocean sciences]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic5_9000.png}}\\
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic6_9000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic7_9000.png}}&
-\subfloat[(Molecular) biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic8_9000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic9_9000.png}}&
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic0_9000.png}} &
+\subfloat[Computer \& Networking systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic1_9000.png}}&
+\subfloat[Chemistry \& Materials science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic2_9000.png}}\\
+\subfloat[Climate change \ Environmental science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic3_9000.png}}&
+\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic4_9000.png}} &
+\subfloat[Atmospheric \& Ocean sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic5_9000.png}}\\
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic6_9000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic7_9000.png}}&
+\subfloat[(Molecular) biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic8_9000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic9_9000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the USA (2007-2013)}
 \end{figure}
 \end{center}
 
 \begin{center}
-\begin{figure}
+\begin{figure}[h]
 \begin{tabular}{rcl}
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic0_8000.png}} &
-\subfloat[Climate Change / Geology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic1_8000.png}}&
-\subfloat[Sociology]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic2_8000.png}}\\
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic3_8000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic4_8000.png}} &
-\subfloat[Chemical \& transport systems]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic5_8000.png}}\\
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic6_8000.png}} &
-\subfloat[Materials \& Mechanical engineering]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic7_8000.png}}&
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic8_8000.png}}\\
-\subfloat[International research]{\includegraphics[width=0.35\textwidth, natwidth=640,natheight=480]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic9_8000.png}}&
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic0_8000.png}} &
+\subfloat[Climate Change / Geology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic1_8000.png}}&
+\subfloat[Sociology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic2_8000.png}}\\
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic3_8000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic4_8000.png}} &
+\subfloat[Chemical \& transport systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic5_8000.png}}\\
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic6_8000.png}} &
+\subfloat[Materials \& Mechanical engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic7_8000.png}}&
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic8_8000.png}}\\
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic9_8000.png}}&
 \end{tabular}
 \caption{Wordclouds of topics of the USA (2014-2017)}
 \end{figure}
