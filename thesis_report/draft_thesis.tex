@@ -74,11 +74,11 @@ in research and innovation over the last 22 years, and to provide valuable
 knowledge about the research trends nowadays. A way to approach the issue is
 through the projects supported by funding agencies. In particular, public data
 are available for the projects funded under the European Union Framework
-Programmes, and for project funder by the NSF in the United States. The data
+Programmes, and for project funded by the NSF in the United States. The data
 include project descriptions, so it is possible to investigate, based on these
 textual data, the research topics that were actually funded over the last two
 decades. We first introduce the concept of Latent Dirichlet allocation and its
-application in topic modelling in projects funded in the two regions from 1994
+application in topic modeling in projects funded in the two regions from 1994
 to 2017. We will then proceed to show the differences between the two regions in
 terms of topic similarity and topic evolution over time. We will discuss both
 policy implications, what has been funded over the years, as well as technical
@@ -87,7 +87,60 @@ ones, how can one handle such datasets and extract information from them.
 
 
 \section{Introduction}
-This is where you tell people why they should bother reading your article.
+Research is the foundation on which knowledge and new technologies emerge and
+support our welfare. Scientific research brings together observation, knowledge
+and data to solve problems, invent solutions and develop new products. In our
+globalized world, the shared commitment for excellence in science has a major
+impact to our well being and it's important to support research and development.
+Over the last years, many projects from different domains are getting funded for
+research and innovation.
+
+Nowadays, there are many funding opportunities for researchers. For instance,
+European Union countries are encouraged to invest 3\% of their GDP in research
+and development by 2020. EU's latest research programme, Horizon 2020, allows
+researchers to identify new opportunities and directions in almost any field of
+research. The programme's goals are to strengthen the EU's position in science,
+support industrial innovation and address social concerns, such as climate
+change, green transportation and energy.
+
+Another funding agency that actively promotes the progress of science is the
+National Science Foundation in the United States of America. NSF supports
+research in all the non medical fields of science \& engineering and aims to
+advance the national health and prosperity. It finds approximately 24\% of the
+federally supported research conducted by the USA's colleges and universities.
+
+With our work, we aim to investigate the evolution of scientific research in the
+EU and the US. In other words, we attempt to identify which subjects are more
+likely to get a funding, based on the previous focus the two regions in research
+fields. In order to answer these questions, we tried to gain some insights from
+the projects that got funded the last two decades under the EU Framework
+Programmes and the NSF in USA.
+
+When researchers apply for a funding, one of the first steps they do is to
+identify an interesting subject of the many possible topics of scientific
+investigation. The topic(s) of a project is always described in the project's
+abstract/description. Obtaining these abstracts, one can possibly investigate
+the topics of the projects and find the subjects that are being addressed and
+gain some information regarding the popularity of the topics among others.
+
+In this work, we discover topics and their evolution from 1994 to 2017, using
+the projects' abstracts that got funded this period. Using a topic model, we
+extract a set of topics and investigate the changes in the content per
+year/framework programme. These topics are used to gain insight into some of the
+research that occurs the last two decades. Our goal is to share these insights
+with researchers and encourage them to develop better strategies to establish
+themselves as more effective researchers globally, by choosing a subject that is
+more likely to get a funding.
+
+In section 2, we briefly talk about the papers that mostly influenced our study.
+Section 3 introduces some basic concepts in topic modeling and we describe the
+model that we used for topic extraction, Latent Dirichlet Allocation, which is a
+statistical generative model for documents. In section 4 we provide information
+about the dataset structure and the methodology that we followed in our
+analysis. In section 5 we interpret the results of our analysis, discuss the
+evolution of the topics over time and the differences between the two regions'
+topics based on their similarity. Finally, section 6 summarizes our work and
+section 7 suggests some future work.
 
 \section{Related work}
 
@@ -1425,15 +1478,15 @@ scientific research.
 
 Moreover, the information about what has been funded over the last years in
 these two regions show that the scope of scientific research has become more
-interdisciplinary and international as well. Even though we started analysing
+interdisciplinary and international as well. Even though we started analyzing
 the abstracts of the projects quantitatively, we also tried to discuss the
-results and explain furtherthe evolution of the topics in research and potential
+results and explain further evolution of the topics in research and potential
 trends.
 
 To sum up, discovering the topics in scientific research is a first step to
 understand the knowledge that the research offers to the community in these two
-regions, visualise the content and discover promising trends. We hore our work
-could help people realise the potential of scientific research and inspire them
+regions, visualize the content and discover promising trends. We hope our work
+could help people realize the potential of scientific research and inspire them
 to identify meaningful topics to focus on.
 
 \section{Future work}
