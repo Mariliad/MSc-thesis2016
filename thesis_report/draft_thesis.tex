@@ -7,8 +7,8 @@
 
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
-
 \setlength{\parskip}{1em}
+
 \usepackage[justification=centering]{caption}
 \usepackage{amsfonts}
 \usepackage{graphicx}
@@ -19,6 +19,7 @@
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
+\usepackage{geometry} 
  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -48,13 +49,40 @@
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figs/logo.jpg}\par\vspace{4cm}
+	{\scshape\Large MSc thesis\par}
+	\vspace{1.5cm}
+	{\Large\bfseries Topic modeling on EU and the USA research projects\par}
+	\vspace{2cm}
+	{\Large Maria Iliadi\par}
+	\vfill
+	supervised by\par
+	Prof.~Panos Louridas
+
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
 \tableofcontents
 
-
 \begin{abstract}
-This is a simple paragraph at the beginning of the document. 
-A brief introduction about the main subject.
+The purpose of this work is to better identify, quantify and understand themes
+in research and innovation over the last 22 years, and to provide valuable
+knowledge about the research trends nowadays. A way to approach the issue is
+through the projects supported by funding agencies. In particular, public data
+are available for the projects funded under the European Union Framework
+Programmes, and for project funder by the NSF in the United States. The data
+include project descriptions, so it is possible to investigate, based on these
+textual data, the research topics that were actually funded over the last two
+decades. We first introduce the concept of Latent Dirichlet allocation and its
+application in topic modelling in projects funded in the two regions from 1994
+to 2017. We will then proceed to show the differences between the two regions in
+terms of topic similarity and topic evolution over time. We will discuss both
+policy implications, what has been funded over the years, as well as technical
+ones, how can one handle such datasets and extract information from them.
 \end{abstract}
 
 
@@ -234,7 +262,7 @@ When formulating the optimization problem in Latent Dirichlet Allocation we
 will use the KL divergence to express the optimization problem. The KL divergence 
 is a measure of the difference between two probability distributions $P$ and $Q$. 
 It is important to note
-that the KL divergence is not symmetrical in $P$ and $Q$ so it’s not a metric.
+that the KL divergence is not symmetrical in $P$ and $Q$ so it's not a metric.
 
 The KL divergence can be interpreted as a way to express the amount of 
 information lost when $Q$ is used to approximate $P$.
@@ -300,7 +328,7 @@ $n$ words.\cite{Huang_maximumlikelihood}
 
 The Dirichlet distribution is a way to model random probability mass functions
 (PMFs)\footnote{If you roll 1000 dice, the theoretical odds of any particular
-number showing up (i.e. a 1, 2, 3, 4, 5, or 6) are 1/6. However, you won’t get
+number showing up (i.e. a 1, 2, 3, 4, 5, or 6) are 1/6. However, you won't get
 that exact distribution in a real experiment due to manufacturing defects. If
 you have ten dice, each die will have its own probability mass function (PMF).}
 for finite sets. It is also sometimes used as a prior in Bayesian statistics.
@@ -316,7 +344,7 @@ parameters different from those of the prior).
 
 The Dirichlet process is a way to model randomness of a probability mass
 function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
-bag). The process is similar Polya’s Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
+bag). The process is similar Polya's Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
 of ball colors you have an unlimited amount:
 
 \begin{itemize}
@@ -337,7 +365,7 @@ draws is a Dirichlet process.
 
 \subsection{Basic models in topic modeling}
 
-First, we’ll introduce some basic models for topic modeling. The Latent Semantic
+First, we'll introduce some basic models for topic modeling. The Latent Semantic
 Indexing, or LSI, was presented by Deerwester et al. in 1990. The model manages
 to deal with the problem that multiple terms can refer to the same meaning,
 i.e. synonymy. However, it is not as successful regarding polysemy. The reason
@@ -469,7 +497,7 @@ topics. Each document exhibits the topics with different proportion (step 1);
 each word in each document is drawn from one of the topics (step 2b), where the
 selected topic is chosen from the per-document distribution over topics (step
 2a). All the documents in the corpus share the same set of topics, but each
-document exhibits those topics with different proportion - that’s the
+document exhibits those topics with different proportion - that's the
 distinguishing characteristic of LDA. A more detailed explanation of the model
 follows in section 2.2.3.1.
 
@@ -597,7 +625,7 @@ compute a better estimate for the parameters.
 
 In LDA, our ultimate goal is to find the posterior distribution of latent topic 
 variables after observing training data. However, computing this distribution 
-is intractable, so we’re forced to approximate. One approximation approach is to 
+is intractable, so we're forced to approximate. One approximation approach is to 
 use an optimization method called Variational Bayes. In the original paper it's 
 being used a variational Bayes approximation of the posterior distribution;
 \cite{blei2003latent} alternative inference techniques use Gibbs sampling and
@@ -712,7 +740,7 @@ and online variational LDA, we alternate between two steps:
 
 In online Variational Bayes, we only make a single sweep of the entire dataset, 
 analyzing a chunk of documents at a time. A chunk could be a single document, 
-50 documents, or even the entire dataset. Let’s let a chunk be 1000 documents.
+50 documents, or even the entire dataset. Let's let a chunk be 1000 documents.
 
 The online E-Step only uses the current chunk; instead of holding all the 
 documents we now only have to hold 1000 in memory. The E-Step finds locally 
@@ -740,8 +768,8 @@ update $\lambda$
 \end{algorithm}
 
 We can see that unlike variational LDA, in online LDA we only need to hold a
-small chunk of the data at a time, and once we’re done analyzing it, we never
-need it again. As with batch, once we’ve estimated $\lambda$, we can find the 
+small chunk of the data at a time, and once we're done analyzing it, we never
+need it again. As with batch, once we've estimated $\lambda$, we can find the 
 most probable words for each topic by looking at the word probabilities in 
 each row of $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
 
@@ -810,7 +838,7 @@ Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
 	\begin{description}
 	\item Health, Sport
 	\end{description}
-\item Justice and Citizens’ rights
+\item Justice and Citizens' rights
 	\begin{description}
 	\item EU citizenship, Consumers, Justice and Home affairs
 	\end{description}
@@ -861,11 +889,11 @@ analysis:
 \item Filter out the most frequent and some rare words of the dictionary
 \end{itemize}
 
-To obtain the collection of the documents, we consider as ‘documents’ in LDA the
+To obtain the collection of the documents, we consider as 'documents' in LDA the
 project objectives, which is an accurate description for the project. We also
-added the ‘title’ value of each project to the objectives-documents, to increase
+added the 'title' value of each project to the objectives-documents, to increase
 the probability of finding accurate topics. For the majority of the projects the
-‘start date’ and ‘end date’ value was null, so we kept the splitting of the
+'start date' and 'end date' value was null, so we kept the splitting of the
 dataset per framework, in order to keep the correlation to the time. We followed
 the same format in the dataset of USA awards.
 
@@ -1322,7 +1350,7 @@ research and education is becoming more and more popular, which is not
 surprising, since the National Science Foundation itself estimates that 80/% of
 the jobs available during the next decade will require math and science skills.
 Even the concept of STEM was first introduced by Judith A. Ramaley, the former
-director of the National Science Foundation’s education and human resources
+director of the National Science Foundation's education and human resources
 division.
 \begin{center}
 \begin{figure}
