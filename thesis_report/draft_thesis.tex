@@ -1382,8 +1382,15 @@ where $k$ is the number of the topic id, $y$ is the year between 1994-2016. The
 topic proportion of each topic per year equals to the sum of the number of the
 documents assigned to this topic during the year, normalized by the number of
 the documents-projects  occurring in this year.
-
-In figure X we plot the topic distribution over time. We can easily observe that
+\begin{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1.0\textwidth]
+{figs/topic-evolution-usa.png}
+\caption{Topics over time in USA}
+\end{figure}
+\end{center}
+In figure 6 we plot the topic distribution over time. We can easily observe that
 the topic 6, which refers to STEM education, is becoming a trend in the United
 States over the years, while most of the other topics' evolution doesn't show up
 such a high increase. Topics 5 and 8, which refer to Chemistry \& Materials
@@ -1405,17 +1412,87 @@ the jobs available during the next decade will require math and science skills.
 Even the concept of STEM was first introduced by Judith A. Ramaley, the former
 director of the National Science Foundation's education and human resources
 division.
-\begin{center}
-\begin{figure}
-\includegraphics[width=1.0\textwidth]
-{figs/topic-evolution-usa.png}
-\caption{Topics over time in USA}
-\end{figure}
-\end{center}
 
 \subsection{Comparison of the two regions per framework programme}
 
-\begin{figure}
+In LDA, a topic is represented as a probability distribution over words of the
+vocabulary. The words with the highest probability are the ones that most likely
+describe the topic, based on the model inference. In order to compare these
+topics quantitatively, one can apply measures that compare probability
+distributions, like KL-divergence or Jensen Shannon divergence (JSD). To make
+this computation more concrete, we will give a basic definition:
+
+Two topics (topic 1 and topic 2) are represented as normalized counts, or
+multinomial probability distributions.
+\begin{itemize}
+\item $P=(p_1, p_2, p_3,…, p_N)$ the probability distribution of the words in topic 1.
+\item $Q=(q_1, q_2, …, q_N)$ the multinomial distribution of the words in topic 2.
+\item $N = $total number of words in the vocabulary.
+\end{itemize}
+
+Since P and Q are probability distributions, it means that 
+$\sum_{i=1}^{N} p_i = \sum_{i=1}^{N} q_i = 1$. The The Jensen–Shannon 
+divergence (JSD) is a
+symmetrized and smoothed version of the Kullback–Leibler divergence
+$D(P \mid\mid Q)$. It quantifies how "distinguishable" two distributions are
+from each other. It is defined by
+
+\begin{equation}
+JSD(P \mid\mid Q) = \frac{1}{2}D(P \mid\mid M) + \frac{1}{2}D(Q \mid\mid M)
+\end{equation}
+where $M = \frac{1}{2}(P + Q)$ and $D(P \mid\mid Q) = \sum_{i}^{N} p_i \ln\frac{p_i}{q_i}$.
+
+In our case, we will use JSD cause is a symmetric formula, so that 
+$sim(Q,P) = sim(P,Q)$. we want to calculate the similarity of the topics of the 
+EU and the USA dataset per framework programme, one by one. Since the topics 
+come from different datasets, it means that their topic probability distributions 
+have different variables-words and different number of variables. To deal with this
+issue, we run the model for the two datasets separately and keep the topics as
+word probability distributions. Then for each pair of the two set of topics, we
+add to each of the topic-word distributions, the words that are missing and
+exist in the other distribution, with probability equals to zero. Then we apply
+the JSD to each pair of topics (see compare FPs.py in the Appendix, for the
+implementation).
+
+The figures 7-11 visualize the heatmaps of the similarity of the two regions
+during the FP4-H2020. Rows represent topics from the EU dataset and 
+columns topics from the USA dataset. The values of the JSD computation which are 
+close to zero (lighter color of the box) suggest more similarity within topics.
+According to the heatmaps, the topics that have high similarity between the 
+EU and the USA are:
+\begin{itemize}
+\item FP4 (1994-1997)
+\begin{itemize}
+\item[*] Software engineering
+\item[*] Materials
+\end{itemize}
+\item FP5 (1998-2001)
+\begin{itemize}
+\item[*] Energy production
+\item[*] Education in STEM
+\item[*] Mathematics
+\end{itemize}
+\item FP6 (2002 - 2006)
+\begin{itemize}
+\item[*] Information systems
+\item[*] Molecular biology / Genetics
+\item[*] Chemistry \& Materials
+\end{itemize}
+\item FP7 (2007-2013)
+\begin{itemize}
+\item[*] Chemistry \& Materials
+\item[*] High energy physics
+\item[*] Molecular biology / Genetics
+\end{itemize}
+\item H2020 (2014-2017)
+\begin{itemize}
+\item[*] Information systems
+\item[*] Materials
+\item[*] Physics
+\item[*] Economic \& Social policy
+\end{itemize}
+\end{itemize}
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP4.png}
@@ -1445,6 +1522,7 @@ division.
 {figs/heatmaps/heatmapH2020.png}
 \caption{Heatmap of the similarity of the two regions during 2014-2017}
 \end{figure}
+\vfill
 
 \section{Conclusion}
 
@@ -1514,7 +1592,6 @@ and "which states of the US are getting more funding compared to others".
 \bibliography{references}{}
 \bibliographystyle{plain}
 
-
 \clearpage
 \section{Appendix}
 
@@ -1525,6 +1602,10 @@ and "which states of the US are getting more funding compared to others".
 \textbf{usa iterations.py}
 
 \lstinputlisting[language=Python]{code/usa_iterations.py}
+
+\textbf{compare FPs.py}
+
+\lstinputlisting[language=Python]{code/compare_FPs.py}
 
 \begin{center}
 \begin{figure}[h]
@@ -1543,7 +1624,6 @@ and "which states of the US are getting more funding compared to others".
 \caption{Wordclouds of topics of the EU FP4 (1994-1998)}
 \end{figure}
 \end{center}
-
 \begin{center}
 \begin{figure}[h]
 \begin{tabular}{rcl}
