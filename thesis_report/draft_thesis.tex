@@ -59,7 +59,7 @@
 	{\Large Maria Iliadi\par}
 	\vfill
 	supervised by\par
-	Prof.~Panos Louridas
+	Assoc.Prof.~Panos Louridas
 
 	\vfill
 
@@ -1490,6 +1490,26 @@ could help people realize the potential of scientific research and inspire them
 to identify meaningful topics to focus on.
 
 \section{Future work}
+
+In future research, we intend to extend this work by exploring more complex
+models. In the standard LDA model, both the order of the words and the order of
+the documents are oblivious to the model. One future direction is to use a
+Dynamic Topic Model\cite{Blei:2006:DTM:1143844.1143859}, in which the order of
+the documents plays an important role. More precisely, the documents are grouped
+by time slice (e.g. years) and it is assumed that the documents of each group
+come from a set of topics that involved from the set of the previous slice.
+Moreover, we are planning to examine further the importance of corpus
+preprocessing in our dataset, in order to get higher quality topics.
+
+Another possible future direction is to integrate other data sources to further
+investigate the content and the evolution of the research topics. For example,
+we could add the projects that got funded by NIH in USA and/or find projects
+from other funding agencies, to measure the impact of new emerging topics.
+
+Last but not least, it would be interesting to explore the correlation of the
+topics with the countries/states that are involved in the projects, and address
+question like "which countries in EU are mostly collaborate? on which topics"
+and "which states of the US are getting more funding compared to others".
 
 \bibliography{references}{}
 \bibliographystyle{plain}
