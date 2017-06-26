@@ -104,9 +104,8 @@ impact to our well being and it's important to support research and development.
 Over the last years, many projects from different domains are getting funded for
 research and innovation.
 
-Nowadays, there are many \todo{ That sounds like a joke. Research
-  funding is extremely competitive. } funding opportunities for
-researchers. For instance, European Union countries are encouraged to
+Nowadays, there are some funding opportunities for researchers, but are 
+really competitive. The European Union countries are encouraged to
 invest 3\% of their GDP in research and development by 2020. EU's
 latest research programme, Horizon 2020, allows researchers to
 identify new opportunities and directions in almost any field of
@@ -118,29 +117,24 @@ Another funding agency that actively promotes the progress of science
 is the National Science Foundation in the United States of America.
 NSF supports research in all the non medical fields of science \&
 engineering and aims to advance the national health and prosperity. It
-finds \todo{funds} approximately 24\% \todo{Where did you find this
-  number? Add reference.} of the federally supported research
-conducted by the USA's colleges and universities.
+funds approximately 24\% of the federally supported research
+conducted by the USA's colleges and universities.\footnote{\url{https://www.nsf.gov/about/}}
 
 With our work, we aim to investigate the evolution of scientific
-research in the EU and the US. In other words, we attempt to identify
-which subjects are more likely to get a funding, based on the previous
-focus the two regions in research fields \todo{Does not read right}.
-In order to answer these questions, we tried to gain some insights
-from the projects that got funded the last two decades under the EU
-Framework Programmes and the NSF in USA.
+research in the EU and the US. In order to gain some insights  regarding
+the research development, we used as a dataset the projects that got funded 
+the last two decades under the EU Framework Programmes and the NSF in USA.
 
 When researchers apply for funding, one of the first steps they do is
 to identify an interesting subject of the many possible topics of
 scientific investigation. The topic(s) of a project is always
-described in the project's abstract/description. Obtaining
-\todo{Using} these abstracts, one can possibly investigate the topics
-of the projects and find the subjects that are being addressed and
-gain some information regarding the popularity of the topics among
-others.
+described in the project's abstract/description. Using these abstracts, 
+one can possibly investigate the topics of the projects and find the 
+subjects that are being addressed and gain some information regarding 
+the popularity of the topics among others.
 
 In this work, we discover topics and their evolution from 1994 to
-2017, using the projects' abstracts that got funded \todo{in} this
+2017, using the projects' abstracts that got funded in this
 period. Using a topic model, we extract a set of topics and
 investigate the changes in the content per year/framework programme.
 These topics are used to gain insight into some of the research that
@@ -149,87 +143,21 @@ researchers and encourage them to develop better strategies to
 establish themselves as more effective researchers globally, by
 choosing a subject that is more likely to get a funding.
 
-In section 2 \todo{Throughout: never use hard-coded references. Always
-  use LaTeX cross-references.}, we briefly talk about the papers that
-mostly influenced our study. Section 3 introduces some basic concepts
+In section \ref{theoretic} introduces some basic concepts
 in topic modeling and we describe the model that we used for topic
 extraction, Latent Dirichlet Allocation, which is a statistical
-generative model for documents. In section 4 we provide information
+generative model for documents. In section \ref{relatedwork}, 
+we briefly talk about the papers that mostly influenced our study. 
+In section \ref{methodology} we provide information
 about the dataset structure and the methodology that we followed in
-our analysis. In section 5 we interpret the results of our analysis,
-\todo{and we}discuss the evolution of the topics over time and the
+our analysis. In section \ref{analysis} we interpret the results of 
+our analysis, and we discuss the evolution of the topics over time and the
 differences between the two regions' topics based on their similarity.
-Finally, section 6 summarizes our work and section 7 suggests some
-future work.
-
-\section{Related work}\todo{Having this section here, before any
-  introduction to LDA, makes counter-intuitive reading. Better move it
-after.}
-
-This chapter \todo{section} surveys previous work in topic modeling on
-scientific data. Topic modeling algorithms provides \todo{provide} a
-suite of algorithms to discover hidden thematic structure
-\todo{structures} in large collections of texts and can be adapted to
-many kinds of data. These algorithms can be used to summarize,
-visualize and explore a collection of documents. The papers listed
-below are applying a Latent Dirichlet Allocation model in an
-interesting approach on their corpus.
-
-D.Blei's \todo{Throughout: separate initials with space from surname}
-research focuses on probabilistic topic models, Bayesian methods and
-approximate posterior inference. In his work "Introduction to
-Probabilistic Topic Models",\cite{Blei11introductionto}
-\todo{Throughout: Fix quotation marks; also citations are placed
-  before punctuation} he describes the basic ideas behind LDA and
-applies the model to articles from the journal "Science"
-\todo{\emph{Science}}. The model assumes that the topics are generated
-first, before the documents and that the documents exhibit multiple
-topics, but each one of them exhibit those topics in different
-proportion. In our implementation we also use the LDA model and we
-follow a similar approach, since we don't use any previous information
-about the subjects that run through our dataset and the documents are
-not labeled with keywords or topics. The topic distributions arise by
-computing the hidden structure that resembles the thematic structure
-of the collection.
-
-The paper that mostly influenced our work is "Finding Scientific Topics", by
-T.Griffiths and M.Steyvers.\cite{griffiths_steyvers04} They investigated
-abstract data from articles published in the Proceedings of the National Academy
-of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
-topic modeling with existing categories. In our implementation, we also use 
-the abstracts of the projects as documents for the model.
-
-Griffiths and Steyvers describe LDA and present a Markov Chain Monte Carlo
-algorithm for inference in the model, illustrating the operation of the
-suggested algorithm on a small dataset, and then on a larger corpus of PNAS
-abstracts. Finally, they define the dynamics of the topics as a means of gaining
-insight into the dynamics of science. As "hot" topics are identified the topics
-that appear more frequently over the years (positive linear trend), and as
-"cold" the ones that appear less frequently (negative linear trends over time).
-We also analyze the topics over time, in order to highlight potential trends in
-scientific research in EU and USA.
-
-Inspired by Griffiths and Steyvers, L.Sun and Y.Yin wrote a paper,
-"Discovering themes and trends in transportation research using topic
-modeling", \cite{Sun201749} about topic modeling in transportation
-research. Considering approximately 17000 abstracts of articles
-published on 22 leading journals in transportation research as
-documents, they infer 50 topics by using LDA. Compared to "Finding
-scientific topics", Sun and Yin use more than one journal (22 popular
-journals) and they investigate the journal-topic distribution and
-journal similarity. In our analysis, we identify the EU and the USA as
-2 regions (like 2 different journals), with different proportions of
-documents-projects, and we visualize the topic similarity of the two
-regions per framework programme.
-
-To best of our knowledge, there is no work done in the field of topic modeling
-on scientific projects between EU and USA. There is limited information from
-European Commission about the evolution and the results of the projects provided
-by the official website.
-
+Finally, section \ref{conclusion} summarizes our work and section 
+\ref{future} suggests some future work.
 
 \section{Theoretic background}
-
+\label{theoretic}
 In this chapter we will present some basic theoretic background about
 topic modeling. To deal with extensive text body \todo{probably
   plural}, machine learning researchers have developed topic modeling:
@@ -274,7 +202,7 @@ count; most entries are zero. It makes sense to view each column as a feature.
 Some further common concepts and terms in topic modeling: 
 \begin{itemize}
 \item[] A \textit{word} is defined as an item from a vocabulary
-  indexed from ${1, ..., V}$, where V \todo{$V$} is the size of the
+  indexed from ${1, ..., V}$, where $V$ is the size of the
   vocabulary. All words are represented as unit-basis vectors with one
   component equal to one and the rest equal to zero.
 \item[] A \textit{document} is a collection of words denoted by
@@ -290,22 +218,19 @@ from other observable variables.
 An example of this is the word “plant” which can mean a living organism of 
 the kind exemplified by trees, herbs etc., or a place where an industrial or
 manufacturing process takes place.
-\item[] \textit{Synonymy} is the capacity for several words to have similar meanings such as
-the words “buy” and “purchase”.
+\item[] \textit{Synonymy} is the capacity for several words to have similar meanings such as the words “buy” and “purchase”.
 \end{itemize}
 
 \subsection{Some probability concepts}
 
 \subparagraph{Prior and posterior distributions}
 
-When introducing the Latent Dirichlet Allocation in section 2.2.3
-\todo{Cross reference}
-\todo{As you can see this is a disaster: always cross-reference with
-  LaTeX}, we will be using the terms prior and posterior probabilities
+When introducing the Latent Dirichlet Allocation in section \ref{LDAexplained}, 
+we will be using the terms prior and posterior probabilities
 and likelihood function:
 
 \begin{itemize}
-\item The prior probability distribution of and \todo{an} uncertain
+\item The prior probability distribution of an uncertain
   quantity is the probability distribution that express the value of
   this quantity before some evidence is taken into account.
 \item The posterior probability is the conditional probability after some 
@@ -330,19 +255,25 @@ p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{p(x)}
 \subparagraph{Jensen Inequality}
 
 In the context of probabilities, the Jensen Inequality is stated as
-follows: If X \todo{$X$} is a random variable and f \todo{$f$} a
-convex function then \todo{What is $\mathbb{E}$?}:
+follows: If $X$ is a random variable and $f$ a
+convex function then:
 
 \begin{equation}
 f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)]
 \end{equation}
 
-And, if f \todo{f} is a concave function the inequality turns:
+And, if $f$ is a concave function the inequality turns:
 
 \begin{equation}
 f(\mathbb{E}[X]) \geq \mathbb{E}[f(X)]
 \end{equation}
 
+where $\mathbb{E}$ is the expectation of the random variable $X$.
+\footnote{Suppose random variable $X$ can take value $x_{1}$ with 
+probability $p_{1}$, value $x_{2}$ with probability $p_{2}$, 
+and so on, up to value $x_{k}$ with probability $p_{k}$. 
+Then the expectation of this random variable $X$ is defined as
+$\mathbb{E}[X] = x_{1}p_{1} + x_{2}p_{2} + ... + x_{k}p_{k}$.}
 
 \subparagraph{Kullback-Leibler (KL) divergence}
 
@@ -360,15 +291,15 @@ Given two continuous distributions $P$ and $Q$ the KL divergence is
 defined as follows:
 
 \begin{equation}
-D_{KL}(P \mid \mid Q) = \int_{-\infty}^{+\infty} p(x) log\frac{p(x)}{q(x)}dx
-\end{equation} \todo{ log in mathematics is $\log$}
+D_{KL}(P \mid \mid Q) = \int_{-\infty}^{+\infty} p(x) \log\frac{p(x)}{q(x)}dx
+\end{equation}
 
 This can also be expressed using the definition of expectation (and
-expressing the log of a division as difference of log) as:
+expressing the $\log$ of a division as difference of $\log$) as:
 
 \begin{equation}
-  D_{KL}(P \mid \mid Q) = \mathbb{E}_{p}[log p(x)] - \mathbb{E}_{p}[log q(x)]
-\end{equation} \todo{Smae with log; also, it is a function.}
+D_{KL}(P \mid \mid Q) = \mathbb{E}_{p}[\log{p(x)}] - \mathbb{E}_{p}[\log{q(x)}]
+\end{equation}
 
 This is the expression we will use later on instead of the definition.
 We present now the two probability distributions we will be using when
@@ -378,27 +309,17 @@ and the \textbf{Dirichlet} distributions.
 
 \subparagraph{Multinomial Distribution}
 
-Once we have a representation for individual documents, the natural
-next step is to select a model for a set of documents. Given a
-training set of documents, we will choose values for the parameters of
-a probabilistic model that make the training documents have high
-probability. Then, given a test document, we can evaluate its
-probability according to the model. The higher this probability is,
-the more similar the test document is to the training set. \todo{Is
-  this really what you use the multinomial distribution for? You use
-  the multinomial distribution because LDA assumes that this is the
-  distribution of topics in documents and words in topics.}
-
-The probability distribution that we use is the multinomial. In
-probability theory, the multinomial distribution is a generalization
+The probability distribution that the model uses is the multinomial, 
+because it assumes that this is the distribution of topics in 
+documents and words in topics (read Latent Dirichlet Allocation in section \ref{LDAexplained}). 
+In probability theory, the multinomial distribution is a generalization
 of the binomial distribution. For example, it models the probability
-of counts for rolling a k-sided dice n times. For n independent trials
-each of which leads to a success for exactly one of k categories, with
+of counts for rolling a $k$-sided dice $n$ times. For $n$ independent trials
+each of which leads to a success for exactly one of $k$ categories, with
 each category having a given fixed success probability, the
 multinomial distribution gives the probability of any particular
 combination of numbers of successes for the various
 categories\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}.
-\todo{Variables like $k$, $n$, etc. should be in math mode.}
 
 Mathematically, this distribution is: 
 
@@ -433,43 +354,16 @@ is an extension of the beta distribution for modeling probabilities for two or
 more events; when the result of the event has only 2 values, the Dirichlet
 distribution is equal to the beta distribution.
 
-The Dirichlet distribution is a prior for the multinomial
+The Dirichlet distribution is the conjugate prior of the multinomial
 distribution. This means that if the prior distribution of the
-multinomial parameters is Dirichlet then the posterior distribution is
-also a Dirichlet distribution (with parameters different from those of
-the prior). \todo{ If the Dirichlet is the prior for the multinomial
-  then the posterior is the multinomial; in fact the Dirichlet is the
-  conjugate prior of the multinomial. It is the posterior distribution
-  of the \emph{parameters} that is still Dirichlet. }
-
-The Dirichlet process is a way to model randomness of a probability
-mass function (PMF) with unlimited options (e.g. an unlimited amount
-of dice in a bag). The process is similar Polya's
-Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}},
-only instead of having a set number of ball colors you have an
-unlimited amount: \todo{Why do we need to know that? }
-
-\begin{itemize}
-\item Start out with an empty urn.
-\item Randomly pick a colored ball and place it in the urn.
-\item Then choose one option:
-\begin{enumerate}
-\item Randomly pick a colored ball and place it in the urn.
-\item Randomly remove a colored ball from the urn, then put it back with another 
-ball of the same color.
-\end{enumerate}
-\end{itemize}
- 
-As the number of balls in the urn increase, the probability of picking a new
-color decreases. The proportion of balls in the urn after an infinite amount of
-draws is a Dirichlet process.
-
+multinomial parameters is Dirichlet then the posterior distribution of the
+parameters is still a Dirichlet distribution.
 
 \subsection{Basic models in topic modeling}
 
 First, we'll introduce some basic models for topic modeling. The
 Latent Semantic Indexing, or LSI, was presented by Deerwester et al.
-in 1990. \todo{Add reference.} The model manages to deal with the
+in 1990.\cite{Deerwester90indexingby} The model manages to deal with the
 problem that multiple terms can refer to the same meaning, i.e.
 synonymy. However, it is not as successful regarding polysemy. The
 reason is that every term is represented as just one point in the
@@ -478,13 +372,13 @@ or more different things is represented as a weighted average of the
 different meanings.
  
 After LSI was introduced, Hofmann presented the Probabilistic Latent
-Semantic Indexing, or PLSI model \todo{Add reference}. PLSI is a topic
-model where each word in a document is generated from a single topic
-which results in that each document in a corpus can be represented
-with a topic distribution. Later, in 2003 Blei et al. presented the
-Latent Dirichlet Allocation, or LDA \todo{Add reference}. As opposed
-to PLSI, LDA is a statistically generative model for documents where
-each word in a document can be generated by all topics.
+Semantic Indexing, or PLSI model\cite{Hofmann:1999:PLS:312624.312649}. 
+PLSI is a topic model where each word in a document is generated 
+from a single topic which results in that each document in a corpus 
+can be represented with a topic distribution. Later, in 2003 Blei et al. 
+presented the Latent Dirichlet Allocation, or LDA\cite{blei2003latent}. 
+As opposed to PLSI, LDA is a statistically generative model for documents 
+where each word in a document can be generated by all topics.
 
 \subsubsection{Latent Semantic Indexing (LSI)}
 
@@ -494,7 +388,13 @@ them.\cite{Deerwester90indexingby} In LSI a term-document matrix is
 created by analyzing the corpus, where the rows correspond to words
 and columns to documents. Each element in this sparse matrix describes
 the number of times a word occurs in a document but this term count
-can also be weighted with for instance TF-IDF \todo{Explain}. Letting
+can also be weighted with for instance TF-IDF.\footnote{TF-IDF stands 
+for term frequency - inverse document frequency, and the tf-idf weight is 
+a weight often used in information retrieval and text mining. This weight 
+is a statistical measure used to evaluate how important a word is to 
+a document in a collection or corpus. The importance increases
+proportionally to the number of times a word appears in the document (TF) but
+is offset by the frequency of the word in the corpus (IDF).} Letting
 each word represent a dimension in a very high dimensional space, a
 document can be seen as a vector with components corresponding to its
 weighted term counts. \cite{Salton:1988:TAA:54259.54260}
@@ -511,7 +411,6 @@ it with a small toolbox for what can be achieved using the model.
 	
 
 \subsubsection{Probabilistic Latent Semantic Indexing (PLSI)}
-
 
 Probabilistic Latent Semantic Indexing evolved from LSI and uses the same
 concept of finding a lower rank approximation of the term-document occurrence
@@ -551,7 +450,7 @@ of parameters in the model grows linearly with the number of documents.
 
 
 \subsubsection{Latent Dirichlet Allocation (LDA)}
-
+\label{LDAexplained}
 LDA is a topic model that was first presented as a graphical model for topic
 discovery by David Blei, Andrew Ng, and Michael I. Jordan in 2003. The basic
 idea is that documents exhibit multiple topics. LDA is a generative statistical
@@ -561,16 +460,13 @@ observations are words collected into documents, it posits that each document
 is a mixture of a small number of topics and that each word's occurrence is
 attributable to one of the document's topics.\cite{Blei11introductionto}
 
-This is similar to PLSI, except
-that in LDA the topic distribution is assumed to have a Dirichlet prior. 
-In practice, this results in more reasonable mixtures of topics in a
-document. The reduced document description result in PLSI is a vector where
-each element describes the mixing proportion for a topic. A limitation with
-PLSI is that there is no generative model for these proportions, making it
-difficult to handle unseen documents. The Latent Dirichlet Allocation model
-tries to solve this limitation by setting a Dirichlet prior on the topic
-distribution.\cite{blei2003latent} \todo{In essence you repeat what
-  you said in the beginning of the paragraph.}
+A limitation with PLSI is that there is no generative model for these
+proportions, making it difficult to handle unseen documents. The reduced
+document description result in PLSI is a vector where each element describes the
+mixing proportion for a topic. The Latent Dirichlet Allocation model tries to
+solve this limitation by setting a Dirichlet prior on the topic
+distribution.\cite{blei2003latent} In practice, this results in more reasonable
+mixtures of topics in a document.
  
 Suppose that we have a collection of documents, and we want to find an
 organization for these, i.e. we want to do unsupervised learning. A common way
@@ -580,10 +476,9 @@ generative process is a specification of a parametrized family of
 distributions. Learning is based on the principle of maximum likelihood, or
 some refinement of this principle such as maximum a posterior probability.
  
-The basic idea in LDA is that we define a topic to be a Dirichlet
-distribution over a fixed vocabulary. \todo{No, a topic is a
-  multinomial distribution.} Technically, the model assumes that the
-topics are generated first, before the
+The basic idea in LDA is that we define a topic to be a multinomial
+distribution over a fixed vocabulary. Technically, the model assumes 
+that the topics are generated first, before the
 documents.\cite{Blei11introductionto} Now for each document in the
 collection, we generate the words in a two-stage process:
 
@@ -609,20 +504,19 @@ per-document distribution over topics (step 2a). All the documents in
 the corpus share the same set of topics, but each document exhibits
 those topics with different proportion - that's the distinguishing
 characteristic of LDA. A more detailed explanation of the model
-follows in section 2.2.3.1. \todo{Again, fix cross-references}
+follows in section \ref{LDAmodel}.
 
 \paragraph{Model}
-
+\label{LDAmodel}
 LDA is a probabilistic model of text documents, which assumes a
 collection of K topics. Each topic defines a multinomial distribution
 over the vocabulary and is assumed to have been drawn from a Dirichlet
-$\beta_k \sim Dirichlet(\eta)$. \todo{What is $beta_k$ and what is
-  $\eta$? If you explain them later (which you do) this sentence
-  should follow the explanations.}
+$\beta_k \sim Dirichlet(\eta)$, where $beta_k$ is the posterior 
+distribution of the topic $k$.
 
 In LDA, each document is represented by a mixture of the topics, with
-weight $\theta_w^2$ \todo{Where does the square come from?} for topic
-$z$ in document $w$. These weight \todo{weights} have a Dirichlet
+weight $\theta_w$ for topic
+$z$ in document $w$. These weights have a Dirichlet
 prior, parametrized by a hyper-parameter $\alpha$. Each topic is a
 probability distribution over the vocabulary, with probability
 $\beta^w_z$ for word $w$ in topic $z$. We define the following
@@ -632,8 +526,8 @@ variables and notation:
   \item[] $V$ is the number of unique words in the vocabulary.
   \item[] $\theta$  is the topic distribution (of length $k$) for a document,
    drawn from a uniform Dirichlet distribution with parameter $\alpha$.
- \item[] $z_{n}$ is a topic assignment for $word w_{n}$ \todo{word
-     $w_n$}, sampled from $p(z_{n} = i|\theta) = \theta_{i}$.
+ \item[] $z_{n}$ is a topic assignment for word $w_{n}$, 
+ sampled from $p(z_{n} = i|\theta) = \theta_{i}$.
   \item[] \textbf{w}$ = (w_{1}, ... , w_{N})$ is a document with $N$ words.
   \item[] $w_{n}^{i} = 1$ means that the word $w_{n}$ is the $i$-th word 
   of the vocabulary.
@@ -667,7 +561,7 @@ be used to identify the topic and gives an intuitive description for the topic.
 We can see that this does in fact generate a document based on the topic 
 mixture $\theta$, the topic-word assignments $z$, and the probability 
 matrix $\beta$. Then, we can analyze a corpus of documents with LDA by 
-examining $\beta$, which is the posterior distribution of topics, $\theta$ 
+examining $\beta$, $\theta$ 
 and $z$ conditioned on the documents. This reveals latent structure in
 the collection that can be used for prediction or data exploration. 
 
@@ -683,15 +577,9 @@ posterior can't be computed directly; it is usually approximated using Markov
 Chain Monte Carlo (MCMC) or variational inference. Both methods are effective,
 but also present significant computational challenges in large data sets
 ~\cite{onlineLDAvb}. In our implementation, we're using the online variational
-LDA model, which is described in section 2.2.3.4. \todo{Cross reference.}
+LDA model, which is described in section \ref{oLDAvb}.
  
-The key difference in LDA compared to PLSI is that the process outlined above
-actually is generative for documents. This means that, given a new document,
-one can use the parameters learned previously to estimate the topic
-distribution $\theta$ for this new document. \todo{You have already
-  said that many times.}
- 
-A limitation with the standard LDA model is the fix \todo{fixed}
+A limitation with the standard LDA model is the fixed 
 vocabulary. This means that new words cannot enter the model and that
 you have to know a priori what words will model the corpus
 effectively. A setting where this could be problematic is when
@@ -744,10 +632,9 @@ computing this distribution is intractable, so we're forced to
 approximate. One approximation approach is to use an optimization
 method called Variational Bayes. In the original paper it's being used
 a variational Bayes approximation of the posterior distribution;
-\cite{blei2003latent} alternative inference techniques use Gibbs
-sampling and expectation propagation \todo{Cite these techniques.
-  AFAIK, if you do not use Variational Bayes, you use MCMC with Gibbs
-  sampling.}. The goal of variational
+\cite{blei2003latent} alternative inference techniques use 
+MCMC with Gibbs sampling\cite{Griffiths02gibbssampling} and expectation 
+propagation.\cite{Minka:2002:EGA:2073876.2073918} The goal of variational
 inference is to approximate an intractable probability distribution
 $p$, with a tractable one $q$, in a way that makes them as close as
 possible given a similarity measure. In this thesis, variational
@@ -805,6 +692,7 @@ E Step:
     
     \Repeat{change in $\phi < \epsilon$}{
         update $\phi$ 
+        
         update $\gamma$ 
      }
 }
@@ -812,7 +700,6 @@ M Step:
 
 update $\lambda$
 \end{algorithm}
-\todo{Update $\phi$ and $\gamma$ do not show as separate lines.}
 
 The specific updates are:
 \begin{equation}
@@ -829,12 +716,10 @@ document $d$. The algorithm above has constant memory requirements and
 empirically converges faster than collapsed Gibbs sampling. However,
 it still requires a full pass through the entire corpus in each
 iteration. It can be slow to apply to very large datasets.
-\todo{Provide citation for the description you have given; I assume
-  it's the same blog post as for the following paragraph.}
+\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
 
 \paragraph{Online variational LDA}
-
-
+\label{oLDAvb}
 An online variational inference algorithm is proposed by Hoffman et all.\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
 posterior over the topic distributions $\beta$. The "online LDA" is nearly as
 simple as the variational algorithm, but converges much faster for large
@@ -872,9 +757,7 @@ optimal values for $\phi$ and $\gamma$, while in the M-Step, we first compute
 $\lambda^{*}$, which is the value of $\lambda$ if we imagined that the entire 
 dataset is made up of $\frac{numDocs}{chunkSize}$ copies of the current chunk. 
 Then $\lambda$ is updated using a weighted sum of $\lambda^{*}$ and
-$\lambda$: \todo{As the algorithm is thrown on the next page, it looks
-  as if something is missing here.}
-
+$\lambda$:
 \begin{algorithm}
 \SetAlgoNoLine
 E Step:
@@ -900,16 +783,73 @@ estimated $\lambda$, we can find the most probable words for each
 topic by looking at the word probabilities in each row of
 $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
 
+\section{Related work}
+\label{relatedwork}
+This section surveys previous work in topic modeling on
+scientific data. Topic modeling algorithms provide a
+suite of algorithms to discover hidden thematic structures 
+in large collections of texts and can be adapted to
+many kinds of data. These algorithms can be used to summarize,
+visualize and explore a collection of documents. The papers listed
+below are applying a Latent Dirichlet Allocation model in an
+interesting approach on their corpus.
+
+D. Blei's research focuses on probabilistic topic models, Bayesian methods and
+approximate posterior inference. In his work \emph{Introduction to
+Probabilistic Topic Models}\cite{Blei11introductionto} 
+he describes the basic ideas behind LDA and
+applies the model to articles from the journal \emph{Science}. 
+The model assumes that the topics are generated
+first, before the documents and that the documents exhibit multiple
+topics, but each one of them exhibit those topics in different
+proportion. In our implementation we also use the LDA model and we
+follow a similar approach, since we don't use any previous information
+about the subjects that run through our dataset and the documents are
+not labeled with keywords or topics. The topic distributions arise by
+computing the hidden structure that resembles the thematic structure
+of the collection.
+
+The paper that mostly influenced our work is \emph{Finding Scientific Topics}, by
+T. Griffiths and M. Steyvers.\cite{griffiths_steyvers04} They investigated
+abstract data from articles published in the Proceedings of the National Academy
+of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
+topic modeling with existing categories. In our implementation, we also use 
+the abstracts of the projects as documents for the model.
+
+Griffiths and Steyvers describe LDA and present a Markov Chain Monte Carlo
+algorithm for inference in the model, illustrating the operation of the
+suggested algorithm on a small dataset, and then on a larger corpus of PNAS
+abstracts. Finally, they define the dynamics of the topics as a means of gaining
+insight into the dynamics of science. As \emph{hot} topics are identified the topics
+that appear more frequently over the years (positive linear trend), and as
+\emph{cold} the ones that appear less frequently (negative linear trends over time).
+We also analyze the topics over time, in order to highlight potential trends in
+scientific research in EU and USA.
+
+Inspired by Griffiths and Steyvers, L. Sun and Y. Yin wrote a paper,
+\emph{Discovering themes and trends in transportation research using topic
+modeling}, \cite{Sun201749} about topic modeling in transportation
+research. Considering approximately 17000 abstracts of articles
+published on 22 leading journals in transportation research as
+documents, they infer 50 topics by using LDA. Compared to \emph{Finding
+scientific topics}, Sun and Yin use more than one journal (22 popular
+journals) and they investigate the journal-topic distribution and
+journal similarity. In our analysis, we identify the EU and the USA as
+2 regions (like 2 different journals), with different proportions of
+documents-projects, and we visualize the topic similarity of the two
+regions per framework programme.
+
+To best of our knowledge, there is no work done in the field of topic modeling
+on scientific projects between EU and USA. There is limited information from
+European Commission about the evolution and the results of the projects provided
+by the official website.
 
 \section{Methodology}
-
+\label{methodology}
 In this section, we explain the procedure that we followed in order to
-apply the LDA model in our dataset. The dataset consists of two
-datasets \todo{That reads funny.}: the one that contains all the
-information about EU projects founded for research and innovation
-under the FP4-H2020 \todo{Throughout: use dashes correctly. There are
-  hyphens (-), n-dashes (--) and m-dashes (---).} and the dataset from
-USA about the awards/projects that got approved from 1994-2017. We
+apply the LDA model in our dataset. It consists of information about 
+EU projects funded for research and innovation under the FP4 - H2020 
+and the awards/projects that got funded by NSF from 1994 - 2017 in USA. We
 consider the projects' description/abstract as the documents in LDA.
 
 \subsection{EU dataset}
@@ -989,19 +929,19 @@ non-commercial purposes. The dataset that we chose for the following
 analysis contains information about all the projects funded by the
 European Union from 1994 to 2017. These projects got approved under
 the framework programme (FP4-H2020) for research and technological
-development. For each project it is provided information \todo{Does
-  not read right}, such as: reference, acronym, dates, funding,
-programs, participant countries, subjects and objectives.
+development. Grant information is provided for each project, 
+including reference, acronym, dates, funding, programmes, 
+participant countries, subjects and objectives.
 
-In the provided dataset, the information is splitted \todo{split} into
+In the provided dataset, the information is split into
 CSV files, based on the framework program that each project belongs.
 The frameworks from 1994 to 2020 are listed below:
 
 \begin{itemize}
 \item FP4: fourth framework programme (1994-1998)
-\item FP5: fifth framework programme (1998–2002)
-\item FP6: sixth framework programme (2002–2006)
-\item FP7: seventh framework programme (2007–2013)
+\item FP5: fifth framework programme (1998-2002)
+\item FP6: sixth framework programme (2002-2006)
+\item FP7: seventh framework programme (2007-2013)
 \item H2020: Horizon 2020 framework programme (2014-2020)
 \end{itemize}
 
@@ -1020,12 +960,11 @@ analysis:
 \item Filter out the most frequent and some rare words of the dictionary
 \end{itemize}
 
-To obtain the collection of the documents, we consider as 'documents'
-\todo{In the rest of the document you are using single quotation marks.}
+To obtain the collection of the documents, we consider as ``documents''
 in LDA the project objectives, which is an accurate description for
-the project. We also added the 'title' value of each project to the
+the project. We also added the ``title' value of each project to the
 objectives-documents, to increase the probability of finding accurate
-topics. For the majority of the projects the 'start date' and 'end
+topics. For the majority of the projects the ``start date' and ``end
 date' value was null, so we kept the splitting of the dataset per
 framework, in order to keep the correlation to the time. We followed
 the same format in the dataset of USA awards.
@@ -1045,27 +984,19 @@ H2020 & 2014-2017 & 9055 & 15835 & 1342882 \\
 
 As stopwords, we used the list that is provided by the Gensim Python
 library\footnote{http://radimrehurek.com/gensim/} and we added following very
-common words in the existing dataset: 'data', 'based', 'new', 'project',
-'university', 'student', 'students', 'research', 'study', 'program',
-'development', 'study', 'studies', 'provide', 'use'. We also removed the rare
-words that appear less than 5 times in the collection. Finally, we obtained a
-smaller corpus per framework (see the table above).
-
-In this section, we explain the procedure that we followed in n order
-to apply the LDA model in our dataset. The dataset consists of two
-datasets: the one that contains all the information about EU projects
-founded for research and innovation under the FP4-H2020 and the
-dataset from USA about the awards/projects that got approved from
-1994-2017. We consider the projects' description/abstract as the
-documents in LDA. \todo{Why is this paragraph here?}
+common words in the existing dataset: ``data'', ``based'', ``new'', ``project'',
+``university'', ``student'', ``students'', ``research'', ``study'', ``program'',
+``development'', ``study'', ``studies'', ``provide'', ``use''. We also removed 
+the rare words that appear less than 5 times in the collection. 
+Finally, we obtained a smaller corpus per framework (see the table above).
 
 \subsection{USA dataset}
 
 The National Science Foundation (NSF) is a United States government
 agency that supports fundamental research and education in all the
 non-medical fields of science and engineering. Its medical counterpart
-is the National Institutes of Health \todo{Does your data include
-  material from NIH as well?}. The NSF funds approximately 24\% of all
+is the National Institutes of Health (ur data does not include 
+material from NIH). The NSF funds approximately 24\% of all
 federally supported basic research conducted by the United States'
 colleges and universities. In some fields, such as mathematics,
 computer science, economics, and the social sciences, the NSF is the
@@ -1127,11 +1058,10 @@ they were initialized (see Table below).
 Just like the EU dataset, we followed the same preprocessing steps to obtain the
 final corpus. As stopwords, we used the list that is provided by the Gensim
 Python library and we removed following very common words in the existing
-dataset: 'data', 'work', 'based', 'new', 'project', 'university', 'student',
-'students', 'research', 'study', 'program', 'development', 'study', 'studies',
-'provide', 'use', 'understanding', 'important', 'support', 'proposed'. We also
-removed the rare words that appear less than 5 times in the collection. Finally,
-we obtained a smaller corpus per framework (see Table below).
+dataset: ``data', ``work', ``based'', ``new'', ``project'', ``university'', ``student'',
+``students'', ``research'', ``study'', ``program'', ``development'', ``study'', ``studies'', ``provide'', ``use'', ``understanding'', ``important'', ``support'', ``proposed''. We also removed the rare words that appear less than 5 
+times in the collection. Finally, we obtained a smaller corpus per framework 
+(see Table below).
 
 \begin{center}
 \begin{tabular}{l*{6}{c}r}
@@ -1150,8 +1080,8 @@ H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
 For the implementation, we used the Gensim package (Radim Řehůřek,
 2009)\cite{rehurek_lrec} which implements an efficient online LDA algorithm, to
 extract the topics of a given corpus. Gensim uses a fast implementation of
-online LDA parameter estimation based on "Online Learning for Latent Dirichlet
-Allocation".\cite{onlineLDAvb} The algorithm runs in constant memory, which
+online LDA parameter estimation based on \emph{Online Learning for Latent Dirichlet
+Allocation}.\cite{onlineLDAvb} The algorithm runs in constant memory, which
 means that the size of the training corpus does not affect memory footprint, so
 it can process corpus larger than RAM.
 
@@ -1172,18 +1102,11 @@ the actual implementation.
 
 
 \section{Analysis and results}
-
+\label{analysis}
 In this section, we show our main results. We focus on finding
 differences between the two datasets in terms of topic distribution
 and later we investigate the evolution of the topics over time of each
-dataset separately.\todo{Although in the preceding material you have
-  listed the areas of interest in the EU, as listed in the EU Open
-  Data Portal, and the areas of interest in the US, through its
-  directorates, you do not discuss whether the topics you found have
-  any relationship to these thematic areas and divisions. So you do
-  not answer the question: ``did you find something we did not already
-  know by checking the descriptions on the web sites?''}
-
+dataset separately.
 
 \subsection{Discovering topics on the EU projects}
 
@@ -1671,7 +1594,7 @@ the USA are: \todo{To be able to make sense of it, you must list
 \vfill
 
 \section{Conclusion}
-
+\label{conclusion}
 In this thesis, we have presented a work about discovering topics and their
 trends in the field of scientific research. We applied the LDA model in projects
 that got funded under the European Union Framework Programmes and the projects
@@ -1718,7 +1641,7 @@ could help people realize the potential of scientific research and inspire them
 to identify meaningful topics to focus on.
 
 \section{Future work}
-
+\label{future}
 In future research, we intend to extend this work by exploring more complex
 models. In the standard LDA model, both the order of the words and the order of
 the documents are oblivious to the model. One future direction is to use a
