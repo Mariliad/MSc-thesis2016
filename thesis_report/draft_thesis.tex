@@ -9,6 +9,15 @@
 \setcounter{tocdepth}{4}
 \setlength{\parskip}{1em}
 
+\usepackage[textsize=tiny, textwidth=30mm]{todonotes}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ right=40mm,
+ top=20mm,
+ }
+
 \usepackage[justification=centering]{caption}
 \usepackage{amsfonts}
 \usepackage{graphicx}
@@ -95,73 +104,93 @@ impact to our well being and it's important to support research and development.
 Over the last years, many projects from different domains are getting funded for
 research and innovation.
 
-Nowadays, there are many funding opportunities for researchers. For instance,
-European Union countries are encouraged to invest 3\% of their GDP in research
-and development by 2020. EU's latest research programme, Horizon 2020, allows
-researchers to identify new opportunities and directions in almost any field of
-research. The programme's goals are to strengthen the EU's position in science,
-support industrial innovation and address social concerns, such as climate
-change, green transportation and energy.
+Nowadays, there are many \todo{ That sounds like a joke. Research
+  funding is extremely competitive. } funding opportunities for
+researchers. For instance, European Union countries are encouraged to
+invest 3\% of their GDP in research and development by 2020. EU's
+latest research programme, Horizon 2020, allows researchers to
+identify new opportunities and directions in almost any field of
+research. The programme's goals are to strengthen the EU's position in
+science, support industrial innovation and address social concerns,
+such as climate change, green transportation and energy.
 
-Another funding agency that actively promotes the progress of science is the
-National Science Foundation in the United States of America. NSF supports
-research in all the non medical fields of science \& engineering and aims to
-advance the national health and prosperity. It finds approximately 24\% of the
-federally supported research conducted by the USA's colleges and universities.
+Another funding agency that actively promotes the progress of science
+is the National Science Foundation in the United States of America.
+NSF supports research in all the non medical fields of science \&
+engineering and aims to advance the national health and prosperity. It
+finds \todo{funds} approximately 24\% \todo{Where did you find this
+  number? Add reference.} of the federally supported research
+conducted by the USA's colleges and universities.
 
-With our work, we aim to investigate the evolution of scientific research in the
-EU and the US. In other words, we attempt to identify which subjects are more
-likely to get a funding, based on the previous focus the two regions in research
-fields. In order to answer these questions, we tried to gain some insights from
-the projects that got funded the last two decades under the EU Framework
-Programmes and the NSF in USA.
+With our work, we aim to investigate the evolution of scientific
+research in the EU and the US. In other words, we attempt to identify
+which subjects are more likely to get a funding, based on the previous
+focus the two regions in research fields \todo{Does not read right}.
+In order to answer these questions, we tried to gain some insights
+from the projects that got funded the last two decades under the EU
+Framework Programmes and the NSF in USA.
 
-When researchers apply for a funding, one of the first steps they do is to
-identify an interesting subject of the many possible topics of scientific
-investigation. The topic(s) of a project is always described in the project's
-abstract/description. Obtaining these abstracts, one can possibly investigate
-the topics of the projects and find the subjects that are being addressed and
-gain some information regarding the popularity of the topics among others.
+When researchers apply for funding, one of the first steps they do is
+to identify an interesting subject of the many possible topics of
+scientific investigation. The topic(s) of a project is always
+described in the project's abstract/description. Obtaining
+\todo{Using} these abstracts, one can possibly investigate the topics
+of the projects and find the subjects that are being addressed and
+gain some information regarding the popularity of the topics among
+others.
 
-In this work, we discover topics and their evolution from 1994 to 2017, using
-the projects' abstracts that got funded this period. Using a topic model, we
-extract a set of topics and investigate the changes in the content per
-year/framework programme. These topics are used to gain insight into some of the
-research that occurs the last two decades. Our goal is to share these insights
-with researchers and encourage them to develop better strategies to establish
-themselves as more effective researchers globally, by choosing a subject that is
-more likely to get a funding.
+In this work, we discover topics and their evolution from 1994 to
+2017, using the projects' abstracts that got funded \todo{in} this
+period. Using a topic model, we extract a set of topics and
+investigate the changes in the content per year/framework programme.
+These topics are used to gain insight into some of the research that
+occurs the last two decades. Our goal is to share these insights with
+researchers and encourage them to develop better strategies to
+establish themselves as more effective researchers globally, by
+choosing a subject that is more likely to get a funding.
 
-In section 2, we briefly talk about the papers that mostly influenced our study.
-Section 3 introduces some basic concepts in topic modeling and we describe the
-model that we used for topic extraction, Latent Dirichlet Allocation, which is a
-statistical generative model for documents. In section 4 we provide information
-about the dataset structure and the methodology that we followed in our
-analysis. In section 5 we interpret the results of our analysis, discuss the
-evolution of the topics over time and the differences between the two regions'
-topics based on their similarity. Finally, section 6 summarizes our work and
-section 7 suggests some future work.
+In section 2 \todo{Throughout: never use hard-coded references. Always
+  use LaTeX cross-references.}, we briefly talk about the papers that
+mostly influenced our study. Section 3 introduces some basic concepts
+in topic modeling and we describe the model that we used for topic
+extraction, Latent Dirichlet Allocation, which is a statistical
+generative model for documents. In section 4 we provide information
+about the dataset structure and the methodology that we followed in
+our analysis. In section 5 we interpret the results of our analysis,
+\todo{and we}discuss the evolution of the topics over time and the
+differences between the two regions' topics based on their similarity.
+Finally, section 6 summarizes our work and section 7 suggests some
+future work.
 
-\section{Related work}
+\section{Related work}\todo{Having this section here, before any
+  introduction to LDA, makes counter-intuitive reading. Better move it
+after.}
 
-This chapter surveys previous work in topic modeling on scientific data. Topic
-modeling algorithms provides a suite of algorithms to discover hidden thematic
-structure in large collections of texts and can be adapted to many kinds of
-data. These algorithms can be used to summarize, visualize and explore a
-collection of documents. The papers listed below are applying a Latent Dirichlet
-Allocation model in an interesting approach on their corpus.
+This chapter \todo{section} surveys previous work in topic modeling on
+scientific data. Topic modeling algorithms provides \todo{provide} a
+suite of algorithms to discover hidden thematic structure
+\todo{structures} in large collections of texts and can be adapted to
+many kinds of data. These algorithms can be used to summarize,
+visualize and explore a collection of documents. The papers listed
+below are applying a Latent Dirichlet Allocation model in an
+interesting approach on their corpus.
 
-D.Blei's research focuses on probabilistic topic models, Bayesian methods and
-approximate posterior inference. In his work "Introduction to Probabilistic
-Topic Models",\cite{Blei11introductionto} he describes the basic ideas behind
-LDA and applies the model to articles from the journal "Science". The model
-assumes that the topics are generated first, before the documents and that the
-documents exhibit multiple topics, but each one of them exhibit those topics in
-different proportion. In our implementation we also use the LDA model and we
-follow a similar approach, since we don't use any previous information about the
-subjects that run through our dataset and the documents are not labeled with
-keywords or topics. The topic distributions arise by computing the hidden
-structure that resembles the thematic structure of the collection.
+D.Blei's \todo{Throughout: separate initials with space from surname}
+research focuses on probabilistic topic models, Bayesian methods and
+approximate posterior inference. In his work "Introduction to
+Probabilistic Topic Models",\cite{Blei11introductionto}
+\todo{Throughout: Fix quotation marks; also citations are placed
+  before punctuation} he describes the basic ideas behind LDA and
+applies the model to articles from the journal "Science"
+\todo{\emph{Science}}. The model assumes that the topics are generated
+first, before the documents and that the documents exhibit multiple
+topics, but each one of them exhibit those topics in different
+proportion. In our implementation we also use the LDA model and we
+follow a similar approach, since we don't use any previous information
+about the subjects that run through our dataset and the documents are
+not labeled with keywords or topics. The topic distributions arise by
+computing the hidden structure that resembles the thematic structure
+of the collection.
 
 The paper that mostly influenced our work is "Finding Scientific Topics", by
 T.Griffiths and M.Steyvers.\cite{griffiths_steyvers04} They investigated
@@ -180,17 +209,18 @@ that appear more frequently over the years (positive linear trend), and as
 We also analyze the topics over time, in order to highlight potential trends in
 scientific research in EU and USA.
 
-Inspired by Griffiths and Steyvers, L.Sun and Y.Yin wrote a paper, "Discovering
-themes and trends in transportation research using topic modeling",
-\cite{Sun201749} about topic modeling in transportation research. 
-Considering approximately 17000 abstracts of articles published on 22 
-leading journals in transportation research as documents, they infer 50 
-topics by using LDA. Compared to "Finding scientific topics", Sun and 
-Yin use more than one journal (22 popular journals) and they
-investigate the journal-topic distribution and journal similarity. In our
-analysis, we identify the EU and the USA as 2 regions (like 2 different journals),
-with different proportions of documents-projects, and we visualize the topic
-similarity of the two regions per framework programme.
+Inspired by Griffiths and Steyvers, L.Sun and Y.Yin wrote a paper,
+"Discovering themes and trends in transportation research using topic
+modeling", \cite{Sun201749} about topic modeling in transportation
+research. Considering approximately 17000 abstracts of articles
+published on 22 leading journals in transportation research as
+documents, they infer 50 topics by using LDA. Compared to "Finding
+scientific topics", Sun and Yin use more than one journal (22 popular
+journals) and they investigate the journal-topic distribution and
+journal similarity. In our analysis, we identify the EU and the USA as
+2 regions (like 2 different journals), with different proportions of
+documents-projects, and we visualize the topic similarity of the two
+regions per framework programme.
 
 To best of our knowledge, there is no work done in the field of topic modeling
 on scientific projects between EU and USA. There is limited information from
@@ -200,17 +230,19 @@ by the official website.
 
 \section{Theoretic background}
 
-In this chapter we will present some basic theoretic background about topic
-modeling. To deal with extensive text body, machine learning researchers have
-developed topic modeling: a suite of methods that analyze the words of the
-original text to discover the themes that run through the data and detect
-hidden semantic structures by analyzing a corpus. By marking up the documents
-using these topics and by using the resulting structure, the model can be used
-for organization, finding similar documents, or any other similar tasks. A
-topic is here defined as a probability distribution of words, meaning that
-certain words are more likely within a certain topic. Since the topics emerge
-from the analysis of the original texts, topic modeling algorithms do not
-require any prior annotations or labeling of the documents.\cite{Blei11introductionto}
+In this chapter we will present some basic theoretic background about
+topic modeling. To deal with extensive text body \todo{probably
+  plural}, machine learning researchers have developed topic modeling:
+a suite of methods that analyze the words of the original text to
+discover the themes that run through the data and detect hidden
+semantic structures by analyzing a corpus. By marking up the documents
+using these topics and by using the resulting structure, the model can
+be used for organization, finding similar documents, or any other
+similar tasks. A topic is here defined as a probability distribution
+of words, meaning that certain words are more likely within a certain
+topic. Since the topics emerge from the analysis of the original
+texts, topic modeling algorithms do not require any prior annotations
+or labeling of the documents.\cite{Blei11introductionto}
 
 In order to apply a topic model to our data, the first question we must answer
 is how to represent documents. For understanding of natural language one must
@@ -241,16 +273,16 @@ count; most entries are zero. It makes sense to view each column as a feature.
 
 Some further common concepts and terms in topic modeling: 
 \begin{itemize}
-\item[] A \textit{word} is defined as an item from a vocabulary indexed from 
-${1, ..., V}$, where V is the size of the vocabulary. All words are 
-represented as unit-basis vectors with one component equal to one and 
-the rest equal to zero.
-\item[] A \textit{document} is a collection of words denoted by $w = {w_1, ..., w_N}$, 
-where $w_n$ is the $n$th word and $N$ is the total number of words in the 
-collection.
-\item[] A \textit{corpus} is a collection of documents in a dataset. It is denoted 
-$D = {w_1,..., w_M}$, where $w_m$ is the $m$th document in the corpus and 
-$M$ is the total number of documents.
+\item[] A \textit{word} is defined as an item from a vocabulary
+  indexed from ${1, ..., V}$, where V \todo{$V$} is the size of the
+  vocabulary. All words are represented as unit-basis vectors with one
+  component equal to one and the rest equal to zero.
+\item[] A \textit{document} is a collection of words denoted by
+  $w = {w_1, ..., w_N}$, where $w_n$ is the $n$th word and $N$ is the
+  total number of words in the collection.
+\item[] A \textit{corpus} is a collection of documents in a dataset.
+  It is denoted $D = {w_1,..., w_M}$, where $w_m$ is the $m$th
+  document in the corpus and $M$ is the total number of documents.
 \item[] \textit{Latent variables} are variables that may not be directly observed, 
 unlike observable variables. Latent variables can instead be inferred 
 from other observable variables.
@@ -266,14 +298,16 @@ the words “buy” and “purchase”.
 
 \subparagraph{Prior and posterior distributions}
 
-When introducing the Latent Dirichlet Allocation in section 2.2.3, we 
-will be using the terms prior and posterior probabilities and 
-likelihood function:
+When introducing the Latent Dirichlet Allocation in section 2.2.3
+\todo{Cross reference}
+\todo{As you can see this is a disaster: always cross-reference with
+  LaTeX}, we will be using the terms prior and posterior probabilities
+and likelihood function:
 
 \begin{itemize}
-\item The prior probability distribution of and uncertain quantity is the 
-probability distribution that express the value of this quantity before 
-some evidence is taken into account.
+\item The prior probability distribution of and \todo{an} uncertain
+  quantity is the probability distribution that express the value of
+  this quantity before some evidence is taken into account.
 \item The posterior probability is the conditional probability after some 
 evidence is taken into account.
 \item The likelihood function of a set of parameters given some outcome 
@@ -295,14 +329,15 @@ p(\theta \mid x) = \frac{p(x \mid \theta) p(\theta)}{p(x)}
 
 \subparagraph{Jensen Inequality}
 
-In the context of probabilities, the Jensen Inequality is stated as follows: 
-If X is a random variable and f a convex function then:
+In the context of probabilities, the Jensen Inequality is stated as
+follows: If X \todo{$X$} is a random variable and f \todo{$f$} a
+convex function then \todo{What is $\mathbb{E}$?}:
 
 \begin{equation}
 f(\mathbb{E}[X]) \leq \mathbb{E}[f(X)]
 \end{equation}
 
-And, if f is a concave function the inequality turns:
+And, if f \todo{f} is a concave function the inequality turns:
 
 \begin{equation}
 f(\mathbb{E}[X]) \geq \mathbb{E}[f(X)]
@@ -311,51 +346,59 @@ f(\mathbb{E}[X]) \geq \mathbb{E}[f(X)]
 
 \subparagraph{Kullback-Leibler (KL) divergence}
 
-When formulating the optimization problem in Latent Dirichlet Allocation we 
-will use the KL divergence to express the optimization problem. The KL divergence 
-is a measure of the difference between two probability distributions $P$ and $Q$. 
-It is important to note
-that the KL divergence is not symmetrical in $P$ and $Q$ so it's not a metric.
+When formulating the optimization problem in Latent Dirichlet
+Allocation we will use the KL divergence to express the optimization
+problem. The KL divergence is a measure of the difference between two
+probability distributions $P$ and $Q$. It is important to note that
+the KL divergence is not symmetrical in $P$ and $Q$ so it's not a
+metric.
 
 The KL divergence can be interpreted as a way to express the amount of 
 information lost when $Q$ is used to approximate $P$.
 
-Given two continuous distributions $P$ and $Q$ the KL divergence is defined as follows:
+Given two continuous distributions $P$ and $Q$ the KL divergence is
+defined as follows:
 
 \begin{equation}
 D_{KL}(P \mid \mid Q) = \int_{-\infty}^{+\infty} p(x) log\frac{p(x)}{q(x)}dx
-\end{equation}
+\end{equation} \todo{ log in mathematics is $\log$}
 
-This can also be expressed using the definition of expectation (and expressing the 
-log of a division as difference of log) as:
+This can also be expressed using the definition of expectation (and
+expressing the log of a division as difference of log) as:
 
 \begin{equation}
-D_{KL}(P \mid \mid Q) = \mathbb{E}_{p}[log p(x)] - \mathbb{E}_{p}[log q(x)]
-\end{equation}
+  D_{KL}(P \mid \mid Q) = \mathbb{E}_{p}[log p(x)] - \mathbb{E}_{p}[log q(x)]
+\end{equation} \todo{Smae with log; also, it is a function.}
 
-This is the expression we will use later on instead of the definition. We present 
-now the two probability distributions we will be using when we define the different 
-models in this work: the \textbf{Multinomial} and the \textbf{Dirichlet} distributions. 
+This is the expression we will use later on instead of the definition.
+We present now the two probability distributions we will be using when
+we define the different models in this work: the \textbf{Multinomial}
+and the \textbf{Dirichlet} distributions.
 
 
 \subparagraph{Multinomial Distribution}
 
-Once we have a representation for individual documents, the natural next step
-is to select a model for a set of documents. Given a training set of
-documents, we will choose values for the parameters of a probabilistic model
-that make the training documents have high probability. Then, given a test
-document, we can evaluate its probability according to the model. The higher
-this probability is, the more similar the test document is to the training set.
+Once we have a representation for individual documents, the natural
+next step is to select a model for a set of documents. Given a
+training set of documents, we will choose values for the parameters of
+a probabilistic model that make the training documents have high
+probability. Then, given a test document, we can evaluate its
+probability according to the model. The higher this probability is,
+the more similar the test document is to the training set. \todo{Is
+  this really what you use the multinomial distribution for? You use
+  the multinomial distribution because LDA assumes that this is the
+  distribution of topics in documents and words in topics.}
 
-
-The probability distribution that we use is the multinomial. In probability 
-theory, the multinomial distribution is a generalization of the binomial 
-distribution. For example, it models the probability of counts for rolling 
-a k-sided dice n times. For n independent trials each of which leads to a 
-success for exactly one of k categories, with each category having a given 
-fixed success probability, the multinomial distribution gives the 
-probability of any particular combination of numbers of successes for the 
-various categories\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}. 
+The probability distribution that we use is the multinomial. In
+probability theory, the multinomial distribution is a generalization
+of the binomial distribution. For example, it models the probability
+of counts for rolling a k-sided dice n times. For n independent trials
+each of which leads to a success for exactly one of k categories, with
+each category having a given fixed success probability, the
+multinomial distribution gives the probability of any particular
+combination of numbers of successes for the various
+categories\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}.
+\todo{Variables like $k$, $n$, etc. should be in math mode.}
 
 Mathematically, this distribution is: 
 
@@ -390,15 +433,21 @@ is an extension of the beta distribution for modeling probabilities for two or
 more events; when the result of the event has only 2 values, the Dirichlet
 distribution is equal to the beta distribution.
 
-The Dirichlet distribution is a prior for the multinomial distribution. This
-means that if the prior distribution of the multinomial parameters is Dirichlet
-then the posterior distribution is also a Dirichlet distribution (with
-parameters different from those of the prior).
+The Dirichlet distribution is a prior for the multinomial
+distribution. This means that if the prior distribution of the
+multinomial parameters is Dirichlet then the posterior distribution is
+also a Dirichlet distribution (with parameters different from those of
+the prior). \todo{ If the Dirichlet is the prior for the multinomial
+  then the posterior is the multinomial; in fact the Dirichlet is the
+  conjugate prior of the multinomial. It is the posterior distribution
+  of the \emph{parameters} that is still Dirichlet. }
 
-The Dirichlet process is a way to model randomness of a probability mass
-function (PMF) with unlimited options (e.g. an unlimited amount of dice in a
-bag). The process is similar Polya's Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}}, only instead of having a set number
-of ball colors you have an unlimited amount:
+The Dirichlet process is a way to model randomness of a probability
+mass function (PMF) with unlimited options (e.g. an unlimited amount
+of dice in a bag). The process is similar Polya's
+Urn\footnote{\url{http://www.statisticshowto.com/dirichlet-distribution/}},
+only instead of having a set number of ball colors you have an
+unlimited amount: \todo{Why do we need to know that? }
 
 \begin{itemize}
 \item Start out with an empty urn.
@@ -418,33 +467,37 @@ draws is a Dirichlet process.
 
 \subsection{Basic models in topic modeling}
 
-First, we'll introduce some basic models for topic modeling. The Latent Semantic
-Indexing, or LSI, was presented by Deerwester et al. in 1990. The model manages
-to deal with the problem that multiple terms can refer to the same meaning,
-i.e. synonymy. However, it is not as successful regarding polysemy. The reason
-is that every term is represented as just one point in the so-called latent
-semantic space. Furthermore, a word that can mean two or more different things
-is represented as a weighted average of the different meanings.
+First, we'll introduce some basic models for topic modeling. The
+Latent Semantic Indexing, or LSI, was presented by Deerwester et al.
+in 1990. \todo{Add reference.} The model manages to deal with the
+problem that multiple terms can refer to the same meaning, i.e.
+synonymy. However, it is not as successful regarding polysemy. The
+reason is that every term is represented as just one point in the
+so-called latent semantic space. Furthermore, a word that can mean two
+or more different things is represented as a weighted average of the
+different meanings.
  
-After LSI was introduced, Hofmann presented the Probabilistic Latent Semantic
-Indexing, or PLSI model. PLSI is a topic model where each word in a
-document is generated from a single topic which results in that each document
-in a corpus can be represented with a topic distribution. Later, in 2003 Blei et
-al. presented the Latent Dirichlet Allocation, or LDA. As opposed to PLSI, LDA
-is a statistically generative model for documents where each word in a document
-can be generated by all topics.
+After LSI was introduced, Hofmann presented the Probabilistic Latent
+Semantic Indexing, or PLSI model \todo{Add reference}. PLSI is a topic
+model where each word in a document is generated from a single topic
+which results in that each document in a corpus can be represented
+with a topic distribution. Later, in 2003 Blei et al. presented the
+Latent Dirichlet Allocation, or LDA \todo{Add reference}. As opposed
+to PLSI, LDA is a statistically generative model for documents where
+each word in a document can be generated by all topics.
 
 \subsubsection{Latent Semantic Indexing (LSI)}
 
 Latent Semantic Indexing was one of the earliest methods for finding
-relationships between documents and the words that occur in them.\cite{Deerwester90indexingby} In LSI a
-term-document matrix is created by analyzing the corpus, where the rows
-correspond to words and columns to documents. Each element in this sparse
-matrix describes the number of times a word occurs in a document but this term
-count can also be weighted with for instance TF-IDF. Letting each word
-represent a dimension in a very high dimensional space, a document can be seen
-as a vector with components corresponding to its weighted term counts.
-\cite{Salton:1988:TAA:54259.54260}
+relationships between documents and the words that occur in
+them.\cite{Deerwester90indexingby} In LSI a term-document matrix is
+created by analyzing the corpus, where the rows correspond to words
+and columns to documents. Each element in this sparse matrix describes
+the number of times a word occurs in a document but this term count
+can also be weighted with for instance TF-IDF \todo{Explain}. Letting
+each word represent a dimension in a very high dimensional space, a
+document can be seen as a vector with components corresponding to its
+weighted term counts. \cite{Salton:1988:TAA:54259.54260}
 
 A low-rank approximation of the term-document matrix is created using Single
 Value Decomposition, SVD, which creates new dimensions, called concepts, as
@@ -516,7 +569,8 @@ each element describes the mixing proportion for a topic. A limitation with
 PLSI is that there is no generative model for these proportions, making it
 difficult to handle unseen documents. The Latent Dirichlet Allocation model
 tries to solve this limitation by setting a Dirichlet prior on the topic
-distribution.\cite{blei2003latent}
+distribution.\cite{blei2003latent} \todo{In essence you repeat what
+  you said in the beginning of the paragraph.}
  
 Suppose that we have a collection of documents, and we want to find an
 organization for these, i.e. we want to do unsupervised learning. A common way
@@ -526,10 +580,12 @@ generative process is a specification of a parametrized family of
 distributions. Learning is based on the principle of maximum likelihood, or
 some refinement of this principle such as maximum a posterior probability.
  
-The basic idea in LDA is that we define a topic to be a Dirichlet distribution
-over a fixed vocabulary. Technically, the model assumes that the topics are
-generated first, before the documents.\cite{Blei11introductionto} Now for 
-each document in the collection, we generate the words in a two-stage process:
+The basic idea in LDA is that we define a topic to be a Dirichlet
+distribution over a fixed vocabulary. \todo{No, a topic is a
+  multinomial distribution.} Technically, the model assumes that the
+topics are generated first, before the
+documents.\cite{Blei11introductionto} Now for each document in the
+collection, we generate the words in a two-stage process:
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
@@ -545,34 +601,39 @@ each document in the collection, we generate the words in a two-stage process:
 }
 \end{algorithm}
 
-This statistical model reflects the intuition that documents exhibit multiple
-topics. Each document exhibits the topics with different proportion (step 1);
-each word in each document is drawn from one of the topics (step 2b), where the
-selected topic is chosen from the per-document distribution over topics (step
-2a). All the documents in the corpus share the same set of topics, but each
-document exhibits those topics with different proportion - that's the
-distinguishing characteristic of LDA. A more detailed explanation of the model
-follows in section 2.2.3.1.
+This statistical model reflects the intuition that documents exhibit
+multiple topics. Each document exhibits the topics with different
+proportion (step 1); each word in each document is drawn from one of
+the topics (step 2b), where the selected topic is chosen from the
+per-document distribution over topics (step 2a). All the documents in
+the corpus share the same set of topics, but each document exhibits
+those topics with different proportion - that's the distinguishing
+characteristic of LDA. A more detailed explanation of the model
+follows in section 2.2.3.1. \todo{Again, fix cross-references}
 
 \paragraph{Model}
 
-LDA is a probabilistic model of text documents, which assumes a collection of 
-K topics. Each topic defines a multinomial distribution over the vocabulary 
-and is assumed to have been drawn from a Dirichlet 
-$\beta_k \sim Dirichlet(\eta)$.
+LDA is a probabilistic model of text documents, which assumes a
+collection of K topics. Each topic defines a multinomial distribution
+over the vocabulary and is assumed to have been drawn from a Dirichlet
+$\beta_k \sim Dirichlet(\eta)$. \todo{What is $beta_k$ and what is
+  $\eta$? If you explain them later (which you do) this sentence
+  should follow the explanations.}
 
-In LDA, each document is represented by a mixture of the topics, with weight
-$\theta_w^2$ for topic $z$ in document $w$. These weight have a Dirichlet prior,
-parametrized by a hyper-parameter $\alpha$. Each topic is a probability
-distribution over the vocabulary, with probability $\beta^w_z$ for word $w$ in
-topic $z$. We define the following variables and notation:
+In LDA, each document is represented by a mixture of the topics, with
+weight $\theta_w^2$ \todo{Where does the square come from?} for topic
+$z$ in document $w$. These weight \todo{weights} have a Dirichlet
+prior, parametrized by a hyper-parameter $\alpha$. Each topic is a
+probability distribution over the vocabulary, with probability
+$\beta^w_z$ for word $w$ in topic $z$. We define the following
+variables and notation:
 \begin{itemize}
   \item[] $k$ is the number of topics.
   \item[] $V$ is the number of unique words in the vocabulary.
   \item[] $\theta$  is the topic distribution (of length $k$) for a document,
    drawn from a uniform Dirichlet distribution with parameter $\alpha$.
-  \item[] $z_{n}$ is a topic assignment for $word w_{n}$, sampled from 
-  $p(z_{n} = i|\theta) = \theta_{i}$.
+ \item[] $z_{n}$ is a topic assignment for $word w_{n}$ \todo{word
+     $w_n$}, sampled from $p(z_{n} = i|\theta) = \theta_{i}$.
   \item[] \textbf{w}$ = (w_{1}, ... , w_{N})$ is a document with $N$ words.
   \item[] $w_{n}^{i} = 1$ means that the word $w_{n}$ is the $i$-th word 
   of the vocabulary.
@@ -622,20 +683,22 @@ posterior can't be computed directly; it is usually approximated using Markov
 Chain Monte Carlo (MCMC) or variational inference. Both methods are effective,
 but also present significant computational challenges in large data sets
 ~\cite{onlineLDAvb}. In our implementation, we're using the online variational
-LDA model, which is described in section 2.2.3.4.
+LDA model, which is described in section 2.2.3.4. \todo{Cross reference.}
  
 The key difference in LDA compared to PLSI is that the process outlined above
 actually is generative for documents. This means that, given a new document,
 one can use the parameters learned previously to estimate the topic
-distribution $\theta$ for this new document.
+distribution $\theta$ for this new document. \todo{You have already
+  said that many times.}
  
-A limitation with the standard LDA model is the fix vocabulary. This means that
-new words cannot enter the model and that you have to know a priori what words
-will model the corpus effectively. A setting where this could be problematic is
-when analyzing data where new words in the form of slang or names emerge over 
-time. Another limitation is the fact that one has to state
-the number of topics the model should use. This is not a big issue, but could
-lead to some of the resulting topics to be insignificant.
+A limitation with the standard LDA model is the fix \todo{fixed}
+vocabulary. This means that new words cannot enter the model and that
+you have to know a priori what words will model the corpus
+effectively. A setting where this could be problematic is when
+analyzing data where new words in the form of slang or names emerge
+over time. Another limitation is the fact that one has to state the
+number of topics the model should use. This is not a big issue, but
+could lead to some of the resulting topics to be insignificant.
 \begin{center}
 \begin{figure}[h]
 \centering
@@ -673,32 +736,37 @@ compute a better estimate for the parameters.
 \item Repeat steps 2 to 4 until the parameter estimate converges.
 \end{enumerate}
 
-
 \paragraph{Variational Inference}
 
-In LDA, our ultimate goal is to find the posterior distribution of latent topic 
-variables after observing training data. However, computing this distribution 
-is intractable, so we're forced to approximate. One approximation approach is to 
-use an optimization method called Variational Bayes. In the original paper it's 
-being used a variational Bayes approximation of the posterior distribution;
-\cite{blei2003latent} alternative inference techniques use Gibbs sampling and
-expectation propagation. The goal of variational inference is to approximate an
-intractable probability distribution $p$, with a tractable one $q$, in a way
-that makes them as close as possible given a similarity measure. In this thesis,
-variational inference is used to approximate the posterior distribution of
-latent variables. A new distribution over the hidden variables $q(z, \beta)$
-(called the variational distribution) is  introduced. This new distribution has
-properties such that it can be efficiently computed.\cite{Fox2011ATO}
+In LDA, our ultimate goal is to find the posterior distribution of
+latent topic variables after observing training data. However,
+computing this distribution is intractable, so we're forced to
+approximate. One approximation approach is to use an optimization
+method called Variational Bayes. In the original paper it's being used
+a variational Bayes approximation of the posterior distribution;
+\cite{blei2003latent} alternative inference techniques use Gibbs
+sampling and expectation propagation \todo{Cite these techniques.
+  AFAIK, if you do not use Variational Bayes, you use MCMC with Gibbs
+  sampling.}. The goal of variational
+inference is to approximate an intractable probability distribution
+$p$, with a tractable one $q$, in a way that makes them as close as
+possible given a similarity measure. In this thesis, variational
+inference is used to approximate the posterior distribution of latent
+variables. A new distribution over the hidden variables $q(z, \beta)$
+(called the variational distribution) is introduced. This new
+distribution has properties such that it can be efficiently
+computed.\cite{Fox2011ATO}
 
-In short, we approximate the true distribution by a simple distribution $q$, and 
-associate parameters $\phi$, $\gamma$, $\lambda$ with the original parameters 
-$z$, $\theta$, $\beta$ respectively. Recall that $z$ gives the topic assignments 
-for each word in each document, $\theta$ gives the topic composition of each 
-document, and $\beta$ gives the word-topic probabilities for each word and each 
-topic. The variational distribution is a function of a set of free parameters that 
-are optimized such that the variational distribution is as close as possible to 
-the actual target posterior distribution where closeness is measured in terms of 
-KL divergence.
+In short, we approximate the true distribution by a simple
+distribution $q$, and associate parameters $\phi$, $\gamma$, $\lambda$
+with the original parameters $z$, $\theta$, $\beta$ respectively.
+Recall that $z$ gives the topic assignments for each word in each
+document, $\theta$ gives the topic composition of each document, and
+$\beta$ gives the word-topic probabilities for each word and each
+topic. The variational distribution is a function of a set of free
+parameters that are optimized such that the variational distribution
+is as close as possible to the actual target posterior distribution
+where closeness is measured in terms of KL divergence.
 
 Specifically, we have:
 \begin{equation}
@@ -736,14 +804,15 @@ E Step:
 	initialize $\gamma$
     
     \Repeat{change in $\phi < \epsilon$}{
-        update $\phi$
-        update $\gamma$
+        update $\phi$ 
+        update $\gamma$ 
      }
 }
 M Step:
 
 update $\lambda$
 \end{algorithm}
+\todo{Update $\phi$ and $\gamma$ do not show as separate lines.}
 
 The specific updates are:
 \begin{equation}
@@ -755,11 +824,13 @@ The specific updates are:
 \begin{equation}
 \lambda_{k,word_{i}}=\eta +\sum_{d}n_{d,word_{i}}\phi_{d,word_{i},k}
 \end{equation}
-Where $n_{d,word_{i}}$ is the number of occurrences of $word_{i}$ in document $d$.
-The algorithm above has constant memory requirements and empirically
-converges faster than collapsed Gibbs sampling. However, it still requires a
-full pass through the entire corpus in each iteration. It can be slow to apply
-to very large datasets.
+Where $n_{d,word_{i}}$ is the number of occurrences of $word_{i}$ in
+document $d$. The algorithm above has constant memory requirements and
+empirically converges faster than collapsed Gibbs sampling. However,
+it still requires a full pass through the entire corpus in each
+iteration. It can be slow to apply to very large datasets.
+\todo{Provide citation for the description you have given; I assume
+  it's the same blog post as for the following paragraph.}
 
 \paragraph{Online variational LDA}
 
@@ -800,7 +871,9 @@ documents we now only have to hold 1000 in memory. The E-Step finds locally
 optimal values for $\phi$ and $\gamma$, while in the M-Step, we first compute 
 $\lambda^{*}$, which is the value of $\lambda$ if we imagined that the entire 
 dataset is made up of $\frac{numDocs}{chunkSize}$ copies of the current chunk. 
-Then $\lambda$ is updated using a weighted sum of $\lambda^{*}$ and $\lambda$:
+Then $\lambda$ is updated using a weighted sum of $\lambda^{*}$ and
+$\lambda$: \todo{As the algorithm is thrown on the next page, it looks
+  as if something is missing here.}
 
 \begin{algorithm}
 \SetAlgoNoLine
@@ -820,20 +893,24 @@ compute $\lambda^{*}$
 update $\lambda$
 \end{algorithm}
 
-We can see that unlike variational LDA, in online LDA we only need to hold a
-small chunk of the data at a time, and once we're done analyzing it, we never
-need it again. As with batch, once we've estimated $\lambda$, we can find the 
-most probable words for each topic by looking at the word probabilities in 
-each row of $\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
+We can see that unlike variational LDA, in online LDA we only need to
+hold a small chunk of the data at a time, and once we're done
+analyzing it, we never need it again. As with batch, once we've
+estimated $\lambda$, we can find the most probable words for each
+topic by looking at the word probabilities in each row of
+$\lambda$.\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}
+
 
 \section{Methodology}
 
-In this section, we explain the procedure that we followed in n order to apply
-the LDA model in our dataset. The dataset consists of two datasets: the one that
-contains all the information about EU projects founded for research and
-innovation under the FP4-H2020 and the dataset from USA about the
-awards/projects that got approved from 1994-2017. We consider the projects'
-description/abstract as the documents in LDA. 
+In this section, we explain the procedure that we followed in order to
+apply the LDA model in our dataset. The dataset consists of two
+datasets \todo{That reads funny.}: the one that contains all the
+information about EU projects founded for research and innovation
+under the FP4-H2020 \todo{Throughout: use dashes correctly. There are
+  hyphens (-), n-dashes (--) and m-dashes (---).} and the dataset from
+USA about the awards/projects that got approved from 1994-2017. We
+consider the projects' description/abstract as the documents in LDA.
 
 \subsection{EU dataset}
 
@@ -906,18 +983,19 @@ Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
 \item Transport and Travel
 \end{itemize}
 
-The data that are provided by CORDIS (via the EU Open Data Portal) are open,
-free and can be used in research, applications, commercial or non-commercial
-purposes. The dataset that we chose for the following analysis contains
-information about all the projects funded by the European Union from 1994 to
-2017. These projects got approved under the framework programme (FP4-H2020) for
-research and technological development. For each project it is provided
-information, such as: reference, acronym, dates, funding, programs,
-participant countries, subjects and objectives.
+The data that are provided by CORDIS (via the EU Open Data Portal) are
+open, free and can be used in research, applications, commercial or
+non-commercial purposes. The dataset that we chose for the following
+analysis contains information about all the projects funded by the
+European Union from 1994 to 2017. These projects got approved under
+the framework programme (FP4-H2020) for research and technological
+development. For each project it is provided information \todo{Does
+  not read right}, such as: reference, acronym, dates, funding,
+programs, participant countries, subjects and objectives.
 
-In the provided dataset, the information is splitted into CSV files, based on
-the framework program that each project belongs. The frameworks from 1994 to
-2020 are listed below:
+In the provided dataset, the information is splitted \todo{split} into
+CSV files, based on the framework program that each project belongs.
+The frameworks from 1994 to 2020 are listed below:
 
 \begin{itemize}
 \item FP4: fourth framework programme (1994-1998)
@@ -942,12 +1020,14 @@ analysis:
 \item Filter out the most frequent and some rare words of the dictionary
 \end{itemize}
 
-To obtain the collection of the documents, we consider as 'documents' in LDA the
-project objectives, which is an accurate description for the project. We also
-added the 'title' value of each project to the objectives-documents, to increase
-the probability of finding accurate topics. For the majority of the projects the
-'start date' and 'end date' value was null, so we kept the splitting of the
-dataset per framework, in order to keep the correlation to the time. We followed
+To obtain the collection of the documents, we consider as 'documents'
+\todo{In the rest of the document you are using single quotation marks.}
+in LDA the project objectives, which is an accurate description for
+the project. We also added the 'title' value of each project to the
+objectives-documents, to increase the probability of finding accurate
+topics. For the majority of the projects the 'start date' and 'end
+date' value was null, so we kept the splitting of the dataset per
+framework, in order to keep the correlation to the time. We followed
 the same format in the dataset of USA awards.
 
 
@@ -969,24 +1049,27 @@ common words in the existing dataset: 'data', 'based', 'new', 'project',
 'university', 'student', 'students', 'research', 'study', 'program',
 'development', 'study', 'studies', 'provide', 'use'. We also removed the rare
 words that appear less than 5 times in the collection. Finally, we obtained a
-smaller corpus per framework (see the table above)
+smaller corpus per framework (see the table above).
 
-In this section, we explain the procedure that we followed in n order to apply
-the LDA model in our dataset. The dataset consists of two datasets: the one that
-contains all the information about EU projects founded for research and
-innovation under the FP4-H2020 and the dataset from USA about the
-awards/projects that got approved from 1994-2017. We consider the projects'
-description/abstract as the documents in LDA. 
+In this section, we explain the procedure that we followed in n order
+to apply the LDA model in our dataset. The dataset consists of two
+datasets: the one that contains all the information about EU projects
+founded for research and innovation under the FP4-H2020 and the
+dataset from USA about the awards/projects that got approved from
+1994-2017. We consider the projects' description/abstract as the
+documents in LDA. \todo{Why is this paragraph here?}
 
 \subsection{USA dataset}
 
-The National Science Foundation (NSF) is a United States government agency that
-supports fundamental research and education in all the non-medical fields of
-science and engineering. Its medical counterpart is the National Institutes of
-Health. The NSF funds approximately 24\% of all federally supported basic
-research conducted by the United States' colleges and universities. In some
-fields, such as mathematics, computer science, economics, and the social
-sciences, the NSF is the major source of federal backing.
+The National Science Foundation (NSF) is a United States government
+agency that supports fundamental research and education in all the
+non-medical fields of science and engineering. Its medical counterpart
+is the National Institutes of Health \todo{Does your data include
+  material from NIH as well?}. The NSF funds approximately 24\% of all
+federally supported basic research conducted by the United States'
+colleges and universities. In some fields, such as mathematics,
+computer science, economics, and the social sciences, the NSF is the
+major source of federal backing.
 
  
 The NSF organizes its research and education support through seven 
@@ -1090,26 +1173,46 @@ the actual implementation.
 
 \section{Analysis and results}
 
-In this section, we show our main results. We focus on finding differences
-between the two datasets in terms of topic distribution and later we 
-investigate the evolution of the topics over time of each dataset separately.
+In this section, we show our main results. We focus on finding
+differences between the two datasets in terms of topic distribution
+and later we investigate the evolution of the topics over time of each
+dataset separately.\todo{Although in the preceding material you have
+  listed the areas of interest in the EU, as listed in the EU Open
+  Data Portal, and the areas of interest in the US, through its
+  directorates, you do not discuss whether the topics you found have
+  any relationship to these thematic areas and divisions. So you do
+  not answer the question: ``did you find something we did not already
+  know by checking the descriptions on the web sites?''}
 
 
 \subsection{Discovering topics on the EU projects}
 
-In general, the most popular subject in European Union over the years is
-Information systems. In our dataset we fount projects related to almost all
-kinds of information systems, and especially Quality management systems
-(1994-2002), Management information systems, Network information systems and
-Information systems as a service to all kinds of organizations, including
-universities and companies. Since technology has an impact in every aspect
-nowadays, it is normal to have such popularity over the years and it's becoming
-popular in education, as well. The same period of time, Innovation in Business
-emerged as a trending topic, with projects related to new technologies and
-software systems in the industry and how they assist the businesses and the
-market. In addition, until 2002 a very popular subject related to Information
-systems, was Applications in mobile networks, embedded and broadband systems,
-which nowadays has lost part of its popularity in research.
+\todo{This is the heart of the thesis, but it is difficult to make
+  sense of it. Make sure that when you mention a topic, the topic
+  stands out of the text. It could be in italics, or some other font.
+  Right now it is not easy to detect it in the discussion. From what I
+  understand, the topics you mention are the top topics over all the
+  years. You should then list them all in a table, in decreasing order
+  of popularity. Also you should show the wordclouds. Right now there
+  is only a reference to a figure at the appendix, which is not at the
+  appendix at all.
+}
+
+In general, the most popular subject in European Union over the years
+is Information systems. In our dataset we fount \todo{found} projects
+related to almost all kinds of information systems, and especially
+Quality management systems (1994-2002), Management information
+systems, Network information systems and Information systems as a
+service to all kinds of organizations, including universities and
+companies. Since technology has an impact in every aspect nowadays, it
+is normal to have such popularity over the years and it's becoming
+popular in education, as well. The same period of time, Innovation in
+Business emerged as a trending topic, with projects related to new
+technologies and software systems in the industry and how they assist
+the businesses and the market. In addition, until 2002 a very popular
+subject related to Information systems, was Applications in mobile
+networks, embedded and broadband systems, which nowadays has lost part
+of its popularity in research.
 
 Another popular subject that appears the last 22 years is Materials research;
 the projects related to material research are mostly related to the discovery
@@ -1117,27 +1220,33 @@ and design of new materials, with an emphasis on solids. Materials properties
 and performance are used in many disciplines, like chemistry, physics and
 engineering.
 
-The third most popular subject is Molecular biology and Genetics. These projects
-are related to the cellular molecules that carry out the biological processes
-essential for the cell's functions and maintenance. These affect many aspects of
-our lives, including evolution, nutrition and the spread of diseases. Especially
-from 1998 up to day, there is a focus in Health care and Diagnostics, and for the
-last decade researchers are studying the cancer detection and treatment, which
-is a common cause of death in EU and the second most common cause of death in
-USA.
+The third most popular subject is Molecular biology and Genetics.
+These projects are related to the cellular molecules that carry out
+the biological processes essential for the cell's functions and
+maintenance. These affect many aspects of our lives, including
+evolution, nutrition and the spread of diseases. \todo{This is not an
+  essay, remove.} Especially from 1998 up to day, there is a focus in
+Health care and Diagnostics, and for the last decade researchers are
+studying the cancer detection and treatment, which is a common cause
+of death in EU and the second most common cause of death in USA.
+\todo{It seems now that you are discussing topics that are not popular
+  throughout the period, but in the latest frameworks?}
 
-Moreover, Environmental, Social and Economic Sustainability is a subject very
-important to the research community and many researchers work on this up to day.
-In short, sustainability takes into account how we might live in harmony with
-the natural world around us, protecting it from damage and destruction. Many
-projects are related to one of the Three Pillars of Sustainability\footnote{http
-://www.thwink.org/sustain/glossary/ThreePillarsOfSustainability.htm}. The
-European Union is considered by some to have the most extensive environmental
-laws of any international organization, started by the  European Economic
-Community (EEC), which is the beginning of the EU's environmental policy. Social
-and Economic policies are also popular in the EU region over the last decade.
-Also, the last two decades there is a focus on the Green energy production, like
-hydropower, solar and nuclear energy.
+Moreover, Environmental, Social and Economic Sustainability is a
+subject very important to the research community and many researchers
+work on this up to day. In short, sustainability takes into account
+how we might live in harmony with the natural world around us,
+protecting it from damage and destruction. \todo{This is not an essay,
+  remove.} Many projects are related to one of the Three Pillars of
+Sustainability\footnote{http
+  ://www.thwink.org/sustain/glossary/ThreePillarsOfSustainability.htm}.
+The European Union is considered by some to have the most extensive
+environmental laws of any international organization, started by the
+European Economic Community (EEC), which is the beginning of the EU's
+environmental policy. Social and Economic policies are also popular in
+the EU region over the last decade. Also, the last two decades there
+is a focus on the Green energy production, like hydropower, solar and
+nuclear energy.
 
 During the 6th and the 7th framework programme, International Research and
 conferences came up in our dataset as a trending topic. Researchers have a great
@@ -1146,16 +1255,23 @@ their knowledge. A big part of the projects funded by the EU that is related to
 international research, is also related to Physics, in general, and High energy
 physics in EU (see Appendix: Wordclouds of topics of the EU).
 
+
 \subsection{Discovering topics on the USA projects}
 
-The National Science Foundation mostly supports fundamental research and
-education in the non-medical science and engineering. Its medical counterpart
-is the National Institutes of Health.\footnote{\url{https://en.wikipedia.org/wik
-i/National_Science_Foundation}} With STEM being the top priority in USA, most of
-the projects founded by NSF are related to engineering, computer science,
-mathematics and information systems, in general. The subjects STEM \& Education,
-Software engineering, Information systems and Mathematics, arise as topics in
-all these years, from 1994-2017.
+\todo{The same comments as in the previous subsection apply here. Make
+  sure you explain how you picked the topics you discuss here. Make
+  sure they stand out.}
+
+The National Science Foundation mostly supports fundamental research
+and education in the non-medical science and engineering. Its medical
+counterpart is the National Institutes of Health \todo{You have said
+  so before.}.\footnote{\url{https://en.wikipedia.org/wik
+    i/National_Science_Foundation}} With STEM being the top priority
+in USA, \todo{How do you know that?} most of the projects founded by
+NSF are related to engineering, computer science, mathematics and
+information systems, in general. The subjects STEM \& Education,
+Software engineering, Information systems and Mathematics, arise as
+topics in all these years, from 1994-2017.
 
 While NSF promotes the progress of science, it also enhances the efforts to
 maintain the national health, prosperity, and welfare. Over the last 22 years,
@@ -1179,24 +1295,29 @@ mechanical engineering, bioengineering and chemical \& transport systems. In
 sustainable in the senses of social, environmental and climate impacts (Green
 transportation).
 
-From 1994-2006 and the last three years, International Research and conferences
-came up as a trending topic. Re- searchers have a great interest to collaborate
-with other colleagues from all over the world and share their knowledge. A big
-part of the projects funded by the EU that is related to international research,
-is also related to Physics, in general, and High energy physics in EU (see
-Appendix: Wordclouds of topics of the EU).
+From 1994-2006 and the last three years, International Research and
+conferences came up as a trending topic. Re- searchers \todo{Re-
+  searchers} have a great interest to collaborate with other
+colleagues from all over the world and share their knowledge. A big
+part of the projects funded by the EU that is related to international
+research, is also related to Physics, in general, and High energy
+physics in EU (see Appendix: Wordclouds of topics of the EU).
+\todo{Are you talking about the EU, or the US here?}
 
-NSF shows a great interest in international activities across all NSF supported
-disciplines. The goal of these projects is to support high quality research and
-education, which could not occur without international collaboration. NSF seeks
-to catalyze a higher level of international engagement in the U.S. science and
-engineering community by promoting International conferences and university
-projects and partnerships. An interesting fact regarding international
-partnerships is that the European Commission and the Government of the United
-States of America concluded on 17 October 2016 an Implementing Arrangement that
-simplifies the cooperation between Horizon 2020 projects and US entities.
-European and American researchers will be able to work together more closely on
-projects funded under Horizon 2020, the European Union's research and innovation
+NSF shows a great interest in international activities across all NSF
+supported disciplines. The goal of these projects is to support high
+quality research and education, which could not occur without
+international collaboration. NSF seeks to catalyze a higher level of
+international engagement in the US science and engineering community
+by promoting international conferences and university projects and
+partnerships \todo{You have said the same in the previous paragraph.}.
+An interesting fact regarding international partnerships is that the
+European Commission and the Government of the United States of America
+concluded on 17 October 2016 an Implementing Arrangement that
+simplifies the cooperation between Horizon 2020 projects and US
+entities. European and American researchers will be able to work
+together more closely on projects funded under Horizon 2020, the
+European Union's research and innovation
 programme.\footnote{\url{http://ec.europa.eu/research/iscp/index.cfm?pg=usa}}
 
 From 2002 up to day, Economic and Social Sciences emerge as a topic in our
@@ -1209,26 +1330,28 @@ Finally, a topic that used to be popular in the past, in 1994-1997 and
 nowadays. The last 5 years, there is an interest around STEM and its
 applications in manufacturing and engineering.
 
-
 \subsection{Topic evolution over time}
 
-One of our goals is to identify trends in scientific research in EU and USA, in
-order to give some insights to researchers and scientists regarding potential
-trends. For this analysis, we run the model for the whole dataset, instead of
-running the model per FP), for the EU and the USA, respectively. The outcome was
-10 topics for each region from 1994 to 2017 for the EU and from 1994 to 2016 for
-the USA.\footnote{in this implementation we removed the projects of the year
-2017 from the USA dataset, because the amount of projects-documents was too
-small compared to the other years and it was affecting the result of the trend
-for each topic.}
+One of our goals is to identify trends in scientific research in EU
+and USA, in order to give some insights to researchers and scientists
+regarding potential trends. For this analysis, we run the model for
+the whole dataset, instead of running the model per FP), for the EU
+and the USA, respectively. The outcome was 10 topics for each region
+from 1994 to 2017 for the EU and from 1994 to 2016 for the
+USA.\footnote{in this implementation we removed the projects of the
+  year 2017 from the USA dataset, because the amount of
+  projects-documents was too small compared to the other years and it
+  was affecting the result of the trend for each topic.}
 
 \subparagraph{Trends in the EU}
 
-In figure x we show the 10 topics that consists of the 20 top words with the
-highest posterior probability of belonging to the topic. The size of each word
-is in proportion to each probability; the bigger the word, the higher the
-probability. Each wordcloud describes a topic, which we can find intuitively.
-Below are listed the topics that we found corresponding to the words that
+In figure x \todo{What?} we show the 10 topics that consists \todo{You
+  mean that you show the top 20 words; the topics consist of more.} of
+the 20 top words with the highest posterior probability of belonging
+to the topic. The size of each word is in proportion to each
+probability; the bigger the word, the higher the probability. Each
+wordcloud describes a topic, which we can find intuitively. Below are
+listed the topics that we found corresponding to the words that
 describe them:
 \begin{itemize}
 \item[] Topic 0: Molecular biology
@@ -1263,55 +1386,65 @@ describe them:
 \caption{Wordclouds of topics of the EU dataset (1994-2017)}
 \end{figure}
 \end{center}
+\todo{Why
+  don't you put the name of each topic in each topic's caption?}
+
 In order to find the topic distribution over time, we need the topic
-distribution of each project-document. As we mentioned before, LDA assumes that
-each document exhibits multiple topics. After running the model to our dataset,
-we get the document-topic distribution and we keep the topic with the highest
-probability (the one that most likely belongs to this document). Then, we
-calculate the proportion of each topic per FP, using the following equation:
+distribution of each project-document. As we mentioned before, LDA
+assumes that each document exhibits multiple topics. After running the
+model to our dataset, we get the document-topic distribution and we
+keep the topic with the highest probability (the one that most likely
+belongs to this document). Then, we calculate the proportion of each
+topic per FP, using the following equation:
 \begin{equation}
 topicProportion(k, fp) = \frac{\sum num of docs_{k,fp}}{\sum num of docs_{fp}} * 100
 \end{equation}
-where $k$ is the number of the topic id, $fp$ is the framework programme,
-$fp \in [FP4, FP5, FP6, FP7, H2020]$. The topic proportion of each topic in 
-the FP equals to the sum of the number of the documents assigned to this 
-topic during the FP, normalized by the number of the documents-projects 
-occurring in this FP. In figure X we plot the results of the topic proportion 
-over time.
+where $k$ is the number of the topic id, $fp$ is the framework
+programme, $fp \in [FP4, FP5, FP6, FP7, H2020]$. The topic proportion
+of each topic in the FP equals the sum of the number of the documents
+assigned to this topic during the FP, normalized by the number of the
+documents-projects occurring in this FP. In figure X \todo{what?} we
+plot the results of topic proportions over time.
 
-Based on this plot, topic 10, which refers to International Research, has an
-interesting evolution; During the years 1994-1998 is appears as less popular
-topic, compared to other topics. However, this state changes drastically in
-1998-2002 ($+14\%$) and in 2002-2006 it is at its peak ($+18\% since 1994$).
-This period many activities and projects where initialized in order to support
-and promote international education and conferences to attract researchers from
-all over the world. Strangely, this trend has a significant decrease the last 10
-years, compared to other topics ($-12\%$). We already know that in Horizon 2020
-there is an agreement between EU and USA for supporting the cooperation of the
-two regions.Our hypothesis for the evolution of the International Research is
-that the EU successfully managed to create the foundation for supporting
-international people and there is no need to invest more on projects that
-attempt to promote cooperation between international researchers, because it is
-already considered as a common practice nowadays.
 
-Materials and Manufacturing was a hot topic in 1994-1998, but it also appears a
-big decrease during the years 1998-2006 and it has a stable trend since then.
-Materials Science/Chemistry \& Physics' popularity (topic 4) line has an
-increase during 2002-2013 and the last 3 years a small decrease of $2-3\%$.
-Topics 2 and 3 (Social policy, Disease detection \& treatment) follow the same
-linear trend as Materials science \& Physics. Energy production (topic 11) was
-less popular in 1994-2002 and is becoming slightly popular the last 15 years.
+Based on this plot, topic 10, which refers to International Research,
+has an interesting evolution; uring the years 1994-1998 is appears as
+less popular topic, compared to other topics. However, this changes
+drastically in 1998-2002 ($+14\%$) and in 2002-2006 it is at its peak
+($+18\% since 1994$ \todo{that should not be in math}). This period
+many activities and projects where initialized in order to support and
+promote international education and conferences to attract researchers
+from all over the world. Strangely, this trend has a significant
+decrease the last 10 years, compared to other topics ($-12\%$). We
+already know that in Horizon 2020 there is an agreement between EU and
+USA for supporting the cooperation of the two regions.Our hypothesis
+for the evolution of the International Research is that the EU
+successfully managed to create the foundation for supporting
+international people and there is no need to invest more on projects
+that attempt to promote cooperation between international researchers,
+because it is already considered as a common practice nowadays.
+
+Materials and Manufacturing was a hot topic in 1994-1998, but it also
+appears a big decrease during the years 1998-2006 and it has a stable
+trend since then. Materials Science/Chemistry \& Physics' popularity
+(topic 4) line has an increase during 2002-2013 and the last 3 years a
+small decrease of $2-3\%$. Topics 2 and 3 (Social policy, Disease
+detection \& treatment) follow the same linear trend as Materials
+science \& Physics. Energy production (topic 11) was less popular in
+1994-2002 and is becoming slightly \todo{more?} popular the last 15
+years.
 
 Topic 9, which refers to Information systems in general, is a subject that has a
 stable trend and it appears as a popular topic the last 22 years compared to
 other topics, with a percentage of $12.5\%$ of the projects in EU on average.
 
 Biology and the study of molecular mechanisms have a small decrease of
-popularity on average. This may happen because the projects related to medical
-fields are supported by another institute, National Institutes of Health. Also,
-research in Climate change and Environmental science is another subject that
-paradoxically appears as a topic that is gradually losing its popularity over
-the last years.
+popularity on average. This may happen because the projects related to
+medical fields are supported by another institute, National Institutes
+of Health \todo{Are you talking about the US or the EU?}. Also,
+research in Climate change and Environmental science is another
+subject that paradoxically appears as a topic that is gradually losing
+its popularity over the last years.
 
 Finally, topic 6, which is related to Business \& Innovation, has a huge
 increase the last 3 years. We can assume that the EU is very interested in
@@ -1326,15 +1459,17 @@ affairs.
 \end{center}
 \subparagraph{Trends in the USA	}
 
-Just like the EU dataset, we found the 10 topics of the USA dataset from 1994 to
-2016. Since, we're looking for the topic distribution over time, in this
-implementation we took the projects per year (instead of using the separation of
-the dataset per FP), to visualize the evolution of each topic per year. We ran
-the LDA model with 12000 iterations and the dame value of the rest of the
-parameters, as described in section 4.3.
+Just like the EU dataset, we found the 10 topics of the USA dataset
+from 1994 to 2016. Since, we're looking for the topic distribution
+over time, in this implementation we took the projects per year
+(instead of using the separation of the dataset per FP), to visualize
+the evolution of each topic per year. We ran the LDA model with 12000
+iterations and the dame \todo{same} value of the rest of the
+parameters, as described in section 4.3. \todo{You should probably
+  explain the same for the Trends in the EU.}
 
-Each one of the wordclouds in figure X represents a topic. The topics that are
-described in the wordclouds are listed below:
+Each one of the wordclouds in figure X \todo{what?}represents a topic.
+The topics that are described in the wordclouds are listed below:
 
 \begin{itemize}
 \item[] Topic 0: Material science and High energy physics
@@ -1390,28 +1525,32 @@ the documents-projects  occurring in this year.
 \caption{Topics over time in USA}
 \end{figure}
 \end{center}
-In figure 6 we plot the topic distribution over time. We can easily observe that
-the topic 6, which refers to STEM education, is becoming a trend in the United
-States over the years, while most of the other topics' evolution doesn't show up
-such a high increase. Topics 5 and 8, which refer to Chemistry \& Materials
-science and Molecular biology, respectively, show a small decrease over the
-years. Topics 9 and 0 (Mechanical Engineering, Material Science and High energy
-physics) show a small increase over the last 5 years. Mathematics' evolution
-over time (Topic 1) looks stable on average and shows up as a popular subject
-over the last 22 years, while Social Sciences and International Research (Topic
-3 and 4) show a small decrease over the last 3 years.  Molecular biology and
-Genetics (Topic 2) has an increasing popularity from 1994 to 2001 and later is
-starting to stabilize. Climatology, Atmospheric and Ocean sciences look stable
-the first years, while from 2006 up to date it is gradually becoming less
+In figure 6 we plot the topic distribution over time. We can easily
+observe that the topic 6, which refers to STEM education, is becoming
+a trend in the United States over the years, while most of the other
+topics' evolution doesn't show up such a high increase. Topics 5 and
+8, which refer to Chemistry \& Materials science and Molecular
+biology, respectively, show a small decrease over the years. Topics 9
+and 0 (Mechanical Engineering, Material Science and High energy
+physics) show a small increase over the last 5 years. Mathematics'
+evolution over time (Topic 1) looks stable on average and shows up as
+a popular subject over the last 22 years, while Social Sciences and
+International Research (Topic 3 and 4) show a small decrease over the
+last 3 years. Molecular biology and Genetics (Topic 2) has an
+increasing popularity from 1994 to 2001 and later is starting to
+stabilize. Climatology, Atmospheric and Ocean sciences look stable the
+first years, while from 2006 up to date it is gradually becoming less
 popular over the years.
 
-In general, the STEM (science, technology, engineering and math) related
-research and education is becoming more and more popular, which is not
-surprising, since the National Science Foundation itself estimates that 80/% of
-the jobs available during the next decade will require math and science skills.
-Even the concept of STEM was first introduced by Judith A. Ramaley, the former
-director of the National Science Foundation's education and human resources
-division.
+In general, the STEM (science, technology, engineering and math)
+related research and education is becoming more and more popular,
+which is not surprising, since the National Science Foundation itself
+estimates that 80/%
+\todo{you mean percent} of the jobs available during the next decade
+will require math and science skills \todo{Cite that.}. Even the
+concept of STEM was first introduced by Judith A. Ramaley, the former
+director of the National Science Foundation's education and human
+resources division \cite{Cite that.}.
 
 \subsection{Comparison of the two regions per framework programme}
 
@@ -1442,24 +1581,31 @@ JSD(P \mid\mid Q) = \frac{1}{2}D(P \mid\mid M) + \frac{1}{2}D(Q \mid\mid M)
 \end{equation}
 where $M = \frac{1}{2}(P + Q)$ and $D(P \mid\mid Q) = \sum_{i}^{N} p_i \ln\frac{p_i}{q_i}$.
 
-In our case, we will use JSD cause is a symmetric formula, so that 
-$sim(Q,P) = sim(P,Q)$. we want to calculate the similarity of the topics of the 
-EU and the USA dataset per framework programme, one by one. Since the topics 
-come from different datasets, it means that their topic probability distributions 
-have different variables-words and different number of variables. To deal with this
-issue, we run the model for the two datasets separately and keep the topics as
-word probability distributions. Then for each pair of the two set of topics, we
-add to each of the topic-word distributions, the words that are missing and
-exist in the other distribution, with probability equals to zero. Then we apply
-the JSD to each pair of topics (see compare FPs.py in the Appendix, for the
-implementation).
+In our case, we will use JSD cause \todo{because} is a symmetric
+formula, so that $sim(Q,P) = sim(P,Q)$. we want to calculate the
+similarity of the topics of the EU and the USA dataset per framework
+programme, one by one. Since the topics come from different datasets,
+it means that their topic probability distributions have different
+variables-words and different number of variables. To deal with this
+issue, we run the model for the two datasets separately and keep the
+topics as word probability distributions. Then for each pair of the
+two set of topics we add to each of the topic-word distributions, the
+words that are missing and exist in the other distribution, with
+probability equals to zero. Then we apply the JSD to each pair of
+topics (see compare FPs.py in the Appendix, for the implementation).
 
-The figures 7-11 visualize the heatmaps of the similarity of the two regions
-during the FP4-H2020. Rows represent topics from the EU dataset and 
-columns topics from the USA dataset. The values of the JSD computation which are 
-close to zero (lighter color of the box) suggest more similarity within topics.
-According to the heatmaps, the topics that have high similarity between the 
-EU and the USA are:
+The figures 7-11 \todo{Use cross-references} visualize the heatmaps of
+the similarity of the two regions during the FP4-H2020. Rows represent
+topics from the EU dataset and columns topics from the USA dataset.
+The values of the JSD computation which are close to zero (lighter
+color of the box) suggest more similarity within topics. According to
+the heatmaps, the topics that have high similarity between the EU and
+the USA are: \todo{To be able to make sense of it, you must list
+  somewhere what are topics eu0--eu9 and usa0--usa9. Right not it is
+  impossible to understand whether, for example, there were Software
+  Engineering topics in both the EU and the US, or only in one of the
+  two, and that was similar to Materials in the other regions, or
+  perhaps you mean something else entirely.}
 \begin{itemize}
 \item FP4 (1994-1997)
 \begin{itemize}
@@ -1532,19 +1678,23 @@ that got funded under the European Union Framework Programmes and the projects
 funded by the National Science Foundation in the United States, for research and
 innovation.
 
-We briefly describe the preprocessing of the abstracts-documents before applying
-the model. LDA, as an unsupervised learning algorithm, does not require any
-prior annotation of labeling the documents and the topics are resulted from the
-statistical structure of the words in the corpus. Using the posterior document-
-topic and topic-word distribution, we investigate the context of each topic per
-FP and the evolution of the topics in each of the two datasets over time.
+We briefly describe \todo{described} the preprocessing of the
+abstracts-documents before applying the model. LDA, as an unsupervised
+learning algorithm, does not require any prior annotation of labeling
+the documents and the topics are resulted from the statistical
+structure of the words in the corpus. Using the posterior document-
+topic and topic-word distribution, we investigate the context of each
+topic per FP and the evolution of the topics in each of the two
+datasets over time.
 
-We found that most topics cover various topics, while some show well-defined
-scopes. Our work provides valuable knowledge about the research over the last
-two decades in the two regions and could benefit researchers to to identify the
-subjects that mostly get funded in the EU and USA. This research gives an
-interesting aspect about what kind of topics were actually funded over the last
-22 years.
+We found that most topics cover various topics \todo{That reads
+  funny}, while some show well-defined scopes. Our work provides
+valuable knowledge about the research over the last two decades in the
+two regions and could benefit researchers to to identify the subjects
+that mostly get funded in the EU and USA. This research gives an
+interesting aspect about what kind of topics were actually funded over
+the last 22 years. \todo{In general, you should not praise your own
+  work. The reader may praise it.}
 
 The results of our research have several interesting insights that can make it
 easier for people to understand the information contained in large datasets,
@@ -1584,10 +1734,11 @@ investigate the content and the evolution of the research topics. For example,
 we could add the projects that got funded by NIH in USA and/or find projects
 from other funding agencies, to measure the impact of new emerging topics.
 
-Last but not least, it would be interesting to explore the correlation of the
-topics with the countries/states that are involved in the projects, and address
-question like "which countries in EU are mostly collaborate? on which topics"
-and "which states of the US are getting more funding compared to others".
+Last but not least, it would be interesting to explore the correlation
+of the topics with the countries/states that are involved in the
+projects, and address question like "which countries in EU are mostly
+collaborate? on which topics" and "which states of the US are getting
+more funding compared to others".
 
 \bibliography{references}{}
 \bibliographystyle{plain}
