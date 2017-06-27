@@ -29,6 +29,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{color}
 \usepackage{geometry} 
+\usepackage{float}
  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -104,8 +105,8 @@ impact to our well being and it's important to support research and development.
 Over the last years, many projects from different domains are getting funded for
 research and innovation.
 
-Nowadays, there are some funding opportunities for researchers, but are 
-really competitive. The European Union countries are encouraged to
+Today most research is funded by competitive open calls. 
+The European Union countries are encouraged to
 invest 3\% of their GDP in research and development by 2020. EU's
 latest research programme, Horizon 2020, allows researchers to
 identify new opportunities and directions in almost any field of
@@ -389,7 +390,7 @@ created by analyzing the corpus, where the rows correspond to words
 and columns to documents. Each element in this sparse matrix describes
 the number of times a word occurs in a document but this term count
 can also be weighted with for instance TF-IDF\footnote{TF-IDF stands 
-for term frequency - inverse document frequency, and the tf-idf weight is 
+for term frequency - inverse document frequency, and the TF-IDF weight is 
 a weight often used in information retrieval and text mining. This weight 
 is a statistical measure used to evaluate how important a word is to 
 a document in a collection or corpus. The importance increases
@@ -853,7 +854,7 @@ and the awards/projects that got funded by NSF from 1994-2017 in USA. We
 consider the projects' description/abstract as the documents in LDA.
 
 \subsection{EU dataset}
-
+\label{EUdataset}
 CORDIS (Community Research and Development Information Service) is the European
 Commission's primary public repository and portal to disseminate information on
 all EU-funded research projects and their results in the broadest sense. The
@@ -988,7 +989,8 @@ common words in the existing dataset: ``data'', ``based'', ``new'', ``project'',
 ``university'', ``student'', ``students'', ``research'', ``study'', ``program'',
 ``development'', ``study'', ``studies'', ``provide'', ``use''. We also removed 
 the rare words that appear less than 5 times in the collection. 
-Finally, we obtained a smaller corpus per framework (see table \ref{eutable}).
+Finally, we obtained a smaller corpus per framework (see table \ref{eutable}). 
+For the actual implementation, see \emph{eu iterations.py} in the Appendix.
 
 \subsection{USA dataset}
 
@@ -1002,54 +1004,84 @@ colleges and universities. In some fields, such as mathematics,
 computer science, economics, and the social sciences, the NSF is the
 major source of federal backing.
 
- 
-The NSF organizes its research and education support through seven 
-directorates, each encompassing several disciplines:
-
+NSF is divided into the following seven directorates that support science and
+engineering research and education: Biological Sciences, Computer and
+Information Science and Engineering, Engineering, Geosciences, Mathematical and
+Physical Sciences, Social, Behavioral and Economic Sciences, and Education and
+Human Resources. Each is headed by an assistant director and each is further
+subdivided into divisions like materials research, ocean sciences and behavioral
+and cognitive sciences. Within NSF's Office of the Director, the Office of
+Integrative Activities also supports research and researchers. Other sections of
+NSF are devoted to financial management, award processing and monitoring, legal
+affairs, outreach and other functions \footnote{\url{https://www.nsf.gov/about/research_areas.jsp}}. The directorates and their divisions are listed below:
 \begin{itemize}
-\item Biological Sciences
-\begin{description}
-\item Molecular, Cellular and Organismal biology, Environmental science
-\end{description}
-\item Computer and Information Science and Engineering
-\begin{description}
-\item Fundamental computer science, Computer and networking systems, 
-Artificial Intelligence
-\end{description}
-\item Engineering
-\begin{description}
-\item Bioengineering, Environmental systems, Civil and Mechanical systems, 
-Chemical and Transport systems, Electrical and Communications systems, Design
- and Manufacturing
-\end{description}
-\item Geosciences
-\begin{description}
-\item Geological, Atmospheric and Ocean sciences
-\end{description}
-\item Mathematical and Physical Sciences
-\begin{description}
-\item Mathematics, Astronomy, Physics, Chemistry and Materials science
-\end{description}
-\item Social, Behavioral and Economic Sciences
-\begin{description}
-\item Neuroscience, Management, Psychology, Sociology, Anthropology, 
-Linguistics, Science of science policy and economics
-\end{description}
-\item Education and Human Resources
-\begin{description}
-\item Science, Technology, Engineering and mathematics education at every level
-\end{description}
+\item Biological Sciences (BIO)
+\begin{itemize}
+\item[] Biological Infrastructure (DBI)
+\item[] Environmental Biology (DEB)
+\item[] Emerging Frontiers (EF)
+\item[] Integrative Organismal Systems (IOS)
+\item[] Molecular and Cellular Biosciences (MCB)
 \end{itemize}
-
+\item Computer and Information Science and Engineering (CISE)
+\begin{itemize}
+\item[] Office of Advanced Cyberinfrastructure (OAC)
+\item[] Computing and Communication Foundations (CCF)
+\item[] Computer and Network Systems (CNS)
+\item[] Information and Intelligent Systems (IIS)
+\end{itemize}
+\item Education and Human Resources (EHR)
+\begin{itemize}
+\item[] Graduate Education (DGE)
+\item[] Research on Learning in Formal and Informal Settings (DRL)
+\item[] Undergraduate Education (DUE)
+\item[] Human Resource Development (HRD)
+\end{itemize}
+\item Engineering (ENG)
+\begin{itemize}
+\item[] Chemical, Bioengineering, Environmental and Transport Systems (CBET)
+\item[] Civil, Mechanical and Manufacturing Innovation (CMMI)
+\item[] Electrical, Communications and Cyber Systems (ECCS)
+\item[] Engineering Education and Centers (EEC)
+\item[] Emerging Frontiers and Multidisciplinary Activities (EFMA)
+\item[] Industrial Innovation and Partnerships (IIP)
+\end{itemize}
+\item Environmental Research and Education (ERE)
+\item Geosciences (GEO)
+\begin{itemize}
+\item[] Atmospheric and Geospace Sciences (AGS)
+\item[] Earth Sciences (EAR)
+\item[] Ocean Sciences (OCE)
+\item[] Office of Polar Programs (OPP)
+\end{itemize}
+\item Integrative Activities (OIA)
+\item International Science and Engineering (OISE)
+\item Mathematical and Physical Sciences (MPS)
+\begin{itemize}
+\item[] Astronomical Sciences (AST)
+\item[] Chemistry (CHE)
+\item[] Materials Research (DMR)
+\item[] Mathematical Sciences (DMS)
+\item[] Physics (PHY)
+\item[] Office of Multidisciplinary Activities (OMA)
+\end{itemize}
+\item Social, Behavioral and Economic Sciences (SBE)
+\begin{itemize}
+\item[] Behavioral and Cognitive Sciences (BCS)
+\item[] National Center for Science and Engineering Statistics (NCSES)
+\item[] Social and Economic Sciences (SES)
+\item[] SBE Office of Multidisciplinary Activities (SMA)
+\end{itemize}
+\end{itemize}
 The data about the awards
 \footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can
 be used in research and applications. The dataset that we chose for the
 following analysis contains information about all the projects that got funded
 by the NSF from 1994 to 2017.
  
-In the provided dataset, the information is splitted into XML files, separated
+In the provided dataset, the information is split into XML files, separated
 per year, from 1994-2017. In order to keep the correlation to time and be able
-to compare the two datasets later, we splitted the projects based on the year
+to compare the two datasets later, we split the projects based on the year
 they were initialized (see table \ref{usatable}).
 
 
@@ -1060,7 +1092,8 @@ final corpus. As stopwords, we used the list that is provided by the Gensim
 Python library and we removed following very common words in the existing
 dataset: ``data'', ``work'', ``based'', ``new'', ``project'', ``university'', ``student'', ``students'', ``research'', ``study'', ``program'', ``development'', ``study'', ``studies'', ``provide'', ``use'', ``understanding'', ``important'', ``support'', ``proposed''. We also removed the rare words that appear less than 5 
 times in the collection. Finally, we obtained a smaller corpus per framework 
-(see Table \ref{usatable}).
+(see Table \ref{usatable}). 
+For the actual implementation, see \emph{usa iterations.py} in the Appendix.
 
 \begin{center}
 \begin{tabular}{l*{6}{c}r}
@@ -1076,7 +1109,7 @@ H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
 \end{center}
 
 \subsection{Model inference}
-
+\label{modelinference}
 For the implementation, we used the Gensim package (Radim Řehůřek,
 2009)\cite{rehurek_lrec} which implements an efficient online LDA algorithm, to
 extract the topics of a given corpus. Gensim uses a fast implementation of
@@ -1099,7 +1132,7 @@ the iterations.
 The implementation was run on a computer with an Intel® Xeon® Processor E5-1410
 (10MB Cache, 2.8 GHz, 4 cores, 8 threads) and RAM=12 GB. Check the Appendix for 
 the actual implementation.
-
+\pagebreak
 
 \section{Analysis and results}
 \label{analysis}
@@ -1110,140 +1143,312 @@ dataset separately.
 
 \subsection{Discovering topics on the EU projects}
 
-\todo{This is the heart of the thesis, but it is difficult to make
-  sense of it. Make sure that when you mention a topic, the topic
-  stands out of the text. It could be in italics, or some other font.
-  Right now it is not easy to detect it in the discussion. From what I
-  understand, the topics you mention are the top topics over all the
-  years. You should then list them all in a table, in decreasing order
-  of popularity. Also you should show the wordclouds. Right now there
-  is only a reference to a figure at the appendix, which is not at the
-  appendix at all.
-}
+In figures \ref{wordcloudEU4} - \ref{wordcloudEU20} we show the 10 topics from FP4 to H2020 of the EU dataset, described by
+the 20 top words with the highest posterior probability of belonging
+to the topic. The size of each word is in proportion to each
+probability; the bigger the word, the higher the probability. 
+Each wordcloud describes a topic, which we can find intuitively (the label 
+of each wordcloud corresponds to the title of the topic).
 
+By comparing the thematic areas suggested by the EU
+\footnote{\url{https://europa.eu/european-union/topics_en}} and the topics that
+we found with our implementation, one can easily observe that the majority of
+these topics are included in the wider categories of ``Science \& Technology''
+and its subcategory ``Research and Innovation''. For instance, the topics
+\emph{Molecular Biology} and \emph{Genetics} belong to the category ``Science \&
+Technology'', \emph{Cancer detection \& treatment} to the category ``Health''
+and ``Science'', \emph{Mathematics}, \emph{High energy physics}, \emph{Materials
+\& Chemistry} and \emph{Information Systems} belong to ``Science \&
+Technology''. Even though the topics that we listed above stand out as distinct
+thematic areas, they are not listed in the EU's website.
+
+The topics that we are going to discuss in this section are the ones that
+stand out in most of the Framework Programmes.
 In general, the most popular subject in European Union over the years
-is Information systems. In our dataset we found projects
-related to almost all kinds of information systems, and especially
-Quality management systems (1994-2002), Management information
-systems, Network information systems and Information systems as a
-service to all kinds of organizations, including universities and
+is \emph{Information systems}. In our dataset we found projects
+related to almost all kinds of information systems, and especially 
+\emph{Management information
+systems}, \emph{Network information systems} and \emph{Information systems as a
+service} to all kinds of organizations, including universities and
 companies. Since technology has an impact in every aspect nowadays, it
 is normal to have such popularity over the years and it's becoming
-popular in education, as well. The same period of time, Innovation in
-Business emerged as a trending topic, with projects related to new
+popular in education, as well. The same period of time, \emph{Innovation in
+Business} emerged as a trending topic, with projects related to new
 technologies and software systems in the industry and how they assist
 the businesses and the market. In addition, until 2002 a very popular
-subject related to Information systems, was Applications in mobile
-networks, embedded and broadband systems, which nowadays has lost part
+subject related to \emph{Information systems}, was \emph{Applications in mobile
+networks}, \emph{embedded and broadband systems}, which nowadays has lost part
 of its popularity in research.
 
-Another popular subject that appears the last 22 years is Materials research;
+Another popular subject that appears the last 22 years is \emph{Materials research};
 the projects related to material research are mostly related to the discovery
 and design of new materials, with an emphasis on solids. Materials properties
 and performance are used in many disciplines, like chemistry, physics and
 engineering.
 
-The third most popular subject is Molecular biology and Genetics.
+The third most popular subject is \emph{Molecular biology \& Genetics}.
 These projects are related to the cellular molecules that carry out
 the biological processes essential for the cell's functions and
 maintenance. Especially from 1998 up to day, there is a focus in
 Health care and Diagnostics, and for the last decade researchers are
-studying the cancer detection and treatment, which is a common cause
+studying the \emph{Cancer detection \& treatment}, which is a common cause
 of death in EU and the second most common cause of death in USA.
-\todo{It seems now that you are discussing topics that are not popular
-  throughout the period, but in the latest frameworks?}
 
-Moreover, Environmental, Social and Economic Sustainability is a
+Moreover, \emph{Environmental, Social and Economic Sustainability} is a
 subject very important to the research community and many researchers
 work on this up to day. 
 The European Union is considered by some to have the most extensive
 environmental laws of any international organization, started by the
 European Economic Community (EEC), which is the beginning of the EU's
-environmental policy. Social and Economic policies are also popular in
+environmental policy. \emph{Social and Economic policies} are also popular in
 the EU region over the last decade. Also, the last two decades there
-is a focus on the Green energy production, like hydropower, solar and
+is a focus on the \emph{Green energy production}, like hydropower, solar and
 nuclear energy.
 
-During the 6th and the 7th framework programme, International Research and
-conferences came up in our dataset as a trending topic. Researchers have a great
+During the 6th and the 7th framework programme, \emph{International Research \& 
+conferences} came up in our dataset as a trending topic. Researchers have a great
 interest to collaborate with other colleagues from all over the world and share
 their knowledge. A big part of the projects funded by the EU that is related to
-international research, is also related to Physics, in general, and High energy
-physics in EU (see Appendix: Wordclouds of topics of the EU).
+\emph{international research}, is also related to \emph{Physics}, in general, 
+and \emph{High energy physics}.
 
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Management Systems \& Software engineering]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic0_7000.png}} &
+\subfloat[Agriculture, Fisheries and Food]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic1_7000.png}}&
+\subfloat[Molecular biology, Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic2_7000.png}}\\
+\subfloat[EU transport]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic3_7000.png}}&
+\subfloat[Digital systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic4_7000.png}} &
+\subfloat[Materials processing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic5_7000.png}}\\
+\subfloat[Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic6_7000.png}} &
+\subfloat[Policy for environmental sustainability]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic7_7000.png}}&
+\subfloat[Energy technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic8_7000.png}}\\
+\subfloat[Applications in mobile networks]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic9_7000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the EU FP4 (1994-1998)}
+\label{wordcloudEU4}
+\end{figure}
 
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Management software]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic0_7000.png}} &
+\subfloat[Hydropower / Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic1_7000.png}}&
+\subfloat[Information technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic2_7000.png}}\\
+\subfloat[Quality control systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic3_7000.png}}&
+\subfloat[Health care / Medical genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
+\subfloat[Environmental sustainability and policies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic5_7000.png}}\\
+\subfloat[Molecular biology (genes)]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic6_7000.png}} &
+\subfloat[Optical quantum computing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic7_7000.png}}&
+\subfloat[Education in Nuclear physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic8_7000.png}}\\
+\subfloat[Education, training]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic9_7000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the EU FP5 (1998-2002)}
+\label{wordcloudEU5}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic0_7000.png}} &
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic1_7000.png}}&
+\subfloat[Embedded systems design]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic2_7000.png}}\\
+\subfloat[Molecular biology, genes]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic3_7000.png}}&
+\subfloat[Evolution / Formation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic4_7000.png}} &
+\subfloat[Sustainable production / Energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic5_7000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic6_7000.png}} &
+\subfloat[Environmental management services]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic7_7000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic8_7000.png}}\\
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic9_7000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the EU FP6 (2002-2006)}
+\label{wordcloudEU6}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic0_7000.png}} &
+\subfloat[(High energy) physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic1_7000.png}}&
+\subfloat[Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic2_7000.png}}\\
+\subfloat[Social Sciences]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic3_7000.png}}&
+\subfloat[Molecular Biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic4_7000.png}} &
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic5_7000.png}}\\
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic6_7000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic7_7000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic8_7000.png}}\\
+\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic9_7000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the EU FP7 (2007-2013)}
+\label{wordcloudEU7}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic0_20000.png}} &
+\subfloat[Environmental sustainability \& food production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic1_20000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic2_20000.png}}\\
+\subfloat[Training]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic3_20000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic4_20000.png}} &
+\subfloat[Environmental sustainability / Green energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic5_20000.png}}\\
+\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic6_20000.png}} &
+\subfloat[Business \& Innovation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic7_20000.png}}&
+\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic8_20000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic9_20000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the EU H2020 (2014-2020)}
+\label{wordcloudEU20}
+\end{figure}
+
+\vfill
 \subsection{Discovering topics on the USA projects}
 
-\todo{The same comments as in the previous subsection apply here. Make
-  sure you explain how you picked the topics you discuss here. Make
-  sure they stand out.}
+In figures \ref{wordcloudUSA4} - \ref{wordcloudUSA20} we show the 10 topics 
+from 1994 to 2017 of the USA dataset, described by
+the 20 top words with the highest posterior probability of belonging
+to the topic.
+By comparing the the areas of interest in the US, through its directorates, 
+and our topics, we see that all the topics that we found correspond to either 
+a directorate or one of the divisions. Below, we discuss the topics that
+stand out in most of the years.
 
-With STEM being the top priority in USA, since this topic shows up in all the years
-and according to the plot in figure \ref{usatrend} STEM is the topic with the highest proportion
-of projects compared to the other topics (read section ), 
+With \emph{STEM} being the top priority in USA, since this topic shows up in all the years
+and according to the plot in figure \ref{usatrend} \emph{STEM} is the topic with the highest proportion
+of projects compared to the other topics (read section \ref{usaevolution}), 
 most of the projects founded by
 NSF are related to engineering, computer science, mathematics and
-information systems, in general. The subjects STEM \& Education,
-Software engineering, Information systems and Mathematics, arise as
+information systems, in general. The subjects \emph{STEM \& Education},
+\emph{Software engineering}, \emph{Information systems} and \emph{Mathematics}, arise as
 topics in all these years, from 1994-2017.
 
 While NSF promotes the progress of science, it also enhances the efforts to
 maintain the national health, prosperity, and welfare. Over the last 22 years,
 many projects are related to the environment effects of climate change. Topics
-like Environmental Science, Atmospheric \& Ocean sciences, Geology, Climate
-change and its impact in the United States emerge during all these years. The
-last three years there is a focus on the Green energy production, like
+like \emph{Environmental Science, Atmospheric \& Ocean sciences, Geology, Climate
+change} and its impact in the United States emerge during all these years. The
+last three years there is a focus on the \emph{Green energy production}, like
 hydropower and wind power. Among with climate change, there is many research
-related to Biology and Evolution. A less popular subject that appears during the
-years 1994-1997 and 2007-2013 is Molecular, Cellular \& Organismal biology and
-Genetics. These projects mostly refer to applied genetics, as well as cell
+related to \emph{Biology and Evolution}. A less popular subject that appears during the
+years 1994-1997 and 2007-2013 is \emph{Molecular, Cellular \& Organismal biology and
+Genetics}. These projects mostly refer to applied genetics, as well as cell
 functionality. Topics include receptor biology, regulation of gene expression,
 biomedical engineering, patterns of inheritance and molecular genetics.
 
-Another popular subject that appears the last 22 years is Materials and
-Chemistry; the projects related to material research are mostly refer to the
+Another popular subject that appears the last 22 years is \emph{Materials and
+Chemistry}; the projects related to material research are mostly refer to the
 materials' properties and applications in engineering. The last 3 years,
 researchers from the USA focus on materials applications and design in
 mechanical engineering, bioengineering and chemical \& transport systems. In
-2002-2006 many projects are related to the subject of transport that is
-sustainable in the senses of social, environmental and climate impacts (Green
-transportation).
+2002-2006 many projects are related to the subject of \emph{Transport} that is
+sustainable in the senses of social, environmental and climate impacts (\emph{Green
+transportation}).
 
-From 1994-2006 and the last three years, International Research and
-conferences came up as a trending topic. Researchers have a great 
-interest to collaborate with other
-colleagues from all over the world and share their knowledge. A big
-part of the projects funded by the EU that is related to international
-research, is also related to Physics, in general, and High energy
-physics in EU (see Appendix: Wordclouds of topics of the EU).
-\todo{Are you talking about the EU, or the US here?}
-
-NSF shows a great interest in international activities across all NSF
+NSF shows a great interest in \emph{International activities} across all NSF
 supported disciplines. The goal of these projects is to support high
 quality research and education, which could not occur without
-international collaboration. NSF seeks to catalyze a higher level of
-international engagement in the US science and engineering community
-by promoting international conferences and university projects and
-partnerships \todo{You have said the same in the previous paragraph.}.
+international collaboration.
 An interesting fact regarding international partnerships is that the
 European Commission and the Government of the United States of America
 concluded on 17 October 2016 an Implementing Arrangement that
 simplifies the cooperation between Horizon 2020 projects and US
 entities. European and American researchers will be able to work
 together more closely on projects funded under Horizon 2020, the
-European Union's research and innovation
+European Union's \emph{Research and Innovation}
 programme\footnote{\url{http://ec.europa.eu/research/iscp/index.cfm?pg=usa}}.
 
-From 2002 up to day, Economic and Social Sciences emerge as a topic in our
+From 2002 up to day, \emph{Economic and Social Sciences} emerge as a topic in our
 dataset. Researchers show a great interest in identifying policies which help
 the communities and they also do lots of Qualitative and Quantitative research
 to investigate the size or extent of particular issues or trends in society.
 
 Finally, a topic that used to be popular in the past, in 1994-1997 and
-2007-2013, is High energy Physics in USA, which has lost its popularity
+2007-2013, is \emph{High energy Physics} in USA, which has lost its popularity
 nowadays. The last 5 years, there is an interest around STEM and its
-applications in manufacturing and engineering.
+applications in \emph{manufacturing and engineering}.
 
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Software engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic0_8000.png}} &
+\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic1_8000.png}}&
+\subfloat[International research \& Education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic2_8000.png}}\\
+\subfloat[Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic3_8000.png}}&
+\subfloat[Economic \& Social science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic4_8000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic5_8000.png}}\\
+\subfloat[Molecular biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic6_8000.png}} &
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic7_8000.png}}&
+\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic8_8000.png}}\\
+\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic9_8000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the USA (1994-1997)}
+\label{wordcloudUSA4}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Applied Sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic0_8000.png}} &
+\subfloat[Environment \& Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic1_8000.png}}&
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic2_8000.png}}\\
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic3_8000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic4_8000.png}} &
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic5_8000.png}}\\
+\subfloat[Energy \& Technology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic6_8000.png}} &
+\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic7_8000.png}}&
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic8_8000.png}}\\
+\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic9_8000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the USA (1998-2001)}
+\label{wordcloudUSA5}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic0_8000.png}} &
+\subfloat[Education (in engineering)]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic1_8000.png}}&
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic2_8000.png}}\\
+\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic3_8000.png}}&
+\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic4_8000.png}} &
+\subfloat[Green transportation]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic5_8000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic6_8000.png}} &
+\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic7_8000.png}}&
+\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic8_8000.png}}\\
+\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic9_8000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the USA (2002-2006)}
+\label{wordcloudUSA6}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic0_9000.png}} &
+\subfloat[Computer \& Networking systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic1_9000.png}}&
+\subfloat[Chemistry \& Materials science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic2_9000.png}}\\
+\subfloat[Climate change \ Environmental science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic3_9000.png}}&
+\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic4_9000.png}} &
+\subfloat[Atmospheric \& Ocean sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic5_9000.png}}\\
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic6_9000.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic7_9000.png}}&
+\subfloat[(Molecular) biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic8_9000.png}}\\
+\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic9_9000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the USA (2007-2013)}
+\label{wordcloudUSA7}
+\end{figure}
+
+\begin{figure}[H]
+\begin{tabular}{rcl}
+\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic0_8000.png}} &
+\subfloat[Climate Change / Geology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic1_8000.png}}&
+\subfloat[Social science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic2_8000.png}}\\
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic3_8000.png}}&
+\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic4_8000.png}} &
+\subfloat[Chemical \& transport systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic5_8000.png}}\\
+\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic6_8000.png}} &
+\subfloat[Materials \& Mechanical engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic7_8000.png}}&
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic8_8000.png}}\\
+\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic9_8000.png}}&
+\end{tabular}
+\caption{Wordclouds of topics of the USA (2014-2017)}
+\label{wordcloudUSA20}
+\end{figure}
+
+\vfill
 \subsection{Topic evolution over time}
 
 One of our goals is to identify trends in scientific research in EU
@@ -1263,7 +1468,10 @@ In figure \ref{totaltopicsEU} we show the 10 topics described by
 the 20 top words with the highest posterior probability of belonging
 to the topic. The size of each word is in proportion to each
 probability; the bigger the word, the higher the probability. Each
-wordcloud describes a topic, which we can find intuitively. Below are
+wordcloud describes a topic, which we can find intuitively. 
+We ran the LDA model with 7000
+iterations and the same value of the rest of the
+parameters, as described in section \ref{modelinference}. Below are
 listed the topics that we found corresponding to the words that
 describe them:
 \begin{itemize}
@@ -1318,8 +1526,14 @@ assigned to this topic during the FP, normalized by the number of the
 documents-projects occurring in this FP. In figure \ref{eutrend} we
 plot the results of topic proportions over time.
 
-Based on this plot, topic 10, which refers to International Research,
-has an interesting evolution; uring the years 1994-1998 is appears as
+As we mentioned in section \ref{EUdataset}, most of the projects in the 
+EU dataset don't have information about the year that they were initialized, 
+and there's only information about the Framework Programme, where they got 
+approved. Therefore, in figure \ref{eutrend}, we illustrate the topic 
+evolution over time per FP.
+
+Based on this plot, topic 10, which refers to \emph{International Research},
+has an interesting evolution; during the years 1994-1998 is appears as
 less popular topic, compared to other topics. However, this changes
 drastically in 1998-2002 ($+14\%$) and in 2002-2006 it is at its peak
 ($+18\%$ since 1994). This period
@@ -1328,36 +1542,34 @@ promote international education and conferences to attract researchers
 from all over the world. Strangely, this trend has a significant
 decrease the last 10 years, compared to other topics ($-12\%$). We
 already know that in Horizon 2020 there is an agreement between EU and
-USA for supporting the cooperation of the two regions.Our hypothesis
-for the evolution of the International Research is that the EU
+USA for supporting the cooperation of the two regions. Our hypothesis
+for the evolution of the \emph{International Research} is that the EU
 successfully managed to create the foundation for supporting
 international people and there is no need to invest more on projects
 that attempt to promote cooperation between international researchers,
 because it is already considered as a common practice nowadays.
 
-Materials and Manufacturing was a hot topic in 1994-1998, but it also
+\emph{Materials and Manufacturing} was a hot topic in 1994-1998, but it also
 appears a big decrease during the years 1998-2006 and it has a stable
-trend since then. Materials Science/Chemistry \& Physics' popularity
+trend since then. \emph{Materials Science/Chemistry \& Physics'} popularity
 (topic 4) line has an increase during 2002-2013 and the last 3 years a
-small decrease of $2-3\%$. Topics 2 and 3 (Social policy, Disease
-detection \& treatment) follow the same linear trend as Materials
-science \& Physics. Energy production (topic 11) was less popular in
+small decrease of $2-3\%$. Topics 2 and 3 (\emph{Social policy, Disease
+detection \& treatment}) follow the same linear trend as \emph{Materials
+science \& Physics}. \emph{Energy production} (topic 11) was less popular in
 1994-2002 and is becoming slightly more popular the last 15
 years.
 
-Topic 9, which refers to Information systems in general, is a subject that has a
+Topic 9, which refers to \emph{Information systems} in general, is a subject that has a
 stable trend and it appears as a popular topic the last 22 years compared to
 other topics, with a percentage of $12.5\%$ of the projects in EU on average.
 
-Biology and the study of molecular mechanisms have a small decrease of
-popularity on average. This may happen because the projects related to
-medical fields are supported by another institute, National Institutes
-of Health \todo{Are you talking about the US or the EU?}. Also,
-research in Climate change and Environmental science is another
+\emph{Biology} and the study of \emph{molecular mechanisms} have a small decrease of
+popularity on average. Also,
+research in \emph{Climate change and Environmental science} is another
 subject that paradoxically appears as a topic that is gradually losing
 its popularity over the last years.
 
-Finally, topic 6, which is related to Business \& Innovation, has a huge
+Finally, topic 6, which is related to \emph{Business \& Innovation}, has a huge
 increase the last 3 years. We can assume that the EU is very interested in
 supporting the economy by funding projects about businesses and monetary
 affairs.
@@ -1378,8 +1590,7 @@ over time, in this implementation we took the projects per year
 (instead of using the separation of the dataset per FP), to visualize
 the evolution of each topic per year. We ran the LDA model with 12000
 iterations and the same value of the rest of the
-parameters, as described in section 4.3. \todo{You should probably
-  explain the same for the Trends in the EU.}
+parameters, as described in section \ref{modelinference}.
 
 Each one of the wordclouds in figure \ref{usatotal} represents a topic.
 The topics that are described in the wordclouds are listed below:
@@ -1397,26 +1608,6 @@ The topics that are described in the wordclouds are listed below:
 \item[] Topic 9: Mechanical engineering
 \end{itemize}
 
-\begin{center}
-\begin{figure}
-\centering
-\begin{tabular}{rcl}
-\subfloat[Topic 0]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic0_12000_all_docs.png}} &
-\subfloat[Topic 1]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic1_12000_all_docs.png}} &
-\subfloat[Topic 2]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic2_12000_all_docs.png}}\\
-\subfloat[Topic 3]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic3_12000_all_docs.png}} &
-\subfloat[Topic 4]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic4_12000_all_docs.png}} &
-\subfloat[Topic 5]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic5_12000_all_docs.png}}\\
-\subfloat[Topic 6]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic6_12000_all_docs.png}} &
-\subfloat[Topic 7]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic7_12000_all_docs.png}} &
-\subfloat[Topic 8]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic8_12000_all_docs.png}}\\
-\subfloat[Topic 9]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic9_12000_all_docs.png}} &
-\end{tabular}
-\caption{Wordclouds of topics of the USA dataset (1994-2016)}
-\label{usatotal}
-\end{figure}
-\end{center}
-
 Just like the computation in the EU dataset, we calculate the topic 
 distribution over time for the USA dataset. We get the document-topic 
 distribution, we keep the topic with the highest probability and finally 
@@ -1431,38 +1622,58 @@ where $k$ is the number of the topic id, $y$ is the year between 1994-2016. The
 topic proportion of each topic per year equals to the sum of the number of the
 documents assigned to this topic during the year, normalized by the number of
 the documents-projects  occurring in this year.
-\begin{center}
-\begin{figure}[h]
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{rcl}
+\subfloat[Material science and High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic0_12000_all_docs.png}} &
+\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic1_12000_all_docs.png}} &
+\subfloat[(Molecular) biology, Genetics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic2_12000_all_docs.png}}\\
+\subfloat[Science of social policy and economics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic3_12000_all_docs.png}} &
+\subfloat[International research and conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic4_12000_all_docs.png}} &
+\subfloat[Chemistry and Materials science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic5_12000_all_docs.png}}\\
+\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic6_12000_all_docs.png}} &
+\subfloat[Climatology, Atmospheric and Ocean sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic7_12000_all_docs.png}} &
+\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic8_12000_all_docs.png}}\\
+\subfloat[Mechanical engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic9_12000_all_docs.png}} &
+\end{tabular}
+\caption{Wordclouds of topics of the USA dataset (1994-2016)}
+\label{usatotal}
+\end{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]
 {figs/topic-evolution-usa.png}
 \caption{Topics over time in USA}
-\end{figure}
 \label{usatrend}
-\end{center}
-In figure 6 we plot the topic distribution over time. We can easily
-observe that the topic 6, which refers to STEM education, is becoming
+\end{figure}
+
+In figure \ref{usatrend} we plot the topic distribution over time. We can easily
+observe that the topic 6, which refers to \emph{STEM education}, is becoming
 a trend in the United States over the years, while most of the other
 topics' evolution doesn't show up such a high increase. Topics 5 and
-8, which refer to Chemistry \& Materials science and Molecular
-biology, respectively, show a small decrease over the years. Topics 9
-and 0 (Mechanical Engineering, Material Science and High energy
-physics) show a small increase over the last 5 years. Mathematics'
+8, which refer to \emph{Chemistry \& Materials science} and \emph{Molecular
+biology}, respectively, show a small decrease over the years. Topics 9
+and 0 (\emph{Mechanical Engineering, Material Science and High energy
+physics}) show a small increase over the last 5 years. 
+
+\emph{Mathematics}'
 evolution over time (Topic 1) looks stable on average and shows up as
-a popular subject over the last 22 years, while Social Sciences and
-International Research (Topic 3 and 4) show a small decrease over the
-last 3 years. Molecular biology and Genetics (Topic 2) has an
+a popular subject over the last 22 years, while \emph{Social Sciences} and
+\emph{International Research} (Topic 3 and 4) show a small decrease over the
+last 3 years. \emph{Molecular biology and Genetics} (Topic 2) has an
 increasing popularity from 1994 to 2001 and later is starting to
-stabilize. Climatology, Atmospheric and Ocean sciences look stable the
+stabilize. \emph{Climatology, Atmospheric and Ocean sciences} look stable the
 first years, while from 2006 up to date it is gradually becoming less
 popular over the years.
 
-In general, the STEM (science, technology, engineering and math)
+In general, the \emph{STEM} (science, technology, engineering and math)
 related research and education is becoming more and more popular,
 which is not surprising, since the National Science Foundation itself
 estimates that 80\%
  of the jobs available during the next decade
-will require math and science skills \footnote{\url{http://www.cvent.com/events/steam-ing-up-stem-academy-2017-2018/event-summary-e3e3f0c4087e43b99d23f4e4d95b6837.aspx}}. Even the acronym STEM arose in common use shortly after an interagency meeting on 
+will require math and science skills \footnote{\url{http://www.cvent.com/events/steam-ing-up-stem-academy-2017-2018/event-summary-e3e3f0c4087e43b99d23f4e4d95b6837.aspx}}. Even the acronym STEM arose in common use shortly after an   meeting on 
 science education held at the US National Science Foundation chaired by the then 
 NSF director Rita Colwell\footnote{\url{https://en.wikipedia.org/wiki/Science,_technology,_engineering,_and_mathematics}}.
 
@@ -1483,13 +1694,12 @@ multinomial probability distributions.
 \item $N = $total number of words in the vocabulary.
 \end{itemize}
 
-Since P and Q are probability distributions, it means that 
-$\sum_{i=1}^{N} p_i = \sum_{i=1}^{N} q_i = 1$. The The Jensen–Shannon 
+Since $P$ and $Q$ are probability distributions, it means that 
+$\sum_{i=1}^{N} p_i = \sum_{i=1}^{N} q_i = 1$. The Jensen–Shannon 
 divergence (JSD) is a
 symmetrized and smoothed version of the Kullback–Leibler divergence
-$D(P \mid\mid Q)$. It quantifies how "distinguishable" two distributions are
-from each other. It is defined by
-
+$D(P \mid\mid Q)$. It quantifies how ``distinguishable'' two distributions are
+from each other. It is defined by:
 \begin{equation}
 JSD(P \mid\mid Q) = \frac{1}{2}D(P \mid\mid M) + \frac{1}{2}D(Q \mid\mid M)
 \end{equation}
@@ -1511,76 +1721,77 @@ topics (see compare FPs.py in the Appendix, for the implementation).
 The figures \ref{heatmap4}-\ref{heatmap20} visualize the heatmaps of
 the similarity of the two regions during the FP4-H2020. Rows represent
 topics from the EU dataset and columns topics from the USA dataset.
+The topics 0 - 9 of the EU dataset per FP (figures \ref{wordcloudEU4} -
+\ref{wordcloudEU20}) and the topics 0 - 9 of the USA dataset per FP (figures
+\ref{wordcloudUSA4} - \ref{wordcloudUSA20}) are declared in the heatmap plots as
+eu0 - eu9 and usa0 - usa9, respectively.
 The values of the JSD computation which are close to zero (lighter
-color of the box) suggest more similarity within topics. According to
-the heatmaps, the topics that have high similarity between the EU and
-the USA are: \todo{To be able to make sense of it, you must list
-  somewhere what are topics eu0--eu9 and usa0--usa9. Right not it is
-  impossible to understand whether, for example, there were Software
-  Engineering topics in both the EU and the US, or only in one of the
-  two, and that was similar to Materials in the other regions, or
-  perhaps you mean something else entirely.}
+color of the box) suggest more similarity within topics. According to 
+the boxes with the lightest color of the heatmaps, 
+the topics that have high similarity between the EU and the USA are:
+
 \begin{itemize}
 \item FP4 (1994-1997)
 \begin{itemize}
-\item[*] Software engineering
-\item[*] Materials
+\item[*] eu0: \emph{Management Systems \& Software engineering} $\sim$ usa0: \emph{Software engineering}
+\item[*] eu5: \emph{Materials processing} $\sim$ usa7: \emph{Materials}
 \end{itemize}
 \item FP5 (1998-2001)
 \begin{itemize}
-\item[*] Energy production
-\item[*] Education in STEM
-\item[*] Mathematics
+\item[*] eu1: \emph{Hydropower / Energy production} $\sim$ usa6: \emph{Energy production}
 \end{itemize}
-\item FP6 (2002 - 2006)
+\item FP6 (2002 $\sim$ 2006)
 \begin{itemize}
-\item[*] Information systems
-\item[*] Molecular biology / Genetics
-\item[*] Chemistry \& Materials
+\item[*] eu9: \emph{Information systems} $\sim$ usa0: \emph{Information systems}
+\item[*] eu8: \emph{Materials} $\sim$ usa2: \emph{Materials \& Chemistry}
 \end{itemize}
 \item FP7 (2007-2013)
 \begin{itemize}
-\item[*] Chemistry \& Materials
-\item[*] High energy physics
-\item[*] Molecular biology / Genetics
+\item[*] eu8: \emph{Materials} $\sim$ usa2: \emph{Chemistry \& Materials Science}
+\item[*] eu1: \emph{High energy physics} $\sim$ usa4: \emph{High energy physics}
+\item[*] eu4: \emph{Molecular biology / Genetics} $\sim$ usa8: \emph{Molecular biology}
 \end{itemize}
 \item H2020 (2014-2017)
 \begin{itemize}
-\item[*] Information systems
-\item[*] Materials
-\item[*] Physics
-\item[*] Economic \& Social policy
+\item[*] eu2: \emph{Information systems} $\sim$ usa4: \emph{Information systems}
+\item[*] eu4: \emph{Materials} and eu6: \emph{Physics} $\sim$ usa7: \emph{Materials \& Mechanical engineering}
+\item[*] eu9: \emph{Economic \& Social policy} $\sim$ usa2: \emph{Social science}
 \end{itemize}
 \end{itemize}
-\begin{figure}[h]
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP4.png}
 \caption{Heatmap of the similarity of the two regions during 1994-1997}
 \label{heatmap4}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP5.png}
 \caption{Heatmap of the similarity of the two regions during 1998-2001}
 \label{heatmap5}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP6.png}
 \caption{Heatmap of the similarity of the two regions during 2002-2006}
 \label{heatmap6}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP7.png}
 \caption{Heatmap of the similarity of the two regions during 2007-2013}
 \label{heatmap7}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapH2020.png}
@@ -1675,184 +1886,5 @@ more funding compared to others''.
 \textbf{compare FPs.py}
 
 \lstinputlisting[language=Python]{code/compare_FPs.py}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Quality Management Systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic0_7000.png}} &
-\subfloat[Agriculture, Fisheries and Food]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic1_7000.png}}&
-\subfloat[Molecular biology, Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic2_7000.png}}\\
-\subfloat[EU transport]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic3_7000.png}}&
-\subfloat[Digital systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic4_7000.png}} &
-\subfloat[Materials processing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic5_7000.png}}\\
-\subfloat[Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic6_7000.png}} &
-\subfloat[Policy for environmental sustainability]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic7_7000.png}}&
-\subfloat[Energy technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic8_7000.png}}\\
-\subfloat[Applications in mobile networks]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic9_7000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the EU FP4 (1994-1998)}
-\end{figure}
-\end{center}
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Management software]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic0_7000.png}} &
-\subfloat[Hydropower / Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic1_7000.png}}&
-\subfloat[Information technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic2_7000.png}}\\
-\subfloat[Quality control systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic3_7000.png}}&
-\subfloat[Health care / Medical genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic4_7000.png}} &
-\subfloat[Environmental sustainability and policies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic5_7000.png}}\\
-\subfloat[Molecular biology (genes)]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic6_7000.png}} &
-\subfloat[Optical quantum computing]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic7_7000.png}}&
-\subfloat[Education in Nuclear physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic8_7000.png}}\\
-\subfloat[Education, training]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic9_7000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the EU FP5 (1998-2002)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic0_7000.png}} &
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic1_7000.png}}&
-\subfloat[Embedded systems design]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic2_7000.png}}\\
-\subfloat[Molecular biology, genes]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic3_7000.png}}&
-\subfloat[Evolution / Formation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic4_7000.png}} &
-\subfloat[Sustainable production / Energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic5_7000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic6_7000.png}} &
-\subfloat[Environmental management services]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic7_7000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic8_7000.png}}\\
-\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic9_7000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the EU FP6 (2002-2006)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic0_7000.png}} &
-\subfloat[(High energy) physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic1_7000.png}}&
-\subfloat[Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic2_7000.png}}\\
-\subfloat[Social Sciences]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic3_7000.png}}&
-\subfloat[Molecular Biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic4_7000.png}} &
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic5_7000.png}}\\
-\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic6_7000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic7_7000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic8_7000.png}}\\
-\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic9_7000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the EU FP7 (2007-2013)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic0_20000.png}} &
-\subfloat[Environmental sustainability \& food production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic1_20000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic2_20000.png}}\\
-\subfloat[?]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic3_20000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic4_20000.png}} &
-\subfloat[Environmental sustainability / Green energy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic5_20000.png}}\\
-\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic6_20000.png}} &
-\subfloat[Business \& Innovation]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic7_20000.png}}&
-\subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic8_20000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic9_20000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the EU H2020 (2014-2020)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Software engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic0_8000.png}} &
-\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic1_8000.png}}&
-\subfloat[International research \& Education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic2_8000.png}}\\
-\subfloat[Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic3_8000.png}}&
-\subfloat[Economic \& Social science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic4_8000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic5_8000.png}}\\
-\subfloat[Molecular biology / Genetics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic6_8000.png}} &
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic7_8000.png}}&
-\subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic8_8000.png}}\\
-\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic9_8000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the USA (1994-1997)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Applied Sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic0_8000.png}} &
-\subfloat[Environment \& Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic1_8000.png}}&
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic2_8000.png}}\\
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic3_8000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic4_8000.png}} &
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic5_8000.png}}\\
-\subfloat[Systems ?]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic6_8000.png}} &
-\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic7_8000.png}}&
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic8_8000.png}}\\
-\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic9_8000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the USA (1998-2001)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic0_8000.png}} &
-\subfloat[Education (in engineering)]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic1_8000.png}}&
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic2_8000.png}}\\
-\subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic3_8000.png}}&
-\subfloat[Biology \& Evolution]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic4_8000.png}} &
-\subfloat[Green transportation]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic5_8000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic6_8000.png}} &
-\subfloat[Climate change]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic7_8000.png}}&
-\subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic8_8000.png}}\\
-\subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic9_8000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the USA (2002-2006)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic0_9000.png}} &
-\subfloat[Computer \& Networking systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic1_9000.png}}&
-\subfloat[Chemistry \& Materials science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic2_9000.png}}\\
-\subfloat[Climate change \ Environmental science]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic3_9000.png}}&
-\subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic4_9000.png}} &
-\subfloat[Atmospheric \& Ocean sciences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic5_9000.png}}\\
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic6_9000.png}} &
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic7_9000.png}}&
-\subfloat[(Molecular) biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic8_9000.png}}\\
-\subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic9_9000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the USA (2007-2013)}
-\end{figure}
-\end{center}
-
-\begin{center}
-\begin{figure}[h]
-\begin{tabular}{rcl}
-\subfloat[Biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic0_8000.png}} &
-\subfloat[Climate Change / Geology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic1_8000.png}}&
-\subfloat[Sociology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic2_8000.png}}\\
-\subfloat[STEM education]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic3_8000.png}}&
-\subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic4_8000.png}} &
-\subfloat[Chemical \& transport systems]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic5_8000.png}}\\
-\subfloat[Materials \& Chemistry]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic6_8000.png}} &
-\subfloat[Materials \& Mechanical engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic7_8000.png}}&
-\subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic8_8000.png}}\\
-\subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic9_8000.png}}&
-\end{tabular}
-\caption{Wordclouds of topics of the USA (2014-2017)}
-\end{figure}
-\end{center}
 
 \end{document}
