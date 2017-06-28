@@ -1,6 +1,6 @@
 \documentclass[12pt]{report}
 
-\title{Topic modeling on EU and the USA research projects}
+\title{Topic modeling on EU and USA research projects}
 \author{Maria Iliadi}
 
 \renewcommand{\thesection}{\arabic{section}}
@@ -69,7 +69,7 @@
 	{\Large Maria Iliadi\par}
 	\vfill
 	supervised by\par
-	Assoc.Prof.~Panos Louridas
+	Assoc. Prof.~Panos Louridas
 
 	\vfill
 
@@ -95,17 +95,17 @@ policy implications, what has been funded over the years, as well as technical
 ones, how can one handle such datasets and extract information from them.
 \end{abstract}
 
-\renewcommand{\abstractname}{Acknowledgements}
+\renewcommand{\abstractname}{Acknowledgments}
 \begin{abstract}
 First of all, I would like to express my gratitude to my supervisor, Panos
 Louridas. Panos provided me with invaluable advice and help throughout my MSc
 thesis with his profound knowledge and a seemingly never-ending patience whilst
-allowing me to work in my own way. Panos’ positive outlook and methodic approach
+allowing me to work in my own way. Panos’s positive outlook and methodic approach
 to solving problems has been a huge inspiration to me. He also helped me
 comprehend the right research practice making these months of study a real
 pleasure. Thank you.
 
-Many thanks to my colleagues from the IST Lab. It was an honour to have a chance
+Many thanks to my colleagues from the IST Lab. It was an honor to have a chance
 to work together with such great people and brilliant researchers that helped me
 broaden my research interests. I would also like to thank all of my colleagues
 from the MSc in Computer Science and especially Artem Tsikiridis. I really
@@ -137,7 +137,7 @@ is the National Science Foundation in the United States of America.
 NSF supports research in all the non medical fields of science \&
 engineering and aims to advance the national health and prosperity. It
 funds approximately 24\% of the federally supported research
-conducted by the USA's colleges and universities\footnote{\url{https://www.nsf.gov/about/}}.
+conducted by the USA's colleges and universities~\footnote{\url{https://www.nsf.gov/about/}}.
 
 With our work, we aim to investigate the evolution of scientific
 research in the EU and the US. In order to gain some insights  regarding
@@ -162,18 +162,17 @@ researchers and encourage them to develop better strategies to
 establish themselves as more effective researchers globally, by
 choosing a subject that is more likely to get a funding.
 
-In section \ref{theoretic} introduces some basic concepts
+In section~\ref{theoretic} we introduce some basic concepts
 in topic modeling and we describe the model that we used for topic
 extraction, Latent Dirichlet Allocation, which is a statistical
-generative model for documents. In section \ref{relatedwork}, 
+generative model for documents. In section~\ref{relatedwork}, 
 we briefly talk about the papers that mostly influenced our study. 
-In section \ref{methodology} we provide information
+In section~\ref{methodology} we provide information
 about the dataset structure and the methodology that we followed in
-our analysis. In section \ref{analysis} we interpret the results of 
+our analysis. In section~\ref{analysis} we interpret the results of 
 our analysis, and we discuss the evolution of the topics over time and the
 differences between the two regions' topics based on their similarity.
-Finally, section \ref{conclusion} summarizes our work and section 
-\ref{future} suggests some future work.
+Finally, section~\ref{conclusion} summarizes our work and section~\ref{future} suggests some future work.
 
 \section{Theoretic background}
 \label{theoretic}
@@ -189,7 +188,7 @@ similar tasks. A topic is here defined as a probability distribution
 of words, meaning that certain words are more likely within a certain
 topic. Since the topics emerge from the analysis of the original
 texts, topic modeling algorithms do not require any prior annotations
-or labeling of the documents\cite{Blei11introductionto}.
+or labeling of the documents~\cite{Blei11introductionto}.
 
 In order to apply a topic model to our data, the first question we must answer
 is how to represent documents. For understanding of natural language one must
@@ -244,7 +243,7 @@ manufacturing process takes place.
 
 \subparagraph{Prior and posterior distributions}
 
-When introducing the Latent Dirichlet Allocation in section \ref{LDAexplained}, 
+When introducing the Latent Dirichlet Allocation in section~\ref{LDAexplained}, 
 we will be using the terms prior and posterior probabilities
 and likelihood function:
 
@@ -288,7 +287,7 @@ f(\mathbb{E}[X]) \geq \mathbb{E}[f(X)]
 \end{equation}
 
 where $\mathbb{E}$ is the expectation of the random variable $X$
-\footnote{Suppose random variable $X$ can take value $x_{1}$ with 
+~\footnote{Suppose random variable $X$ can take value $x_{1}$ with 
 probability $p_{1}$, value $x_{2}$ with probability $p_{2}$, 
 and so on, up to value $x_{k}$ with probability $p_{k}$. 
 Then the expectation of this random variable $X$ is defined as
@@ -330,7 +329,7 @@ and the \textbf{Dirichlet} distributions.
 
 The probability distribution that the model uses is the multinomial, 
 because it assumes that this is the distribution of topics in 
-documents and words in topics (read Latent Dirichlet Allocation in section \ref{LDAexplained}). 
+documents and words in topics (read Latent Dirichlet Allocation in section~\ref{LDAexplained}). 
 In probability theory, the multinomial distribution is a generalization
 of the binomial distribution. For example, it models the probability
 of counts for rolling a $k$-sided dice $n$ times. For $n$ independent trials
@@ -338,7 +337,7 @@ each of which leads to a success for exactly one of $k$ categories, with
 each category having a given fixed success probability, the
 multinomial distribution gives the probability of any particular
 combination of numbers of successes for the various
-categories\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}.
+categories~\footnote{\url{https://en.wikipedia.org/wiki/Multinomial_distribution}}.
 
 Mathematically, this distribution is: 
 
@@ -357,13 +356,13 @@ components of $\theta$ are non-negative and have unit $\sum\limits_{j=1}^m
 
 Like any discrete distribution, a multinomial has to sum to one, where the sum
 is over all possible data points. Here, a data point is a document containing
-$n$ words\cite{Huang_maximumlikelihood}.
+$n$ words~\cite{Huang_maximumlikelihood}.
 
 
 \subparagraph{Dirichlet distribution}
 
 The Dirichlet distribution is a way to model random probability mass functions
-(PMFs)\footnote{If you roll 1000 dice, the theoretical odds of any particular
+(PMFs)~\footnote{If you roll 1000 dice, the theoretical odds of any particular
 number showing up (i.e. a 1, 2, 3, 4, 5, or 6) are 1/6. However, you won't get
 that exact distribution in a real experiment due to manufacturing defects. If
 you have ten dice, each die will have its own probability mass function (PMF).}
@@ -382,7 +381,7 @@ parameters is still a Dirichlet distribution.
 
 First, we'll introduce some basic models for topic modeling. The
 Latent Semantic Indexing, or LSI, was presented by Deerwester et al.
-in 1990\cite{Deerwester90indexingby}. The model manages to deal with the
+in 1990~\cite{Deerwester90indexingby}. The model manages to deal with the
 problem that multiple terms can refer to the same meaning, i.e.
 synonymy. However, it is not as successful regarding polysemy. The
 reason is that every term is represented as just one point in the
@@ -391,11 +390,11 @@ or more different things is represented as a weighted average of the
 different meanings.
  
 After LSI was introduced, Hofmann presented the Probabilistic Latent
-Semantic Indexing, or PLSI model\cite{Hofmann:1999:PLS:312624.312649}. 
+Semantic Indexing, or PLSI model~\cite{Hofmann:1999:PLS:312624.312649}. 
 PLSI is a topic model where each word in a document is generated 
 from a single topic which results in that each document in a corpus 
 can be represented with a topic distribution. Later, in 2003 Blei et al. 
-presented the Latent Dirichlet Allocation, or LDA\cite{blei2003latent}. 
+presented the Latent Dirichlet Allocation, or LDA~\cite{blei2003latent}. 
 As opposed to PLSI, LDA is a statistically generative model for documents 
 where each word in a document can be generated by all topics.
 
@@ -403,12 +402,12 @@ where each word in a document can be generated by all topics.
 
 Latent Semantic Indexing was one of the earliest methods for finding
 relationships between documents and the words that occur in
-them\cite{Deerwester90indexingby}. In LSI a term-document matrix is
+them~\cite{Deerwester90indexingby}. In LSI a term-document matrix is
 created by analyzing the corpus, where the rows correspond to words
 and columns to documents. Each element in this sparse matrix describes
 the number of times a word occurs in a document but this term count
-can also be weighted with for instance TF-IDF\footnote{TF-IDF stands 
-for term frequency - inverse document frequency, and the TF-IDF weight is 
+can also be weighted with for instance TF-IDF~\footnote{TF-IDF stands 
+for term frequency-inverse document frequency, and the TF-IDF weight is 
 a weight often used in information retrieval and text mining. This weight 
 is a statistical measure used to evaluate how important a word is to 
 a document in a collection or corpus. The importance increases
@@ -416,7 +415,7 @@ proportionally to the number of times a word appears in the document (TF) but
 is offset by the frequency of the word in the corpus (IDF).}. Letting
 each word represent a dimension in a very high dimensional space, a
 document can be seen as a vector with components corresponding to its
-weighted term counts\cite{Salton:1988:TAA:54259.54260}.
+weighted term counts~\cite{Salton:1988:TAA:54259.54260}.
 
 A low-rank approximation of the term-document matrix is created using Single
 Value Decomposition, SVD, which creates new dimensions, called concepts, as
@@ -463,7 +462,7 @@ The result from PLSI is that every document is represented as mixing proportions
 for the topics, given by $p(z|$\textbf{w}$)$. Even though PLSI is generative for 
 the analyzed corpus, it is not generative for new documents, which means is that
 there is no clear way of assigning probability to a document that is not part
-of the training data\cite{blei2003latent}. Another problem is that the number 
+of the training data~\cite{blei2003latent}. Another problem is that the number 
 of parameters in the model grows linearly with the number of documents.
 
 
@@ -476,14 +475,14 @@ model that allows sets of observations to be explained by unobserved groups
 that explain why some parts of the data are similar. For example, if
 observations are words collected into documents, it posits that each document
 is a mixture of a small number of topics and that each word's occurrence is
-attributable to one of the document's topics\cite{Blei11introductionto}.
+attributable to one of the document's topics~\cite{Blei11introductionto}.
 
 A limitation with PLSI is that there is no generative model for these
 proportions, making it difficult to handle unseen documents. The reduced
 document description result in PLSI is a vector where each element describes the
 mixing proportion for a topic. The Latent Dirichlet Allocation model tries to
 solve this limitation by setting a Dirichlet prior on the topic
-distribution\cite{blei2003latent}. In practice, this results in more reasonable
+distribution~\cite{blei2003latent}. In practice, this results in more reasonable
 mixtures of topics in a document.
  
 Suppose that we have a collection of documents, and we want to find an
@@ -497,7 +496,7 @@ some refinement of this principle such as maximum a posterior probability.
 The basic idea in LDA is that we define a topic to be a multinomial
 distribution over a fixed vocabulary. Technically, the model assumes 
 that the topics are generated first, before the
-documents\cite{Blei11introductionto}. Now for each document in the
+documents~\cite{Blei11introductionto}. Now for each document in the
 collection, we generate the words in a two-stage process:
 
 \begin{algorithm}[H]
@@ -520,9 +519,9 @@ proportion (step 1); each word in each document is drawn from one of
 the topics (step 2b), where the selected topic is chosen from the
 per-document distribution over topics (step 2a). All the documents in
 the corpus share the same set of topics, but each document exhibits
-those topics with different proportion - that's the distinguishing
+those topics with different proportion---that's the distinguishing
 characteristic of LDA. A more detailed explanation of the model
-follows in section \ref{LDAmodel}.
+follows in section~\ref{LDAmodel}.
 
 \paragraph{Model}
 \label{LDAmodel}
@@ -555,7 +554,7 @@ variables and notation:
 \end{itemize}
 
 For each document $w$, in corpus $D$, the LDA generative process is as follows, 
-with corresponding plate notation in Figure \ref{figLDA}:
+with corresponding plate notation in Figure~\ref{figLDA}:
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
@@ -595,7 +594,7 @@ posterior can't be computed directly; it is usually approximated using Markov
 Chain Monte Carlo (MCMC) or variational inference. Both methods are effective,
 but also present significant computational challenges in large data sets
 ~\cite{onlineLDAvb}. In our implementation, we're using the online variational
-LDA model, which is described in section \ref{oLDAvb}.
+LDA model, which is described in section~\ref{oLDAvb}.
  
 A limitation with the standard LDA model is the fixed 
 vocabulary. This means that new words cannot enter the model and that
@@ -621,7 +620,7 @@ algorithm for approximately obtaining maximum likelihood of variables in a
 statistical model. Normally one obtains a maximum likelihood solution by taking
 partial derivatives of the likelihood function with respect to all variables,
 setting these derivatives to zero and solving the equations simultaneously
-\cite{Myung:2003}.
+~\cite{Myung:2003}.
 
 Due to latent variables it is not always possible to solve the equations
 directly and instead one typically gets two sets of equations that depend on
@@ -651,9 +650,9 @@ computing this distribution is intractable, so we're forced to
 approximate. One approximation approach is to use an optimization
 method called Variational Bayes. In the original paper it's being used
 a variational Bayes approximation of the posterior distribution;
-\cite{blei2003latent} alternative inference techniques use 
-MCMC with Gibbs sampling\cite{Griffiths02gibbssampling} and expectation 
-propagation\cite{Minka:2002:EGA:2073876.2073918}. The goal of variational
+~\cite{blei2003latent} alternative inference techniques use 
+MCMC with Gibbs sampling~\cite{Griffiths02gibbssampling} and expectation 
+propagation~\cite{Minka:2002:EGA:2073876.2073918}. The goal of variational
 inference is to approximate an intractable probability distribution
 $p$, with a tractable one $q$, in a way that makes them as close as
 possible given a similarity measure. In this thesis, variational
@@ -661,7 +660,7 @@ inference is used to approximate the posterior distribution of latent
 variables. A new distribution over the hidden variables $q(z, \beta)$
 (called the variational distribution) is introduced. This new
 distribution has properties such that it can be efficiently
-computed\cite{Fox2011ATO}.
+computed~\cite{Fox2011ATO}.
 
 In short, we approximate the true distribution by a simple
 distribution $q$, and associate parameters $\phi$, $\gamma$, $\lambda$
@@ -735,11 +734,11 @@ document $d$. The algorithm above has constant memory requirements and
 empirically converges faster than collapsed Gibbs sampling. However,
 it still requires a full pass through the entire corpus in each
 iteration. It can be slow to apply to very large datasets
-\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}.
+~\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}.
 
 \paragraph{Online variational LDA}
 \label{oLDAvb}
-An online variational inference algorithm is proposed by Hoffman et all.\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
+An online variational inference algorithm is proposed by Hoffman et all.~\cite{onlineLDAvb} for fitting $\lambda$, the parameters to the variational
 posterior over the topic distributions $\beta$. The \emph{online LDA} is nearly as
 simple as the variational algorithm, but converges much faster for large
 datasets. Variational inference requires to pass through the whole dataset for
@@ -800,7 +799,7 @@ hold a small chunk of the data at a time, and once we're done
 analyzing it, we never need it again. As with batch, once we've
 estimated $\lambda$, we can find the most probable words for each
 topic by looking at the word probabilities in each row of
-$\lambda$\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}.
+$\lambda$~\footnote{\url{https://wellecks.wordpress.com/2014/10/26/ldaoverflow-with-online-lda/}}.
 
 \section{Related work}
 \label{relatedwork}
@@ -815,7 +814,7 @@ interesting approach on their corpus.
 
 D. Blei's research focuses on probabilistic topic models, Bayesian methods and
 approximate posterior inference. In his work \emph{Introduction to
-Probabilistic Topic Models}\cite{Blei11introductionto} 
+Probabilistic Topic Models}~\cite{Blei11introductionto} 
 he describes the basic ideas behind LDA and
 applies the model to articles from the journal \emph{Science}. 
 The model assumes that the topics are generated
@@ -829,7 +828,7 @@ computing the hidden structure that resembles the thematic structure
 of the collection.
 
 The paper that mostly influenced our work is \emph{Finding Scientific Topics}, by
-T. Griffiths and M. Steyvers\cite{griffiths_steyvers04}. They investigated
+T. Griffiths and M. Steyvers~\cite{griffiths_steyvers04}. They investigated
 abstract data from articles published in the Proceedings of the National Academy
 of Sciences (PNAS) from 1991 to 2001 and compared research topics obtained from
 topic modeling with existing categories. In our implementation, we also use 
@@ -847,7 +846,7 @@ scientific research in EU and USA.
 
 Inspired by Griffiths and Steyvers, L. Sun and Y. Yin wrote a paper,
 \emph{Discovering themes and trends in transportation research using topic
-modeling}\cite{Sun201749}, about topic modeling in transportation
+modeling}~\cite{Sun201749}, about topic modeling in transportation
 research. Considering approximately 17000 abstracts of articles
 published on 22 leading journals in transportation research as
 documents, they infer 50 topics by using LDA. Compared to \emph{Finding
@@ -867,8 +866,8 @@ by the official website.
 \label{methodology}
 In this section, we explain the procedure that we followed in order to
 apply the LDA model in our dataset. It consists of information about 
-EU projects funded for research and innovation under the FP4-H2020 
-and the awards/projects that got funded by NSF from 1994-2017 in USA. We
+EU projects funded for research and innovation under the FP4--H2020 
+and the awards/projects that got funded by NSF from 1994--2017 in USA. We
 consider the projects' description/abstract as the documents in LDA.
 
 \subsection{EU dataset}
@@ -887,7 +886,7 @@ has been online since 1994.
 
 
 Below, we provide the general topics of the EU projects as listed in the EU 
-Open Data Portal \footnote{https://data.europa.eu/euodp/en/data}:
+Open Data Portal~\footnote{https://data.europa.eu/euodp/en/data}:
 \begin{itemize}
 \item Agriculture, Fisheries and Food
 	\begin{description}
@@ -947,7 +946,7 @@ open, free and can be used in research, applications, commercial or
 non-commercial purposes. The dataset that we chose for the following
 analysis contains information about all the projects funded by the
 European Union from 1994 to 2017. These projects got approved under
-the framework programme (FP4-H2020) for research and technological
+the framework programme (FP4--H2020) for research and technological
 development. Grant information is provided for each project, 
 including reference, acronym, dates, funding, programmes, 
 participant countries, subjects and objectives.
@@ -957,11 +956,11 @@ CSV files, based on the framework program that each project belongs.
 The frameworks from 1994 to 2020 are listed below:
 
 \begin{itemize}
-\item FP4: fourth framework programme (1994-1998)
-\item FP5: fifth framework programme (1998-2002)
-\item FP6: sixth framework programme (2002-2006)
-\item FP7: seventh framework programme (2007-2013)
-\item H2020: Horizon 2020 framework programme (2014-2020)
+\item FP4: fourth framework programme (1994--1998)
+\item FP5: fifth framework programme (1998--2002)
+\item FP6: sixth framework programme (2002--2006)
+\item FP7: seventh framework programme (2007--2013)
+\item H2020: Horizon 2020 framework programme (2014--2020)
 \end{itemize}
 
 \subparagraph{Data preparation}
@@ -992,22 +991,22 @@ the same format in the dataset of USA awards.
 \begin{tabular}{l*{6}{c}r}
 Framework & Years & No of docs & No of unique tokens & No of words in the corpus \\
 \hline
-FP4 & 1994-1998 & 14567 & 7293 & 364263 \\
-FP5 & 1998-2002 & 17202 & 15756 & 1617232 \\
-FP6 & 2002-2006 & 10091 & 15521 & 1437607 \\
-FP7 & 2007-2013 & 25607 & 26499 & 3789837 \\
-H2020 & 2014-2017 & 9055 & 15835 & 1342882 \\
+FP4 & 1994--1998 & 14567 & 7293 & 364263 \\
+FP5 & 1998--2002 & 17202 & 15756 & 1617232 \\
+FP6 & 2002--2006 & 10091 & 15521 & 1437607 \\
+FP7 & 2007--2013 & 25607 & 26499 & 3789837 \\
+H2020 & 2014--2017 & 9055 & 15835 & 1342882 \\
 \end{tabular}
 \label{eutable}
 \end{center}
 
 As stopwords, we used the list that is provided by the Gensim Python
-library\footnote{http://radimrehurek.com/gensim/} and we added following very
+library~\footnote{http://radimrehurek.com/gensim/} and we added following very
 common words in the existing dataset: ``data'', ``based'', ``new'', ``project'',
 ``university'', ``student'', ``students'', ``research'', ``study'', ``program'',
 ``development'', ``study'', ``studies'', ``provide'', ``use''. We also removed 
 the rare words that appear less than 5 times in the collection. 
-Finally, we obtained a smaller corpus per framework (see table \ref{eutable}). 
+Finally, we obtained a smaller corpus per framework (see table~\ref{eutable}). 
 For the actual implementation, see \emph{eu iterations.py} in the Appendix.
 
 \subsection{USA dataset}
@@ -1031,7 +1030,7 @@ subdivided into divisions like materials research, ocean sciences and behavioral
 and cognitive sciences. Within NSF's Office of the Director, the Office of
 Integrative Activities also supports research and researchers. Other sections of
 NSF are devoted to financial management, award processing and monitoring, legal
-affairs, outreach and other functions \footnote{\url{https://www.nsf.gov/about/research_areas.jsp}}. The directorates and their divisions are listed below:
+affairs, outreach and other functions~\footnote{\url{https://www.nsf.gov/about/research_areas.jsp}}. The directorates and their divisions are listed below:
 \begin{itemize}
 \item Biological Sciences (BIO)
 \begin{itemize}
@@ -1092,15 +1091,15 @@ affairs, outreach and other functions \footnote{\url{https://www.nsf.gov/about/r
 \end{itemize}
 \end{itemize}
 The data about the awards
-\footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can
+~\footnote{https://www.nsf.gov/awardsearch/download.jsp} are open, free and can
 be used in research and applications. The dataset that we chose for the
 following analysis contains information about all the projects that got funded
 by the NSF from 1994 to 2017.
  
 In the provided dataset, the information is split into XML files, separated
-per year, from 1994-2017. In order to keep the correlation to time and be able
+per year, from 1994--2017. In order to keep the correlation to time and be able
 to compare the two datasets later, we split the projects based on the year
-they were initialized (see table \ref{usatable}).
+they were initialized (see table~\ref{usatable}).
 
 
 \subparagraph{Data preparation}
@@ -1110,18 +1109,18 @@ final corpus. As stopwords, we used the list that is provided by the Gensim
 Python library and we removed following very common words in the existing
 dataset: ``data'', ``work'', ``based'', ``new'', ``project'', ``university'', ``student'', ``students'', ``research'', ``study'', ``program'', ``development'', ``study'', ``studies'', ``provide'', ``use'', ``understanding'', ``important'', ``support'', ``proposed''. We also removed the rare words that appear less than 5 
 times in the collection. Finally, we obtained a smaller corpus per framework 
-(see Table \ref{usatable}). 
+(see Table~\ref{usatable}). 
 For the actual implementation, see \emph{usa iterations.py} in the Appendix.
 
 \begin{center}
 \begin{tabular}{l*{6}{c}r}
 Framework& Years & No of docs & No of unique tokens & No of words in the corpus \\
 \hline
-FP4 & 1994-1997 & 36752 & 28038 & 4346604 \\
-FP5 & 1998-2001 & 37674 & 30728 & 5166316 \\
-FP6 & 2002-2006 & 54212 & 38476 & 8837298 \\
-FP7 & 2007-2013 & 87341 & 48277 & 15673424 \\
-H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
+FP4 & 1994--1997 & 36752 & 28038 & 4346604 \\
+FP5 & 1998--2001 & 37674 & 30728 & 5166316 \\
+FP6 & 2002--2006 & 54212 & 38476 & 8837298 \\
+FP7 & 2007--2013 & 87341 & 48277 & 15673424 \\
+H2020 & 2014--2017 & 35581 & 32268 & 7379219 \\
 \end{tabular}
 \label{usatable}
 \end{center}
@@ -1129,10 +1128,10 @@ H2020 & 2014-2017 & 35581 & 32268 & 7379219 \\
 \subsection{Model inference}
 \label{modelinference}
 For the implementation, we used the Gensim package (Radim Řehůřek,
-2009)\cite{rehurek_lrec} which implements an efficient online LDA algorithm, to
+2009)~\cite{rehurek_lrec} which implements an efficient online LDA algorithm, to
 extract the topics of a given corpus. Gensim uses a fast implementation of
 online LDA parameter estimation based on \emph{Online Learning for Latent Dirichlet
-Allocation}.\cite{onlineLDAvb} The algorithm runs in constant memory, which
+Allocation}~\cite{onlineLDAvb}. The algorithm runs in constant memory, which
 means that the size of the training corpus does not affect memory footprint, so
 it can process corpus larger than RAM.
 
@@ -1161,15 +1160,18 @@ dataset separately.
 
 \subsection{Discovering topics on the EU projects}
 
-In figures \ref{wordcloudEU4} - \ref{wordcloudEU20} we show the 10 topics from FP4 to H2020 of the EU dataset, described by
+In figures \ref{wordcloudEU4}--\ref{wordcloudEU20} we show the 10 topics from FP4 to H2020 of the EU dataset, described by
 the 20 top words with the highest probability of belonging
 to the topic. The size of each word is in proportion to each
 probability; the bigger the word, the higher the probability. 
 Each wordcloud describes a topic, which we can find intuitively (the label 
-of each wordcloud corresponds to the title of the topic).
+of each wordcloud corresponds to the title of the topic)~\footnote{In figure~\ref{wordcloudEU4} the wordcloud (e), \emph{Digital systems}, is not very 
+clear which topic describes and in only appears in the 4\% of the projects 
+in this FP. Even though we tried with many iterations 
+until the model converges to find more distinguish topics, we didn't manage 
+to fetch better results.}.
 
-By comparing the thematic areas suggested by the EU
-\footnote{\url{https://europa.eu/european-union/topics_en}} and the topics that
+By comparing the thematic areas suggested by the EU~\footnote{\url{https://europa.eu/european-union/topics_en}} and the topics that
 we found with our implementation, one can easily observe that the majority of
 these topics are included in the wider categories of ``Science \& Technology''
 and its subcategory ``Research and Innovation''. For instance, the topics
@@ -1200,8 +1202,8 @@ projects refer to Materials, and since then it gradually loses its popularity,
 with 11\% of the projects in FP7 and only 6\% in H2020.
 
 \emph{Management software \& systems} is a subject that appears only in FP4 and
-FP5, with the 12\% of the projects. emph{Information systems \& technologies'}
-related projects cover the 8,5\% of the projects on average from FP5-H2020.
+FP5, with the 12\% of the projects. \emph{Information systems \& technologies'}
+related projects cover the 8,5\% of the projects on average from FP5--H2020.
 Since technology has an impact in every aspect nowadays, it is normal to have a
 stable popularity over the years.
 
@@ -1213,12 +1215,12 @@ European Economic Community (EEC), which is the beginning of the EU's
 environmental policy. The \emph{Energy production} is a topic that shows up in
 FP4 with a 13\% of the projects, while in FP5 the number of the projects related
 to \emph{Green energy} (hydropower, solar, nuclear energy) is increasing up to
-17,5\% and since then it also loses its populariry. The last 3 years, only the
+17,5\% and since then it also loses its popularity. The last 3 years, only the
 3\% of the projects are related to \emph{Green energy production}.
 
 In FP6 and FP7, \emph{Social and Economic policies} appears with a small
-percentage of the projects (5\%). However, in H2020 it has a big increace, with
-the 17\% of the projects related to this topic. The last 3-4 years,
+percentage of the projects (5\%). However, in H2020 it has a big increase, with
+the 17\% of the projects related to this topic. The last 3--4 years,
 \emph{Business \& Innovation} emerged as a trending topic, with 1 out of 4
 projects being related to the support of businesses and the market, with the
 assistance of new technologies and innovation.
@@ -1243,7 +1245,7 @@ most common cause of death in USA.
 \subfloat[Energy technologies]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic8_7000.png}}\\
 \subfloat[Applications in mobile networks]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP4_wordclouds/EUFP4_topic9_7000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the EU FP4 (1994-1998)}
+\caption{Wordclouds of topics of the EU FP4 (1994--1998)}
 \label{wordcloudEU4}
 \end{figure}
 
@@ -1260,7 +1262,7 @@ most common cause of death in USA.
 \subfloat[Education in Nuclear physics]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic8_7000.png}}\\
 \subfloat[Education, training]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP5_wordclouds/EUFP5_topic9_7000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the EU FP5 (1998-2002)}
+\caption{Wordclouds of topics of the EU FP5 (1998--2002)}
 \label{wordcloudEU5}
 \end{figure}
 
@@ -1277,7 +1279,7 @@ most common cause of death in USA.
 \subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic8_7000.png}}\\
 \subfloat[Information systems]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP6_wordclouds/EUFP6_topic9_7000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the EU FP6 (2002-2006)}
+\caption{Wordclouds of topics of the EU FP6 (2002--2006)}
 \label{wordcloudEU6}
 \end{figure}
 
@@ -1294,7 +1296,7 @@ most common cause of death in USA.
 \subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic8_7000.png}}\\
 \subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_FP7_wordclouds/EUFP7_topic9_7000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the EU FP7 (2007-2013)}
+\caption{Wordclouds of topics of the EU FP7 (2007--2013)}
 \label{wordcloudEU7}
 \end{figure}
 
@@ -1311,20 +1313,19 @@ most common cause of death in USA.
 \subfloat[Cancer detection \& treatment]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic8_20000.png}}\\
 \subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/eu_H2020_wordclouds/EUH2020_topic9_20000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the EU H2020 (2014-2020)}
+\caption{Wordclouds of topics of the EU H2020 (2014--2020)}
 \label{wordcloudEU20}
 \end{figure}
 
 \vfill
 \subsection{Discovering topics on the USA projects}
 
-In figures \ref{wordcloudUSA4} - \ref{wordcloudUSA20} we show the 10 topics 
+In figures \ref{wordcloudUSA4}--\ref{wordcloudUSA20} we show the 10 topics 
 from 1994 to 2017 of the USA dataset, described by
 the 20 top words with the highest probability.
 By comparing the the areas of interest in the US, through its directorates, 
 and our topics, we see that all the topics that we found correspond to either 
-a directorate or one of the divisions. Below, we discuss the topics that
-stand out in most of the years.
+a directorate or one of the divisions.
 
 In order to obtain an overall view of the topics in USA, we calculated for each
 one of the FPs the proportion of the documents-projects that are assigned to the
@@ -1334,8 +1335,8 @@ show up in most of the FPs or they have a high percentage in one of them.
 
 \emph{Biology} is a topic that appears all over the last 22 years that we
 investigate, with a stable percentage of 10\% of the projects, on average. Some
-of these topics are related to emph{Biology and Evolution}. Also, a 5\%
-approximately of the projects are related to emph{Mathematics}, from 1994 to
+of these topics are related to \emph{Biology and Evolution}. Also, a 5\%
+approximately of the projects are related to \emph{Mathematics}, from 1994 to
 2017.
 
 Another popular subject that appears the last 22 years is \emph{Materials and
@@ -1345,10 +1346,10 @@ researchers from the USA focus on materials applications and design in
 \emph{Mechanical engineering}, and \emph{Chemical \& transport systems}.
 
 With \emph{STEM} being the top priority in USA, since this topic shows up in all
-the years and according to the plot in figure \ref{usatrend} \emph{STEM} is the
+the years and according to the plot in figure~\ref{usatrend}, \emph{STEM} is the
 topic with the highest proportion of projects compared to the other topics (read
-section \ref{usaevolution}). Specifically, \emph{STEM education} has the 16,5\%
-of the projects from 1994-2006, 21\% in 2007-2013 (1 out of 5 projects is
+section~\ref{usaevolution}). Specifically, \emph{STEM education} has the 16,5\%
+of the projects from 1994--2006, 21\% in 2007--2013 (1 out of 5 projects is
 related to STEM) and the last 3 years it has lost its popularity by 10\%.
 
 Moreover, \emph{Information systems} is a very popular subject from 1998 to 2013, 
@@ -1363,8 +1364,8 @@ change} and its impact in the United States emerge during all these years in the
 of the projects, on average. The last three years \emph{Climate change} 
 appears as a less popular subject (6\%).
 
-NSF shows a great interest in \emph{International activities} across all NSF
-supported disciplines (18\% of the projects in 1004-1998). The goal of these projects is 
+NSF also shows a great interest in \emph{International activities} across all NSF
+supported disciplines (18\% of the projects in 1994--1998). The goal of these projects is 
 to support high quality research and education, which could not occur without
 international collaboration.
 An interesting fact regarding international partnerships is that the
@@ -1374,7 +1375,7 @@ simplifies the cooperation between Horizon 2020 projects and US
 entities. European and American researchers will be able to work
 together more closely on projects funded under Horizon 2020, the
 European Union's \emph{Research and Innovation}
-programme\footnote{\url{http://ec.europa.eu/research/iscp/index.cfm?pg=usa}}. The last
+programme~\footnote{\url{http://ec.europa.eu/research/iscp/index.cfm?pg=usa}}. The last
 3 years, the projects related to \emph{International research} cover the 10\% of all the 
 projects this period.
 
@@ -1383,8 +1384,8 @@ dataset (8\% of the projects, on average). Researchers show a great interest in 
 policies which help the communities and they also do lots of Qualitative and Quantitative 
 research to investigate the size or extent of particular issues or trends in society.
 
-Finally, a topic that used to be popular in the past, in 1994-1997 and
-2007-2013, covering the 10\% of the projects funded by NSF, is \emph{High energy Physics} 
+Finally, a topic that used to be popular in the past, in 1994--1997 and
+2007--2013, covering the 10\% of the projects funded by NSF, is \emph{High energy Physics} 
 in USA, which has lost its popularity nowadays.
 
 \begin{figure}[H]
@@ -1400,7 +1401,7 @@ in USA, which has lost its popularity nowadays.
 \subfloat[Cognitive neuroscience]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic8_8000.png}}\\
 \subfloat[High energy physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP4_wordclouds/USAFP4_topic9_8000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the USA (1994-1997)}
+\caption{Wordclouds of topics of the USA (1994--1997)}
 \label{wordcloudUSA4}
 \end{figure}
 
@@ -1417,7 +1418,7 @@ in USA, which has lost its popularity nowadays.
 \subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic8_8000.png}}\\
 \subfloat[International conferences]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP5_wordclouds/USAFP5_topic9_8000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the USA (1998-2001)}
+\caption{Wordclouds of topics of the USA (1998--2001)}
 \label{wordcloudUSA5}
 \end{figure}
 
@@ -1434,7 +1435,7 @@ in USA, which has lost its popularity nowadays.
 \subfloat[Materials]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic8_8000.png}}\\
 \subfloat[Physics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP6_wordclouds/USAFP6_topic9_8000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the USA (2002-2006)}
+\caption{Wordclouds of topics of the USA (2002--2006)}
 \label{wordcloudUSA6}
 \end{figure}
 
@@ -1451,7 +1452,7 @@ in USA, which has lost its popularity nowadays.
 \subfloat[(Molecular) biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic8_9000.png}}\\
 \subfloat[Economic \& Social policy]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_FP7_wordclouds/USAFP7_topic9_9000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the USA (2007-2013)}
+\caption{Wordclouds of topics of the USA (2007--2013)}
 \label{wordcloudUSA7}
 \end{figure}
 
@@ -1468,7 +1469,7 @@ in USA, which has lost its popularity nowadays.
 \subfloat[Mathematics]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic8_8000.png}}\\
 \subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/usa_H2020_wordclouds/USAH2020_topic9_8000.png}}&
 \end{tabular}
-\caption{Wordclouds of topics of the USA (2014-2017)}
+\caption{Wordclouds of topics of the USA (2014--2017)}
 \label{wordcloudUSA20}
 \end{figure}
 
@@ -1481,21 +1482,21 @@ regarding potential trends. For this analysis, we run the model for
 the whole dataset, instead of running the model per FP), for the EU
 and the USA, respectively. The outcome was 10 topics for each region
 from 1994 to 2017 for the EU and from 1994 to 2016 for the
-USA\footnote{in this implementation we removed the projects of the
+USA~\footnote{in this implementation we removed the projects of the
   year 2017 from the USA dataset, because the amount of
   projects-documents was too small compared to the other years and it
   was affecting the result of the trend for each topic.}.
 
-\subsection{Trends in the EU}
+\subsubsection{Trends in the EU}
 
-In figure \ref{totaltopicsEU} we show the 10 topics described by
+In figure~\ref{totaltopicsEU} we show the 10 topics described by
 the 20 top words with the highest probability of belonging
 to the topic. The size of each word is in proportion to each
 probability; the bigger the word, the higher the probability. Each
 wordcloud describes a topic, which we can find intuitively. 
 We ran the LDA model with 7000
 iterations and the same value of the rest of the
-parameters, as described in section \ref{modelinference}. We assigned titles 
+parameters, as described in section~\ref{modelinference}. We assigned titles 
 to the topics, based on the words that describe them. Below are
 listed the titles of topics:
 \begin{itemize}
@@ -1528,7 +1529,7 @@ listed the titles of topics:
 \subfloat[International research]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic10_all.png}} &
 \subfloat[Energy production]{\includegraphics[width=0.35\textwidth]{figs/eu_topics/EU_topic11_all.png}}\\
 \end{tabular}
-\caption{Wordclouds of topics of the EU dataset (1994-2017)}
+\caption{Wordclouds of topics of the EU dataset (1994--2017)}
 \label{totaltopicsEU}
 \end{figure}
 \end{center}
@@ -1547,19 +1548,19 @@ where $k$ is the number of the topic id, $fp$ is the framework
 programme, $fp \in [FP4, FP5, FP6, FP7, H2020]$. The topic proportion
 of each topic in the FP equals the sum of the number of the documents
 assigned to this topic during the FP, normalized by the number of the
-documents-projects occurring in this FP. In figure \ref{eutrend} we
+documents-projects occurring in this FP. In figure~\ref{eutrend} we
 plot the results of topic proportions over time.
 
-As we mentioned in section \ref{EUdataset}, most of the projects in the 
+As we mentioned in section~\ref{EUdataset}, most of the projects in the 
 EU dataset don't have information about the year that they were initialized, 
 and there's only information about the Framework Programme, where they got 
-approved. Therefore, in figure \ref{eutrend}, we illustrate the topic 
+approved. Therefore, in figure~\ref{eutrend}, we illustrate the topic 
 evolution over time per FP.
 
 Based on this plot, topic 10, which refers to \emph{International Research},
-has an interesting evolution; during the years 1994-1998 is appears as
+has an interesting evolution; during the years 1994--1998 is appears as
 less popular topic, compared to other topics. However, this changes
-drastically in 1998-2002 ($+14\%$) and in 2002-2006 it is at its peak
+drastically in 1998--2002 ($+14\%$) and in 2002--2006 it is at its peak
 ($+18\%$ since 1994). This period
 many activities and projects where initialized in order to support and
 promote international education and conferences to attract researchers
@@ -1573,20 +1574,25 @@ international people and there is no need to invest more on projects
 that attempt to promote cooperation between international researchers,
 because it is already considered as a common practice nowadays.
 
-\emph{Materials and Manufacturing} was a hot topic in 1994-1998, but it also
-appears a big decrease during the years 1998-2006 and it has a stable
+\emph{Materials and Manufacturing} was a hot topic in 1994--1998, but it also
+appears a big decrease during the years 1998--2006 and it has a stable
 trend since then. \emph{Materials Science/Chemistry \& Physics'} popularity
-(topic 4) line has an increase during 2002-2013 and the last 3 years a
-small decrease of $2-3\%$. Topics 2 and 3 (\emph{Social policy, Disease
+(topic 4) line has an increase during 2002--2013 and the last 3 years a
+small decrease of $2--3\%$. Topics 2 and 3 (\emph{Social policy, Disease
 detection \& treatment}) follow the same linear trend as \emph{Materials
 science \& Physics}. \emph{Energy production} (topic 11) was less popular in
-1994-2002 and is becoming slightly more popular the last 15
+1994--2002 and is becoming slightly more popular the last 15
 years.
 
 Topic 9, which refers to \emph{Information systems} in general, is a subject that has a
 stable trend and it appears as a popular topic the last 22 years compared to
 other topics, with a percentage of $12.5\%$ of the projects in EU on average.
-
+\begin{figure}[H]
+\includegraphics[width=1.0\textwidth]
+{figs/eu-topic-evolution.png}
+\caption{Topics over time in EU}
+\label{eutrend}
+\end{figure}
 \emph{Biology} and the study of \emph{molecular mechanisms} have a small decrease of
 popularity on average. Also,
 research in \emph{Climate change and Environmental science} is another
@@ -1597,16 +1603,8 @@ Finally, topic 6, which is related to \emph{Business \& Innovation}, has a huge
 increase the last 3 years. We can assume that the EU is very interested in
 supporting the economy by funding projects about businesses and monetary
 affairs.
-\begin{center}
-\begin{figure}
-\includegraphics[width=1.0\textwidth]
-{figs/eu-topic-evolution.png}
-\caption{Topics over time in EU}
-\label{eutrend}
-\end{figure}
-\end{center}
 
-\subsection{Trends in the USA}
+\subsubsection{Trends in the USA}
 \label{usaevolution}
 Just like the EU dataset, we found the 10 topics of the USA dataset
 from 1994 to 2016. Since, we're looking for the topic distribution
@@ -1614,9 +1612,9 @@ over time, in this implementation we took the projects per year
 (instead of using the separation of the dataset per FP), to visualize
 the evolution of each topic per year. We ran the LDA model with 12000
 iterations and the same value of the rest of the
-parameters, as described in section \ref{modelinference}.
+parameters, as described in section~\ref{modelinference}.
 
-Each one of the wordclouds in figure \ref{usatotal} represents a topic.
+Each one of the wordclouds in figure~\ref{usatotal} represents a topic.
 The titles of the topics that are described in the wordclouds are listed below:
 
 \begin{itemize}
@@ -1642,7 +1640,7 @@ year (instead of FP), using the following equation:
 topicProportion(k, y) = \frac{\sum num of docs_{k,y}}{\sum num of docs_{y}} * 100
 \end{equation}
 
-where $k$ is the number of the topic id, $y$ is the year between 1994-2016. The
+where $k$ is the number of the topic id, $y$ is the year between 1994--2016. The
 topic proportion of each topic per year equals to the sum of the number of the
 documents assigned to this topic during the year, normalized by the number of
 the documents-projects  occurring in this year.
@@ -1661,10 +1659,9 @@ the documents-projects  occurring in this year.
 \subfloat[Molecular biology]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic8_12000_all_docs.png}}\\
 \subfloat[Mechanical engineering]{\includegraphics[width=0.35\textwidth]{figs/usa_topics/USA_topic9_12000_all_docs.png}} &
 \end{tabular}
-\caption{Wordclouds of topics of the USA dataset (1994-2016)}
+\caption{Wordclouds of topics of the USA dataset (1994--2016)}
 \label{usatotal}
 \end{figure}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]
@@ -1672,9 +1669,8 @@ the documents-projects  occurring in this year.
 \caption{Topics over time in USA}
 \label{usatrend}
 \end{figure}
-
-In figure \ref{usatrend} we plot the topic distribution over time. We can easily
-observe that the topic 6, which refers to \emph{STEM education}, is becoming
+In figure~\ref{usatrend} we plot the topic distribution over time. We can easily
+observe that the topic 6, which refers to \emph{STEM education} (science, technology, engineering and math), is becoming
 a trend in the United States over the years, while most of the other
 topics' evolution doesn't show up such a high increase. Topics 5 and
 8, which refer to \emph{Chemistry \& Materials science} and \emph{Molecular
@@ -1692,14 +1688,13 @@ stabilize. \emph{Climatology, Atmospheric and Ocean sciences} look stable the
 first years, while from 2006 up to date it is gradually becoming less
 popular over the years.
 
-In general, the \emph{STEM} (science, technology, engineering and math)
-related research and education is becoming more and more popular,
-which is not surprising, since the National Science Foundation itself
-estimates that 80\%
- of the jobs available during the next decade
-will require math and science skills \footnote{\url{http://www.cvent.com/events/steam-ing-up-stem-academy-2017-2018/event-summary-e3e3f0c4087e43b99d23f4e4d95b6837.aspx}}. Even the acronym STEM arose in common use shortly after an   meeting on 
-science education held at the US National Science Foundation chaired by the then 
-NSF director Rita Colwell\footnote{\url{https://en.wikipedia.org/wiki/Science,_technology,_engineering,_and_mathematics}}.
+In general, the \emph{STEM} related research and education is becoming 
+more and more popular, which is not surprising, since the National 
+Science Foundation itself estimates that 80\% of the jobs available 
+during the next decade
+will require math and science skills~\footnote{\url{http://www.cvent.com/events/steam-ing-up-stem-academy-2017-2018/event-summary-e3e3f0c4087e43b99d23f4e4d95b6837.aspx}}. Even the acronym STEM arose in common use shortly after an meeting on 
+science education held at the US NSF chaired by the then 
+NSF director Rita Colwell~\footnote{\url{https://en.wikipedia.org/wiki/Science,_technology,_engineering,_and_mathematics}}.
 
 \subsection{Comparison of the two regions per framework programme}
 
@@ -1742,40 +1737,38 @@ words that are missing and exist in the other distribution, with
 probability equals to zero. Then we apply the JSD to each pair of
 topics (see compare FPs.py in the Appendix, for the implementation).
 
-The figures \ref{heatmap4}-\ref{heatmap20} visualize the heatmaps of
-the similarity of the two regions during the FP4-H2020. Rows represent
+The figures \ref{heatmap4}--\ref{heatmap20} visualize the heatmaps of
+the similarity of the two regions during the FP4--H2020. Rows represent
 topics from the EU dataset and columns topics from the USA dataset.
-The topics 0 - 9 of the EU dataset per FP (figures \ref{wordcloudEU4} -
-\ref{wordcloudEU20}) and the topics 0 - 9 of the USA dataset per FP (figures
-\ref{wordcloudUSA4} - \ref{wordcloudUSA20}) are declared in the heatmap plots as
-eu0 - eu9 and usa0 - usa9, respectively.
+The topics 0--9 of the EU dataset per FP (figures \ref{wordcloudEU4}--\ref{wordcloudEU20}) and the topics 0--9 of the USA dataset per FP (figures \ref{wordcloudUSA4}--\ref{wordcloudUSA20}) are declared in the heatmap plots as
+eu0--eu9 and usa0--usa9, respectively.
 The values of the JSD computation which are close to zero (lighter
 color of the box) suggest more similarity within topics. According to 
 the boxes with the lightest color of the heatmaps, 
 the topics that have high similarity between the EU and the USA are:
 
 \begin{itemize}
-\item FP4 (1994-1997)
+\item FP4 (1994--1997), with divergence < 0.3:
 \begin{itemize}
 \item[*] eu0: \emph{Management Systems \& Software engineering} $\sim$ usa0: \emph{Software engineering}
 \item[*] eu5: \emph{Materials processing} $\sim$ usa7: \emph{Materials}
 \end{itemize}
-\item FP5 (1998-2001)
+\item FP5 (1998--2001), with divergence < 0.25:
 \begin{itemize}
 \item[*] eu1: \emph{Hydropower / Energy production} $\sim$ usa6: \emph{Energy production}
 \end{itemize}
-\item FP6 (2002 $\sim$ 2006)
+\item FP6 (2002 $\sim$ 2006), , with divergence < 0.25:
 \begin{itemize}
 \item[*] eu9: \emph{Information systems} $\sim$ usa0: \emph{Information systems}
 \item[*] eu8: \emph{Materials} $\sim$ usa2: \emph{Materials \& Chemistry}
 \end{itemize}
-\item FP7 (2007-2013)
+\item FP7 (2007--2013), with divergence < 0.2:
 \begin{itemize}
 \item[*] eu8: \emph{Materials} $\sim$ usa2: \emph{Chemistry \& Materials Science}
 \item[*] eu1: \emph{High energy physics} $\sim$ usa4: \emph{High energy physics}
 \item[*] eu4: \emph{Molecular biology / Genetics} $\sim$ usa8: \emph{Molecular biology}
 \end{itemize}
-\item H2020 (2014-2017)
+\item H2020 (2014--2017), with divergence < 0.23:
 \begin{itemize}
 \item[*] eu2: \emph{Information systems} $\sim$ usa4: \emph{Information systems}
 \item[*] eu4: \emph{Materials} and eu6: \emph{Physics} $\sim$ usa7: \emph{Materials \& Mechanical engineering}
@@ -1783,11 +1776,32 @@ the topics that have high similarity between the EU and the USA are:
 \end{itemize}
 \end{itemize}
 
+In order to find the similarities and the differences of the topics in research
+between the EU and the USA, we can also compare the two regions qualitatively by
+observing the corresponding titles of the topics during all these years (topics
+in figure~\ref{totaltopicsEU} for the EU and figure~\ref{usatotal} for the USA).
+
+Both the two regions are funding projects related to \emph{Molecular biology \&
+Genetics}, \emph{Materials \& Physics}, \emph{Social policies},
+\emph{International research} and \emph{Information systems}. Both also have
+many projects related to \emph{Climatology and Environmental Science}, but the
+USA also focuses on research in \emph{Atmospheric and Ocean sciences}.
+
+The are some notable differences in the two regions that are interesting from
+our point of view; In EU we find projects related to \emph{Energy production \&
+transportation}, which does not appear as a distinguish topic in USA. Moreover,
+\emph{Disease detection \& treatment} shows up only in EU, which is reasonable
+because in the dataset that we considered from the NSF, there are no projects 
+funded by the National Institute of Health. EU also focuses on the development of
+\emph{Business \& Innovation}, while USA doesn't. On the other hand, USA shows
+an interest in \emph{Mathematics} and a great focus in \emph{STEM education},
+while EU appears a wider interest in \emph{STEM}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP4.png}
-\caption{Heatmap of the similarity of the two regions during 1994-1997}
+\caption{Heatmap of the similarity of the two regions during 1994--1997}
 \label{heatmap4}
 \end{figure}
 
@@ -1795,7 +1809,7 @@ the topics that have high similarity between the EU and the USA are:
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP5.png}
-\caption{Heatmap of the similarity of the two regions during 1998-2001}
+\caption{Heatmap of the similarity of the two regions during 1998--2001}
 \label{heatmap5}
 \end{figure}
 
@@ -1803,7 +1817,7 @@ the topics that have high similarity between the EU and the USA are:
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP6.png}
-\caption{Heatmap of the similarity of the two regions during 2002-2006}
+\caption{Heatmap of the similarity of the two regions during 2002--2006}
 \label{heatmap6}
 \end{figure}
 
@@ -1811,7 +1825,7 @@ the topics that have high similarity between the EU and the USA are:
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapFP7.png}
-\caption{Heatmap of the similarity of the two regions during 2007-2013}
+\caption{Heatmap of the similarity of the two regions during 2007--2013}
 \label{heatmap7}
 \end{figure}
 
@@ -1819,7 +1833,7 @@ the topics that have high similarity between the EU and the USA are:
 \centering
 \includegraphics[width=0.8\textwidth]
 {figs/heatmaps/heatmapH2020.png}
-\caption{Heatmap of the similarity of the two regions during 2014-2017}
+\caption{Heatmap of the similarity of the two regions during 2014--2017}
 \label{heatmap20}
 \end{figure}
 \vfill
@@ -1875,7 +1889,7 @@ to identify meaningful topics to focus on.
 In future research, we intend to extend this work by exploring more complex
 models. In the standard LDA model, both the order of the words and the order of
 the documents are oblivious to the model. One future direction is to use a
-Dynamic Topic Model\cite{Blei:2006:DTM:1143844.1143859}, in which the order of
+Dynamic Topic Model~\cite{Blei:2006:DTM:1143844.1143859}, in which the order of
 the documents plays an important role. More precisely, the documents are grouped
 by time slice (e.g. years) and it is assumed that the documents of each group
 come from a set of topics that involved from the set of the previous slice.
