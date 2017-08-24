@@ -7,6 +7,7 @@ import gensim
 
 import matplotlib
 matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
@@ -17,7 +18,7 @@ from gensim.corpora.dictionary import Dictionary
 from collections import defaultdict
 from gensim.parsing.preprocessing import STOPWORDS
 from time import time
-
+import json
 import string
 import logging
 # logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
@@ -31,7 +32,7 @@ parser.add_argument('dataset',
 
 parser.add_argument('-i', '--iterations',
                     type=int,
-                    default=8000,
+                    default=7000,
                     help='number of iterations')
 
 args = parser.parse_args()
@@ -40,25 +41,27 @@ df_name = args.dataset
 
 print args
 
-df = pd.read_csv('dataset/usa' + df_name + '.csv', sep=";")
+df = pd.read_csv('dataset/eu' + df_name + '.csv', sep=";")
 df1 = df[['title','objective']]
-df1 = df1.dropna(how='any')
+# df1 = df1.dropna(how='any')
+df1 = df1.replace(np.nan, ' ', regex=True)
 df1['merged'] = df1['title'] + ' ' + df1['objective']
 
 objectives = df1['merged']
 
 RE_PUNCTUATION = '|'.join([re.escape(x) for x in string.punctuation])
 
-objectives = objectives.str.lower().str.replace(RE_PUNCTUATION, ' ')
+objectives = objectives.str.lower().str.replace('%l', '').str.replace(RE_PUNCTUATION, ' ')
+objectives.head(2)
 
 objectives_split = objectives.str.strip().str.split()
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if len(token) > 2])
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if not(token.isdigit())])
+# objectives_split.head(2)
 
-list_stopwords = ['data', 'work', 'based', 'new', 'project', 'university', 'student', 'students', 'research', 
-                'study', 'program', 'development', 'study', 'studies', 'provide', 'use', 'understanding', 'important',
-                'support', 'proposed']
-
+list_stopwords = ['data','will', 'develop', 'development', 'project', 'research', 'new', 'use', 'europe', 'european', 'based']
+if df_name == 'FP4':
+    list_stopwords.append('des')
 additional_stopwords = set(list_stopwords)
 stopwords = set(STOPWORDS) | additional_stopwords
 
@@ -73,6 +76,7 @@ for text in objectives_split:
 objectives_split = objectives_split.apply(lambda tokens: [token for token in tokens if (frequency[token] > 5)])
 
 objectives_dictionary = Dictionary(objectives_split)
+# objectives_dictionary.save('./lda_saved/dict_eu' + df_name + '.dict')
 
 print (objectives_dictionary)
 print
@@ -101,19 +105,25 @@ class ObjectivesCorpus(corpora.textcorpus.TextCorpus):
             
 
 objectives_corpus = ObjectivesCorpus(objectives_split)
+# corpora.MmCorpus.serialize('./lda_saved/corpus_eu' + df_name + '.mm', objectives_corpus)
 
 print'Corpus size: ', (objectives_corpus)
 
 t0 = time()
+# random_state=np.random.seed(42)
 
-lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
+for i in range(1):
+    lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        iterations = args.iterations,
-                                        random_state=np.random.seed(42))
+                                        passes=2,
+                                        random_state = np.random.seed(12),
+                                        iterations = args.iterations)
+
 
 print("done in %0.3fs." % (time() - t0))
 
+# lda.save('./lda_saved/lda_eu' + df_name + '.model')
 
 
 for t in range(lda.num_topics):
@@ -122,10 +132,9 @@ for t in range(lda.num_topics):
     plt.figure()
     plt.imshow(elements)
     plt.axis("off")
-    t = t + 1
     plt.title("Topic #" + str(t))
-    # plt.savefig('USA' + df_name + '_topic' + str(t) + '_' + str(i) + '_' + str(iterations) + '.png')
-    plt.savefig('usa_figures/usa_'+ df_name + '_wordclouds/USA' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
+    # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
+    plt.savefig('eu_figures/usa_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
     plt.close()
 
 # def get_top_topic(doc):
@@ -134,3 +143,6 @@ for t in range(lda.num_topics):
 #     return top_topic[0]
 
 # df1['top_topic'] = objectives_split.apply(lambda docs: get_top_topic(docs))
+
+# vc = df1.top_topic.value_counts()
+# print vc
