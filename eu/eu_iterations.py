@@ -21,7 +21,7 @@ from time import time
 import json
 import string
 import logging
-# logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -116,8 +116,8 @@ for i in range(1):
     lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        passes=2,
-                                        random_state = np.random.seed(12),
+                                        passes=5,
+                                        # random_state = np.random.seed(12),
                                         iterations = args.iterations)
 
 
@@ -134,7 +134,7 @@ for t in range(lda.num_topics):
     plt.axis("off")
     plt.title("Topic #" + str(t))
     # plt.savefig('EU' + df_name + '_topic' + str(t) + '_' + str(iterations) + '.png')
-    plt.savefig('eu_figures/usa_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
+    plt.savefig('eu_figures/eu_'+ df_name + '_wordclouds/EU' + df_name + '_topic' + str(t) + '_' + str(args.iterations) + '.png')
     plt.close()
 
 # def get_top_topic(doc):
