@@ -45,4 +45,14 @@ python compare_FPs_topics.py FP_name
 where `FP_name` is one of the following: FP4, FP5, FP6, FP7, H2020.
 
 
-Python 2.7.12
+## Requirements
+
+- Python version 2.7 or later
+- pandas 0.20 or later
+- numpy 1.12 or later
+- scipy 0.19 or later
+- gensim 2.1 or later
+- matplotlib 2.0 or later
+- wordcloud 1.3
+- ipython 5.4 combined with jupyter
+- seaborn 0.7
