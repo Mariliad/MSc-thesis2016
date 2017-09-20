@@ -23,12 +23,12 @@ The `src` folder consists of all the code for generating LDA topics. `eu` and `u
 
 To produce the topics for each FP, run:
 
-`python eu_iterations.py FP_file [OPTIONS]`
-`python usa_iterations.py FP_file [OPTIONS]`
+`python eu_iterations.py FP_name [OPTIONS]`
+`python usa_iterations.py FP_name [OPTIONS]`
 
 where:
 
-- `FP_file` is one of the following: FP4, FP5, FP6, FP7, H2020
+- `FP_name` is one of the following: FP4, FP5, FP6, FP7, H2020
 - `-i` or `--iterations`: the number of iterations for the LDA model. By default it's 7000 for the EU dataset and 8000 for the USA.
 
 The outcome is a set of 10 topics pictured as wordclouds, which they display the 20 top words with the highest probability of belonging to the topic.
@@ -36,6 +36,13 @@ The outcome is a set of 10 topics pictured as wordclouds, which they display the
 
 ## Similarity of topics
 
-`compare_FPs_topics.py`: in order to calculate the similarity of the topics between the two regions (per FP), we calculate the JSD for each pair of topics and save the results in a CSV file (in the `compared_FPs` folder).
+`compare_FPs_topics.py`: in order to calculate the similarity of the topics between the two regions (per FP), we calculate the [JSD](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence) for each pair of topics and save the results in a CSV file (in the `compared_FPs` folder).
+
+To run the code:
+
+python compare_FPs_topics.py FP_name
+
+where `FP_name` is one of the following: FP4, FP5, FP6, FP7, H2020.
 
 
+Python 2.7.12
