@@ -15,4 +15,27 @@ The `src` folder consists of all the code for generating LDA topics. `eu` and `u
 - `*_data_load_per_FP.ipynb`: the IPython notebook for loading the raw data, get the abstracts and save them as CSV files in the `dataset` folder for later use. In the USA dataset, you need to run the notebook, in order to create the `dataset` folder and the CSV files.
 - `dataset`: the data (project abstracts) after preprocessing. The projects are grouped in both regions based on the FP/year that they got funded.
 - `*_iterations.py`: the code for generating the topics per FP, using [LDA](https://radimrehurek.com/gensim/models/ldamodel.html).
+- `lda_saved`: folder that contains the saved LDA model per FP (after training).
+- `*_figures`: the wordclouds of the topics per FP, saved as PNG files.
+
+
+## Generating LDA topics
+
+To produce the topics for each FP, run:
+
+`python eu_iterations.py FP_file [OPTIONS]`
+`python usa_iterations.py FP_file [OPTIONS]`
+
+where:
+
+- `FP_file` is one of the following: FP4, FP5, FP6, FP7, H2020
+- `-i` or `--iterations`: the number of iterations for the LDA model. By default it's 7000 for the EU dataset and 8000 for the USA.
+
+The outcome is a set of 10 topics pictured as wordclouds, which they display the 20 top words with the highest probability of belonging to the topic.
+
+
+## Similarity of topics
+
+`compare_FPs_topics.py`: in order to calculate the similarity of the topics between the two regions (per FP), we calculate the JSD for each pair of topics and save the results in a CSV file (in the `compared_FPs` folder).
+
 

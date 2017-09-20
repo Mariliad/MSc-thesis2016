@@ -116,8 +116,8 @@ for i in range(1):
     lda = gensim.models.ldamodel.LdaModel(corpus = objectives_corpus, 
                                         id2word = objectives_dictionary, 
                                         num_topics = 10,
-                                        passes=5,
-                                        # random_state = np.random.seed(12),
+                                        # passes=5,
+                                        random_state = np.random.seed(12),
                                         iterations = args.iterations)
 
 
