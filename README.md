@@ -40,7 +40,7 @@ The outcome is a set of 10 topics pictured as wordclouds, which they display the
 
 To run the code:
 
-python compare_FPs_topics.py FP_name
+`python compare_FPs_topics.py FP_name`
 
 where `FP_name` is one of the following: FP4, FP5, FP6, FP7, H2020.
 
